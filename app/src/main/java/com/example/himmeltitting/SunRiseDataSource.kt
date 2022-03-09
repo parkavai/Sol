@@ -8,6 +8,7 @@ class SunRise {
 
     // Et gson-objekt som hjelper med aa parse data fra JSON til Kotlin
     private val gson = Gson()
+    dsadasdad
     // Ett eksempel paa API-kall
     private val path = "https://in2000-apiproxy.ifi.uio.no/weatherapi/sunrise/2.0/.json?lat=40.7127&lon=-74.0059&date=2022-03-08&offset=-05:00"
 
