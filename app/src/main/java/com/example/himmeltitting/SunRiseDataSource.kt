@@ -29,7 +29,7 @@ class SunRiseDataSource {
             println("A network request exception was thrown: ${exception.message}")
             return null
         }
-    }dsadsadas
+    }
 }
 
 data class Base(val location: Location?, val meta: Meta?)
