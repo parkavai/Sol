@@ -16,7 +16,7 @@ class DataSourceTest {
     fun response_isNotNull() {
 
         runBlocking {
-            val result = ls.getData(lat, lon)
+            val result = ls.getAllForecastData(lat, lon)
             assert(result.geometry != null && result.properties != null && result.type!=null)
             print(result.toString())
         }
