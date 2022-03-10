@@ -1,4 +1,4 @@
-package com.example.himmeltitting.LocationforecastTests
+package com.example.himmeltitting.locationforecastTests
 
 
 import com.example.himmeltitting.LocationforecastDS
@@ -17,7 +17,7 @@ class DataSourceTest {
 
         runBlocking {
             val result = ls.getAllForecastData(lat, lon)
-            assert(result.geometry != null && result.properties != null && result.type!=null)
+            assert(result != null)
             print(result.toString())
         }
 
