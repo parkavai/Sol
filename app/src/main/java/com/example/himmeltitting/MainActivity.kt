@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.fetchLocation(40.7127,74.0059,"2022-03-08", 2, 25.00,  "05:00")
+        viewModel.fetchLocation(40.7127,74.0059,"2022-03-16", 15, 25.00,  "05:00")
         viewModel.getLocation().observe(this){
             Log.d("Testing", "Day-1")
             Log.d("High-Moon ", it.time!![0].high_moon.toString())

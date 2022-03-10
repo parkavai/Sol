@@ -17,7 +17,7 @@ class SunRiseDataSource {
         try {
             // Forsikre at man ikke skriver over å se 15 dager fremover
             if(days!! <= 15){
-                val parametere = "lat=${lat.toString()}&lon=${long.toString()}&date=${date}&days=${days}&height=${height}&offset=${offset}"
+                val parametere = "lat=${lat}&lon=${long}&date=${date}&days=${days}&height=${height}&offset=${offset}"
                 val fetchObjekt = gson.fromJson(Fuel.get(path+parametere).awaitString(), Base::class.java)
                 return fetchObjekt.location
             }
