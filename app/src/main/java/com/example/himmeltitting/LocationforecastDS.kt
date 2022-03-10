@@ -23,9 +23,29 @@ class LocationforecastDS {
 
     }
 
-    suspend fun getTimeseriesData(lat: Double, lon: Double) : List<Timeseries>? {
-        val data = getAllForecastData(lat, lon)
-        return data?.properties?.timeseries
+    suspend fun getCompactTimeseriesData(lat: Double, lon: Double): CompactTimeSeriesData? {
+        val data = getAllForecastData(lat, lon) ?: return null
+
+        return createCompactData(data.properties.timeseries[0], data.properties.meta.units)
+    }
+
+    private fun createCompactData(timeSeries: Timeseries, units: Units): CompactTimeSeriesData {
+        val data = timeSeries.data
+        val instant = data.instant
+        val instantDetails = instant.details
+        val hour12 = data.next_12_hours
+        val hour6 = data.next_6_hours
+
+        val time = timeSeries.time
+        val temperature = instantDetails.air_temperature.toString() + " " + units.air_temperature
+        val cloudCover = instantDetails.cloud_area_fraction.toString() + " " + units.cloud_area_fraction
+        val windSpeed = instantDetails.wind_speed.toString() + " " + units.wind_speed
+        val summary12Hours = hour12.summary.symbol_code
+        val summary6Hours = hour6.summary.symbol_code
+        val precipitation6Hours = hour6.details.precipitation_amount.toString() + " " + units.precipitation_amount
+
+        return CompactTimeSeriesData(time, temperature, cloudCover, windSpeed, summary12Hours, summary6Hours, precipitation6Hours)
+
     }
 
     //henter data fra url med Fuel

@@ -29,4 +29,22 @@ class LSViewModeltmp : ViewModel() {
         }
     }
 
+    private val compactForecastData: MutableLiveData<CompactTimeSeriesData?> by lazy {
+        MutableLiveData<CompactTimeSeriesData?>()
+    }
+
+    fun getCompactForecast(lat: Double, lon: Double): LiveData<CompactTimeSeriesData?> {
+        loadCompactForecast(lat, lon)
+        return compactForecastData
+    }
+
+    //henter partier fra dataSource
+    private fun loadCompactForecast(lat: Double, lon: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.getCompactTimeseriesData(lat, lon).also {
+                compactForecastData.postValue(it)
+            }
+        }
+    }
+
 }
