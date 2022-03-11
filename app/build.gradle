@@ -8,7 +8,8 @@ android {
     compileSdk 32
 
     buildFeatures {
-        viewBinding = true
+        viewBinding true
+        dataBinding true
     }
 
     defaultConfig {
@@ -55,7 +56,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9' //Dette er for å bruke GSON
 
     def lifecycle_version = "2.5.0-alpha02"
-    def arch_version = "2.1.0"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
