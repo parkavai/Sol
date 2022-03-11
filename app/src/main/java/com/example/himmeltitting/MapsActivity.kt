@@ -6,6 +6,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.himmeltitting.databinding.ActivityMapsBinding
 import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
+import com.example.himmeltitting.nilu.LuftKvalitet
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -194,15 +196,46 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             textView.text = "Kunne ikke hente data"
             return
         }
-
+        val luftKvalitet = getLuftkvalitet()
+        val sunsetTime = getSunrise()
         val outText = "Nå (${data.time}):\n" +
                 "Temperatur: ${data.temperature}, Skydekke: ${data.cloudCover}, Vindhastighet: ${data.wind_speed}\n" +
                 "Precipation neste 6 timene: ${data.precipitation6Hours}\n" +
                 "SymbolSummary neste 12 timer: ${data.summary12Hour}\n" +
-                "Luftkvalitet: " + "variabel her"
-                "Solnedgang:" + "variabel her"
+                "Luftkvalitet: ${luftKvalitet}\n" +
+                "Solnedgang: ${sunsetTime}"
 
         textView.text = outText
+    }
+
+    private fun getLuftkvalitet(): String{
+        viewModel.fetchNiluMedRadius(currentLatLng.latitude, currentLatLng.longitude, 20)
+        val liste = viewModel.getNilu()
+        var theOne: LuftKvalitet? = null
+        liste.observe(this){
+            //This is wrong, finner ikke nærmeste værstasjon :/
+            if (!it.isEmpty()){
+                theOne = it.last()
+            }
+        }
+        if (theOne == null) {
+            return "Fant ikke luftkvalitet"
+        }
+        return theOne?.value.toString()
+    }
+
+    private fun getSunrise(): String {
+        var sunsetTime : String? = null
+        viewModel.getSunriseData(currentLatLng.latitude, currentLatLng.longitude).observe(this){
+            if (it != null) {
+                sunsetTime = it.sunsetTime
+
+            }
+        }
+        if (sunsetTime == null) {
+            return "Fant ikke solnedgang"
+        }
+        return sunsetTime as String
     }
 }
 

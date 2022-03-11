@@ -1,5 +1,6 @@
 package com.example.himmeltitting.sunrise
 
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
@@ -29,5 +30,20 @@ class SunRiseDataSource {
             println("A network request exception was thrown: ${exception.message}")
             return null
         }
+    }
+
+    suspend fun getCompactSunriseData (latitude: Double, longitude: Double): CompactSunriseData? {
+        val date = "2022-03-08"
+        val time = "14:00"
+        val days = 1
+        val height = 0.2
+        val data = fetchLocation(latitude, longitude, date, days, height ,time)
+
+        return data?.let { makeCompactSunriseData(it) }
+    }
+
+    fun makeCompactSunriseData(data : Location): CompactSunriseData {
+        val sunsetTime = data.time?.get(0)?.sunset?.time.toString()
+        return CompactSunriseData(sunsetTime)
     }
 }

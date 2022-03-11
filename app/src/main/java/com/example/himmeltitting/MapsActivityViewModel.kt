@@ -24,10 +24,25 @@ class MapsActivityViewModel : ViewModel() {
         return location
     }
 
-    fun fetchLocation(lat: Double?, long: Double?, date: String?, days: Int?, height: Double?, offset: String?) {
+    private fun fetchLocation(lat: Double?, long: Double?, date: String?, days: Int?, height: Double?, offset: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             sunriseDS.fetchLocation(lat, long, date, days, height, offset).also{
                 location.postValue(it)
+            }
+        }
+    }
+
+    private val sunriseData = MutableLiveData<CompactSunriseData>()
+
+    fun getSunriseData(lat: Double, long: Double): MutableLiveData<CompactSunriseData> {
+        fetchSunriseData(lat, long)
+        return sunriseData
+    }
+
+    private fun fetchSunriseData(lat: Double, long: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            sunriseDS.getCompactSunriseData(lat, long).also{
+                sunriseData.postValue(it)
             }
         }
     }

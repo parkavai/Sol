@@ -2,6 +2,7 @@ package com.example.himmeltitting.nilu
 
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -15,7 +16,7 @@ class NiluDataSource {
         try {
             // https://api.nilu.no/
             val liste = object : TypeToken<List<LuftKvalitet>>() {}.getType()
-            val luftKvalitetList : List<LuftKvalitet> = gson.fromJson(Fuel.get(path).awaitString(), liste)
+            val luftKvalitetList : List<LuftKvalitet> = gson.fromJson(Fuel.get(path).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
             return luftKvalitetList
         } catch(exception: Exception) {
             Log.d("MAIN_ACTIVITY", "A network request exception was thrown: ${exception.message}")
@@ -32,7 +33,7 @@ class NiluDataSource {
         try {
             // https://api.nilu.no/
             val liste = object : TypeToken<List<LuftKvalitet>>() {}.getType()
-            val luftKvalitetList : List<LuftKvalitet> = gson.fromJson(Fuel.get(path + parametere).awaitString(), liste)
+            val luftKvalitetList : List<LuftKvalitet> = gson.fromJson(Fuel.get(path + parametere).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
             return luftKvalitetList
         } catch(exception: Exception) {
             Log.d("MAIN_ACTIVITY", "A network request exception was thrown: ${exception.message}")
@@ -41,4 +42,4 @@ class NiluDataSource {
     }
 }
 
-data class LuftKvalitet (val id: String?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val eoi: String?, val type: String?, val component: String?, val fromTime: String?, val toTime: String?, val value: Double?, val unit: String?, val latitude: Double?, val longitude: Double?, val timestep: Int?, val index: Int?, val color: String?, val isValid: Boolean?, val isVisible: Boolean?);
+data class LuftKvalitet (val id: String?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val eoi: String?, val type: String?, val component: String?, val fromTime: String?, val toTime: String?, val value: Double?, val unit: String?, val latitude: Double?, val longitude: Double?, val timestep: Int?, val index: Int?, val color: String?, val isValid: Boolean?, val isVisible: Boolean?)
