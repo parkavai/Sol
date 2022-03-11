@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.locationforecast
 
 
 data class Locationforecast(val type: String, val geometry: Geometry, val properties: Properties)

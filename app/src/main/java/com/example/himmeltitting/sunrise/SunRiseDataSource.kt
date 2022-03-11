@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.sunrise
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString

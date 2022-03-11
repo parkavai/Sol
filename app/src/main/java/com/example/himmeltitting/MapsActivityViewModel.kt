@@ -4,16 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.himmeltitting.locationforecast.*
 import com.example.himmeltitting.nilu.*
 import com.example.himmeltitting.sunrise.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel: ViewModel() {
+class MapsActivityViewModel : ViewModel() {
 
     private val sunriseDS = SunRiseDataSource()
     private val niluDS = NiluDataSource()
+    private val locationforecastDS = LocationforecastDS()
 
+
+    //Sunrise
     private val location = MutableLiveData<Location>()
 
     fun getLocation(): MutableLiveData<Location> {
@@ -28,6 +32,7 @@ class MainActivityViewModel: ViewModel() {
         }
     }
 
+    //Nilu
     private val nilu = MutableLiveData<List<LuftKvalitet>>()
 
     fun getNilu(): LiveData<List<LuftKvalitet>> {
@@ -47,6 +52,41 @@ class MainActivityViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             niluDS.fetchNilusMedRadius(latitude, longitude, radius).also {
                 nilu.postValue(it)
+            }
+        }
+    }
+
+    //Locationforecast
+    private val forecastData: MutableLiveData<Locationforecast> by lazy {
+        MutableLiveData<Locationforecast>()
+    }
+
+    fun getForecast(lat: Double, lon: Double): LiveData<Locationforecast> {
+        loadForecast(lat, lon)
+        return forecastData
+    }
+
+    private fun loadForecast(lat: Double, lon: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            locationforecastDS.getAllForecastData(lat, lon).also {
+                forecastData.postValue(it)
+            }
+        }
+    }
+
+    private val compactForecastData: MutableLiveData<CompactTimeSeriesData?> by lazy {
+        MutableLiveData<CompactTimeSeriesData?>()
+    }
+
+    fun getCompactForecast(lat: Double, lon: Double): LiveData<CompactTimeSeriesData?> {
+        loadCompactForecast(lat, lon)
+        return compactForecastData
+    }
+
+    private fun loadCompactForecast(lat: Double, lon: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            locationforecastDS.getCompactTimeseriesData(lat, lon).also {
+                compactForecastData.postValue(it)
             }
         }
     }

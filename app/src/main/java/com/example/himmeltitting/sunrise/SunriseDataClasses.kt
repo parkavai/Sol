@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.sunrise
 
 data class SunriseBase(val location: Location?, val meta: Meta?)
 

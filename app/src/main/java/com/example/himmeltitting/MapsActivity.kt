@@ -5,21 +5,23 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-
+import com.example.himmeltitting.databinding.ActivityMapsBinding
+import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.example.himmeltitting.databinding.ActivityMapsBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -28,15 +30,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var lastLocation: Location
-    private var marker: Marker? = null;
+    private lateinit var currentLatLng: LatLng
+    private var marker: Marker? = null
+    private val viewModel: MapsActivityViewModel by viewModels()
 
     //fused location privider er en api som brukes til å få siste kjente lokasjon.
     // Den er vist veldig bra å bruke, står mer om det her https://developer.android.com/training/location/retrieve-current
     private lateinit var fusedLocationClient : FusedLocationProviderClient
 
     // variabler for koordinater
-    lateinit var latitude: String
-    lateinit var longitude: String
 
 
     // companion object som er litt som java sin statiske variabler (sa en dude på youtube)
@@ -87,17 +89,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
             if(location != null){
                 lastLocation = location
-                val currentLatLong = LatLng(location.latitude, location.longitude)
-
-                // jeg tar vare på disse i tilfellet vil bruke senere
-                latitude = location.latitude.toString()
-                longitude = location.longitude.toString()
+                currentLatLng = LatLng(location.latitude, location.longitude)
 
                 // egendefinert metode
-                placeMarkerOnMap(currentLatLong)
+                placeMarkerOnMap(currentLatLng)
 
                 // zoom effekt som skjer når lokasjon blir funnet
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLong, 12f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
     }
@@ -110,6 +108,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         markerOptions.title("$currentLatLong")
         marker = mMap.addMarker(markerOptions)
         marker?.showInfoWindow()
+        viewData()
     }
 
 
@@ -122,16 +121,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap.setOnMapClickListener(object :GoogleMap.OnMapClickListener {
             override fun onMapClick(latlng :LatLng) {
                 val location = LatLng(latlng.latitude,latlng.longitude)
+                currentLatLng = location
                 placeMarkerOnMap(location)
                 // kan velge hvor mye vi vil zoome inn
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 50f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
 
             }
         })
     }
-
-
-
 
 
     // copy paste fra https://www.geeksforgeeks.org/how-to-add-searchview-in-google-maps-in-android/
@@ -167,6 +164,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     // on below line we are creating a variable for our location
                     // where we will add our locations latitude and longitude.
                     val latLng = LatLng(address.getLatitude(), address.getLongitude())
+                    currentLatLng = latLng
 
                     // on below line we are adding marker to that position.
                     placeMarkerOnMap(latLng)
@@ -181,6 +179,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 return false
             }
         })
+    }
+
+    //
+    fun viewData() {
+        //gjor om til data class
+        viewModel.getCompactForecast(currentLatLng.latitude.toDouble(), currentLatLng.longitude.toDouble()).observe(this) {
+            setForecastText(binding.text, it)
+        }
+    }
+
+    private fun setForecastText(textView: TextView, data: CompactTimeSeriesData?) {
+        if (data == null){
+            textView.text = "Kunne ikke hente data"
+            return
+        }
+
+        val outText = "Nå (${data.time}):\n" +
+                "Temperatur: ${data.temperature}, Skydekke: ${data.cloudCover}, Vindhastighet: ${data.wind_speed}\n" +
+                "Precipation neste 6 timene: ${data.precipitation6Hours}\n" +
+                "SymbolSummary neste 12 timer: ${data.summary12Hour}\n" +
+                "Luftkvalitet: " + "variabel her"
+                "Solnedgang:" + "variabel her"
+
+        textView.text = outText
     }
 }
 

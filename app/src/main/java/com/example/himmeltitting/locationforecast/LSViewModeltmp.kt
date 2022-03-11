@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.locationforecast
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

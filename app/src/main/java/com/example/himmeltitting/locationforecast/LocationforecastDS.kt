@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.locationforecast
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
