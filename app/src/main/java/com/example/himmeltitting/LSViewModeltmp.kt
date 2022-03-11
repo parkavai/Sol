@@ -20,7 +20,6 @@ class LSViewModeltmp : ViewModel() {
         return forecastData
     }
 
-    //henter partier fra dataSource
     private fun loadForecast(lat: Double, lon: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             dataSource.getAllForecastData(lat, lon).also {
@@ -38,7 +37,6 @@ class LSViewModeltmp : ViewModel() {
         return compactForecastData
     }
 
-    //henter partier fra dataSource
     private fun loadCompactForecast(lat: Double, lon: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             dataSource.getCompactTimeseriesData(lat, lon).also {
