@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -55,7 +54,7 @@ dependencies {
     implementation 'com.github.kittinunf.fuel:fuel-coroutines:2.3.1' //Dette er for å bruke fuel
     implementation 'com.google.code.gson:gson:2.9.0' //Dette er for å bruke GSON
 
-    def lifecycle_version = "2.5.0-alpha02"
+    def lifecycle_version = "2.5.0-alpha04"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
