@@ -53,7 +53,7 @@ dependencies {
 
     implementation 'com.github.kittinunf.fuel:fuel:2.3.1' //Dette er for å bruke fuel
     implementation 'com.github.kittinunf.fuel:fuel-coroutines:2.3.1' //Dette er for å bruke fuel
-    implementation 'com.google.code.gson:gson:2.8.9' //Dette er for å bruke GSON
+    implementation 'com.google.code.gson:gson:2.9.0' //Dette er for å bruke GSON
 
     def lifecycle_version = "2.5.0-alpha02"
 
@@ -70,7 +70,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     //Androidx activity
-    implementation "androidx.activity:activity-ktx:1.5.0-alpha02"
+    implementation "androidx.activity:activity-ktx:1.5.0-alpha03"
 
     //Cardview
     implementation "androidx.cardview:cardview:1.0.0"
