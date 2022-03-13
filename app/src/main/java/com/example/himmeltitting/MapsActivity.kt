@@ -6,6 +6,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.View
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -97,7 +98,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 currentLatLng = LatLng(location.latitude, location.longitude)
 
                 // egendefinert metode
-                placeMarkerOnMap(currentLatLng)
+                //placeMarkerOnMap(currentLatLng)
 
                 // zoom effekt som skjer når lokasjon blir funnet
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
@@ -187,6 +188,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         viewModel.getCompactForecast(currentLatLng.latitude, currentLatLng.longitude).observe(this) {
             setForecastText(binding.text, it)
         }
+        binding.text.visibility = View.VISIBLE
     }
 
     private fun setForecastText(textView: TextView, data: CompactTimeSeriesData?) {
