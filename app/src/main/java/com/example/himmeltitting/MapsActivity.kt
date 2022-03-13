@@ -6,7 +6,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -17,10 +16,7 @@ import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
 import com.example.himmeltitting.nilu.LuftKvalitet
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -72,17 +68,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap = googleMap
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
+        setDefaultMapLocationNorway(mMap)
         setUpMap()
         addOnMapClickListener()
         addSearchView()
     }
 
+    //setter start lokasjon, hvis stedlokasjon ikke er satt, til Norge
+    private fun setDefaultMapLocationNorway(googleMap: GoogleMap) {
+        val mPoint : CameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng(62.47, 8.46), 4f)
+        // moves camera to coordinates
+        googleMap.moveCamera(mPoint)
+    }
 
 
     private fun setUpMap() {
         // sjekker permissions fra brukeren
         if (ActivityCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
             return
         }
 
@@ -120,16 +123,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun addOnMapClickListener(){
         // gjør at vi kan klikke på et sted og få koordinater
-        mMap.setOnMapClickListener(object :GoogleMap.OnMapClickListener {
-            override fun onMapClick(latlng :LatLng) {
-                val location = LatLng(latlng.latitude,latlng.longitude)
-                currentLatLng = location
-                placeMarkerOnMap(location)
-                // kan velge hvor mye vi vil zoome inn
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
-
-            }
-        })
+        mMap.setOnMapClickListener { latlng ->
+            val location = LatLng(latlng.latitude, latlng.longitude)
+            currentLatLng = location
+            placeMarkerOnMap(location)
+            // kan velge hvor mye vi vil zoome inn
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+        }
     }
 
 
@@ -142,38 +142,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // on below line we are getting the
                 // location name from search view.
-                val location: String = searchView.getQuery().toString()
+                val location: String = searchView.query.toString()
 
                 // below line is to create a list of address
                 // where we will store the list of all address.
                 var addressList: List<Address>? = null
 
                 // checking if the entered location is null or not.
-                if (location != null || location == "") {
-                    // on below line we are creating and initializing a geo coder.
-                    val geocoder = Geocoder(this@MapsActivity)
-                    try {
-                        // on below line we are getting location from the
-                        // location name and adding that location to address list.
-                        addressList = geocoder.getFromLocationName(location, 1)
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    // on below line we are getting the location
-                    // from our list a first position.
-                    val address: Address = addressList!![0]
-
-                    // on below line we are creating a variable for our location
-                    // where we will add our locations latitude and longitude.
-                    val latLng = LatLng(address.getLatitude(), address.getLongitude())
-                    currentLatLng = latLng
-
-                    // on below line we are adding marker to that position.
-                    placeMarkerOnMap(latLng)
-
-                    // below line is to animate camera to that position.
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                // on below line we are creating and initializing a geo coder.
+                val geocoder = Geocoder(this@MapsActivity)
+                try {
+                    // on below line we are getting location from the
+                    // location name and adding that location to address list.
+                    addressList = geocoder.getFromLocationName(location, 1)
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
+                // on below line we are getting the location
+                // from our list a first position.
+                val address: Address = addressList!![0]
+
+                // on below line we are creating a variable for our location
+                // where we will add our locations latitude and longitude.
+                val latLng = LatLng(address.latitude, address.longitude)
+                currentLatLng = latLng
+
+                // on below line we are adding marker to that position.
+                placeMarkerOnMap(latLng)
+
+                // below line is to animate camera to that position.
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                 return false
             }
 
@@ -184,9 +182,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     //
-    fun viewData() {
+    private fun viewData() {
         //gjor om til data class
-        viewModel.getCompactForecast(currentLatLng.latitude.toDouble(), currentLatLng.longitude.toDouble()).observe(this) {
+        viewModel.getCompactForecast(currentLatLng.latitude, currentLatLng.longitude).observe(this) {
             setForecastText(binding.text, it)
         }
     }
@@ -203,7 +201,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 "Precipation neste 6 timene: ${data.precipitation6Hours}\n" +
                 "SymbolSummary neste 12 timer: ${data.summary12Hour}\n" +
                 "Luftkvalitet: ${luftKvalitet}\n" +
-                "Solnedgang: ${sunsetTime}"
+                "Solnedgang: $sunsetTime"
 
         textView.text = outText
     }
@@ -214,7 +212,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         var theOne: LuftKvalitet? = null
         liste.observe(this){
             //This is wrong, finner ikke nærmeste værstasjon :/
-            if (!it.isEmpty()){
+            if (it.isNotEmpty()){
                 theOne = it.last()
             }
         }
