@@ -7,6 +7,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -211,17 +212,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private fun getLuftkvalitet(): String{
         viewModel.fetchNiluMedRadius(currentLatLng.latitude, currentLatLng.longitude, 20)
         val liste = viewModel.getNilu()
+        val her = createLocation(currentLatLng.latitude, currentLatLng.longitude)
         var theOne: LuftKvalitet? = null
+        var smallestDistance = 100000.0.toFloat()
         liste.observe(this){
-            //This is wrong, finner ikke nærmeste værstasjon :/
-            if (it.isNotEmpty()){
-                theOne = it.last()
+            it.forEach {
+                val location = createLocation(it.latitude!!, it.longitude!!)
+                val done = her.distanceTo(location)
+                if (done < smallestDistance) {
+                    smallestDistance = done
+                    theOne = it
+                }
             }
         }
         if (theOne == null) {
             return "Fant ikke luftkvalitet"
         }
         return theOne?.value.toString()
+    }
+
+    //Hjelpemetode for å lage et location object
+    private fun createLocation(latitude : Double, longitude : Double) : Location{
+        val her = Location("")
+        her.latitude = latitude
+        her.longitude = longitude
+        return her
     }
 
     private fun getSunrise(): String {
