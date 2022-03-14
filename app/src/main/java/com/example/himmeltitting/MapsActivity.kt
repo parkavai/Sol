@@ -7,7 +7,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View
-import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -215,9 +214,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val her = createLocation(currentLatLng.latitude, currentLatLng.longitude)
         var theOne: LuftKvalitet? = null
         var smallestDistance = 100000.0.toFloat()
-        liste.observe(this){
-            it.forEach {
-                val location = createLocation(it.latitude!!, it.longitude!!)
+        liste.observe(this){ mliste ->
+            mliste.forEach {
+                val location = it.latitude?.let { it1 -> it.longitude?.let { it2 ->
+                    createLocation(it1,
+                        it2
+                    )
+                } }
                 val done = her.distanceTo(location)
                 if (done < smallestDistance) {
                     smallestDistance = done
