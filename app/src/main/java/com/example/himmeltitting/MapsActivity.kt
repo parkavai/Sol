@@ -6,6 +6,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -209,11 +210,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private fun getLuftkvalitet(): String{
         viewModel.fetchNiluMedRadius(currentLatLng.latitude, currentLatLng.longitude, 20)
         val liste = viewModel.getNilu()
+        var her = Location("")
+        her.latitude = currentLatLng.latitude
+        her.longitude = currentLatLng.longitude
         var theOne: LuftKvalitet? = null
+        var smallestDistance = 100000.0.toFloat()
         liste.observe(this){
-            //This is wrong, finner ikke nærmeste værstasjon :/
-            if (it.isNotEmpty()){
-                theOne = it.last()
+            it.forEach {
+                var location = Location("")
+                location.latitude = it.latitude!!
+                location.longitude = it.longitude!!
+                var done = her.distanceTo(location)
+                if (done < smallestDistance) {
+                    smallestDistance = done
+                    theOne = it
+                }
             }
         }
         if (theOne == null) {
