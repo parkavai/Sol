@@ -1,12 +1,17 @@
 package com.example.himmeltitting
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.himmeltitting.locationforecast.*
-import com.example.himmeltitting.nilu.*
-import com.example.himmeltitting.sunrise.*
+import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
+import com.example.himmeltitting.locationforecast.LocationforecastDS
+import com.example.himmeltitting.nilu.LuftKvalitet
+import com.example.himmeltitting.nilu.NiluDataSource
+import com.example.himmeltitting.sunrise.CompactSunriseData
+import com.example.himmeltitting.sunrise.SunRiseDataSource
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -16,25 +21,85 @@ class MapsActivityViewModel : ViewModel() {
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 
+    //private val outData = MutableLiveData<String>()
 
-    //Sunrise
-    private val location = MutableLiveData<Location>()
 
-    fun getLocation(): MutableLiveData<Location> {
-        return location
+    fun getDataOutPut(latLng: LatLng): MutableLiveData<String> {
+        val sunriseString = getSunriseString(latLng)
+        val airQualityString = getAirQualityString(latLng)
+        val forecastString = getForecastString(latLng)
+
+
+        val outText = forecastString + "\n" + airQualityString + "\n" + sunriseString
+        return MutableLiveData(outText)
     }
 
-    private fun fetchLocation(lat: Double?, long: Double?, date: String?, days: Int?, height: Double?, offset: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            sunriseDS.fetchLocation(lat, long, date, days, height, offset).also{
-                location.postValue(it)
-            }
+    private fun getForecastString(latLng: LatLng): String{
+        val data = getCompactForecast(latLng.latitude, latLng.longitude).value
+        return if (data == null){
+            "Kunne ikke hente Forecast data"
+        }else{
+            "Nå (${data.time}):\n" +
+                    "Temperatur: ${data.temperature}, Skydekke: ${data.cloudCover}, Vindhastighet: ${data.wind_speed}\n" +
+                    "Precipation neste 6 timene: ${data.precipitation6Hours}\n" +
+                    "SymbolSummary neste 12 timer: ${data.summary12Hour}"
         }
     }
 
+    private fun getAirQualityString(latLng: LatLng): String{
+        val data = getNilu(latLng.latitude, latLng.longitude).value
+
+        val closestData = getClosestAirQuality(latLng, data)
+
+        return if (closestData == null) {
+            return "Fant ikke luftkvalitet"
+        } else{
+            "Luftkvalitet: ${closestData.value}"
+        }
+
+
+    }
+
+    private fun getClosestAirQuality(latLng: LatLng, list: List<LuftKvalitet>?): LuftKvalitet? {
+        val currentLocation: Location = createLocation(latLng.latitude, latLng.longitude)
+        var output: LuftKvalitet? = null
+        var smallestDistance = 100000.0.toFloat()
+        list?.forEach {
+            val location = it.latitude?.let { it1 -> it.longitude?.let { it2 ->
+                createLocation(it1, it2)
+            } }
+            val distance = currentLocation.distanceTo(location)
+            if (distance < smallestDistance) {
+                smallestDistance = distance
+                output = it
+            }
+        }
+        return output
+    }
+
+    private fun createLocation(latitude : Double, longitude : Double) : Location{
+        val location = Location("")
+        location.latitude = latitude
+        location.longitude = longitude
+        return location
+    }
+
+
+    private fun getSunriseString(latLng: LatLng): String {
+        val data = getSunriseData(latLng.latitude, latLng.longitude).value
+
+        //returns sunrise data as string if data is not null, else returns not found string
+        return if (data == null) {
+            "Fant ikke solnedgang"
+        }else{
+            "Solnedgang: ${data.sunsetTime}"
+        }
+    }
+
+    //Sunrise
     private val sunriseData = MutableLiveData<CompactSunriseData>()
 
-    fun getSunriseData(lat: Double, long: Double): MutableLiveData<CompactSunriseData> {
+    private fun getSunriseData(lat: Double, long: Double): MutableLiveData<CompactSunriseData> {
         fetchSunriseData(lat, long)
         return sunriseData
     }
@@ -48,52 +113,28 @@ class MapsActivityViewModel : ViewModel() {
     }
 
     //Nilu
-    private val nilu = MutableLiveData<List<LuftKvalitet>>()
+    private val niluData = MutableLiveData<List<LuftKvalitet>>()
 
-    fun getNilu(): LiveData<List<LuftKvalitet>> {
-        return nilu
+    private fun getNilu(lat: Double, long: Double): LiveData<List<LuftKvalitet>> {
+        fetchNilu(lat, long, 20)
+        return niluData
     }
 
-    fun fetchNilu() {
-        viewModelScope.launch(Dispatchers.IO) {
-            niluDS.fetchNilus().also {
-                nilu.postValue(it)
-            }
-        }
-    }
-
-    //Radius er nødt til å være int, altså et heltall siden det er slik APIet fungerer
-    fun fetchNiluMedRadius(latitude: Double?, longitude: Double?, radius: Int) {
+    private fun fetchNilu(latitude: Double?, longitude: Double?, radius: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             niluDS.fetchNilusMedRadius(latitude, longitude, radius).also {
-                nilu.postValue(it)
+                niluData.postValue(it)
             }
         }
     }
 
     //Locationforecast
-    private val forecastData: MutableLiveData<Locationforecast> by lazy {
-        MutableLiveData<Locationforecast>()
-    }
-
-    fun getForecast(lat: Double, lon: Double): LiveData<Locationforecast> {
-        loadForecast(lat, lon)
-        return forecastData
-    }
-
-    private fun loadForecast(lat: Double, lon: Double) {
-        viewModelScope.launch(Dispatchers.IO) {
-            locationforecastDS.getAllForecastData(lat, lon).also {
-                forecastData.postValue(it)
-            }
-        }
-    }
 
     private val compactForecastData: MutableLiveData<CompactTimeSeriesData?> by lazy {
         MutableLiveData<CompactTimeSeriesData?>()
     }
 
-    fun getCompactForecast(lat: Double, lon: Double): LiveData<CompactTimeSeriesData?> {
+    private fun getCompactForecast(lat: Double, lon: Double): LiveData<CompactTimeSeriesData?> {
         loadCompactForecast(lat, lon)
         return compactForecastData
     }
