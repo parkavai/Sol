@@ -181,7 +181,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     //
     private fun viewData() {
-        viewModel.getDataOutPut(currentLatLng).observe(this){
+        viewModel.getDataOutput(currentLatLng).observe(this){
             binding.text.text = it
         }
         binding.text.visibility = View.VISIBLE

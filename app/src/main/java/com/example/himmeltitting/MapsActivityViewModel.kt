@@ -29,8 +29,8 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Takes LatLng with coordinates, and returns a string of data for the location
      */
-    fun getDataOutPut(latLng: LatLng): LiveData<String> {
-        loadDataOutPut(latLng)
+    fun getDataOutput(latLng: LatLng): LiveData<String> {
+        loadDataOutput(latLng)
         return outData
     }
 
@@ -38,7 +38,7 @@ class MapsActivityViewModel : ViewModel() {
      * Loads strings from all data sources in ViewModelScope Coroutine
      * and sets outText value in outData Livedata
      */
-    private fun loadDataOutPut(latLng: LatLng) {
+    private fun loadDataOutput(latLng: LatLng) {
         viewModelScope.launch(Dispatchers.IO) {
             val sunriseString = getSunriseString(latLng)
             val airQualityString = getAirQualityString(latLng)
