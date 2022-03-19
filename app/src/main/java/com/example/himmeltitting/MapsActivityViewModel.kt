@@ -22,8 +22,11 @@ class MapsActivityViewModel : ViewModel() {
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 
-    private val outData : MutableLiveData<String> by lazy {
+    val outData : MutableLiveData<String> by lazy {
         MutableLiveData<String>()
+    }
+    val latLong : MutableLiveData<LatLng> by lazy {
+        MutableLiveData<LatLng>()
     }
 
     /**
@@ -32,6 +35,14 @@ class MapsActivityViewModel : ViewModel() {
     fun getDataOutput(latLng: LatLng): LiveData<String> {
         loadDataOutput(latLng)
         return outData
+    }
+
+    fun getLatLng(): LiveData<LatLng> {
+        return latLong
+    }
+
+    fun setLatLng(latlng: LatLng) {
+        latLong.value = latlng
     }
 
     /**

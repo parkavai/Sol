@@ -6,10 +6,11 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.view.View
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import com.example.himmeltitting.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.io.IOException
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -58,6 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        initBottomSheetView()
     }
 
 
@@ -181,10 +184,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     //
     private fun viewData() {
-        viewModel.getDataOutput(currentLatLng).observe(this){
-            binding.text.text = it
+        viewModel.setLatLng(currentLatLng)
+        setBottomSheetVisibility(true)
+        setBottomSheetData()
+
+    }
+
+    private val bottomSheetView by lazy { findViewById<ConstraintLayout>(R.id.bottomSheet) }
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
+    private fun initBottomSheetView() {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+        setBottomSheetVisibility(false)
+    }
+
+
+    private fun setBottomSheetVisibility(isVisible: Boolean) {
+        val updatedState = if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior.state = updatedState
+
+    }
+
+    private fun setBottomSheetData() {
+        viewModel.getDataOutput(currentLatLng).observe(this) {
+            bottomSheetView.findViewById<TextView>(R.id.dataTextView).text = it
         }
-        binding.text.visibility = View.VISIBLE
     }
 }
 
