@@ -11,10 +11,11 @@
     android:background="#757575"
     android:id="@+id/bottomSheet"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="0dp"
+    app:behavior_peekHeight="40dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
+        android:layout_marginTop="40dp"
         android:id="@+id/dataTextView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
