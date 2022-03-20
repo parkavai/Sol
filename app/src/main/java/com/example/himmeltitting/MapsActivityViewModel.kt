@@ -22,18 +22,17 @@ class MapsActivityViewModel : ViewModel() {
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 
-    val outData : MutableLiveData<String> by lazy {
+    private val outData : MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    val latLong : MutableLiveData<LatLng> by lazy {
+    private val latLong : MutableLiveData<LatLng> by lazy {
         MutableLiveData<LatLng>()
     }
 
     /**
-     * Takes LatLng with coordinates, and returns a string of data for the location
+     * returns a string of data for the current location
      */
-    fun getDataOutput(latLng: LatLng): LiveData<String> {
-        loadDataOutput(latLng)
+    fun getDataOutput(): LiveData<String> {
         return outData
     }
 
@@ -43,17 +42,18 @@ class MapsActivityViewModel : ViewModel() {
 
     fun setLatLng(latlng: LatLng) {
         latLong.value = latlng
+        loadDataOutput()
     }
 
     /**
      * Loads strings from all data sources in ViewModelScope Coroutine
      * and sets outText value in outData Livedata
      */
-    private fun loadDataOutput(latLng: LatLng) {
+    private fun loadDataOutput() {
         viewModelScope.launch(Dispatchers.IO) {
-            val sunriseString = getSunriseString(latLng)
-            val airQualityString = getAirQualityString(latLng)
-            val forecastString = getForecastString(latLng)
+            val sunriseString = getSunriseString()
+            val airQualityString = getAirQualityString()
+            val forecastString = getForecastString()
 
 
             val outText = forecastString + "\n" + airQualityString + "\n" + sunriseString
@@ -64,8 +64,8 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Creates and return String with forecast data from LatLng coordinates
      */
-    private suspend fun getForecastString(latLng: LatLng): String{
-        val changedData = getCompactForecast(latLng.latitude, latLng.longitude)
+    private suspend fun getForecastString(): String{
+        val changedData = getCompactForecast()
         val data = changedData.value
         return if (data == null){
             "Kunne ikke hente Forecast data"
@@ -80,10 +80,10 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Creates and return String with Air Quality data from LatLng coordinates
      */
-    private suspend fun getAirQualityString(latLng: LatLng): String{
-        val data = getNilu(latLng.latitude, latLng.longitude).value
+    private suspend fun getAirQualityString(): String{
+        val data = getNilu().value
 
-        val closestData = getClosestAirQuality(latLng, data)
+        val closestData = getClosestAirQuality(data)
 
         return if (closestData == null) {
             return "Fant ikke luftkvalitet"
@@ -97,8 +97,10 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
-    private fun getClosestAirQuality(latLng: LatLng, list: List<LuftKvalitet>?): LuftKvalitet? {
-        val currentLocation: Location = createLocation(latLng.latitude, latLng.longitude)
+    private fun getClosestAirQuality(list: List<LuftKvalitet>?): LuftKvalitet? {
+        val lat = latLong.value?.latitude ?: 0.0
+        val long = latLong.value?.longitude ?: 0.0
+        val currentLocation: Location = createLocation(lat, long)
         var output: LuftKvalitet? = null
         var smallestDistance = 100000.0.toFloat()
         list?.forEach {
@@ -127,8 +129,8 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Creates and return String with Sunrise data from LatLng coordinates
      */
-    private suspend fun getSunriseString(latLng: LatLng): String {
-        val data = getSunriseData(latLng.latitude, latLng.longitude).value
+    private suspend fun getSunriseString(): String {
+        val data = getSunriseData().value
 
         //returns sunrise data as string if data is not null, else returns not found string
         return if (data == null) {
@@ -144,13 +146,15 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
      */
-    private suspend fun getSunriseData(lat: Double, long: Double): MutableLiveData<CompactSunriseData> {
-        fetchSunriseData(lat, long).join()
+    private suspend fun getSunriseData(): MutableLiveData<CompactSunriseData> {
+        fetchSunriseData().join()
         return sunriseData
     }
 
-    private fun fetchSunriseData(lat: Double, long: Double): Job {
+    private fun fetchSunriseData(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
+            val lat = latLong.value?.latitude ?: 0.0
+            val long = latLong.value?.longitude ?: 0.0
             sunriseDS.getCompactSunriseData(lat, long).also{
                 sunriseData.postValue(it)
             }
@@ -163,14 +167,16 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * loads data from Nilu datasource, and waits for coroutine to finish, before returning data
      */
-    private suspend fun getNilu(lat: Double, long: Double): LiveData<List<LuftKvalitet>> {
-        fetchNilu(lat, long, 20).join()
+    private suspend fun getNilu(): LiveData<List<LuftKvalitet>> {
+        fetchNilu( 20).join()
         return niluData
     }
 
-    private fun fetchNilu(latitude: Double?, longitude: Double?, radius: Int): Job {
+    private fun fetchNilu(radius: Int): Job {
         return viewModelScope.launch(Dispatchers.IO) {
-            niluDS.fetchNilusMedRadius(latitude, longitude, radius).also {
+            val lat = latLong.value?.latitude ?: 0.0
+            val long = latLong.value?.longitude ?: 0.0
+            niluDS.fetchNilusMedRadius(lat, long, radius).also {
                 niluData.postValue(it)
             }
         }
@@ -185,15 +191,17 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
      */
-    private suspend fun getCompactForecast(lat: Double, lon: Double): LiveData<CompactTimeSeriesData?> {
-        loadCompactForecast(lat, lon).join()
+    private suspend fun getCompactForecast(): LiveData<CompactTimeSeriesData?> {
+        loadCompactForecast().join()
         return compactForecastData
 
     }
 
-    private fun loadCompactForecast(lat: Double, lon: Double): Job {
+    private fun loadCompactForecast(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
-            locationforecastDS.getCompactTimeseriesData(lat, lon).also {
+            val lat = latLong.value?.latitude ?: 0.0
+            val long = latLong.value?.longitude ?: 0.0
+            locationforecastDS.getCompactTimeseriesData(lat, long).also {
                 compactForecastData.postValue(it)
             }
         }

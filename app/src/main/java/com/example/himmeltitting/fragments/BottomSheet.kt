@@ -37,16 +37,14 @@ class BottomSheet : Fragment() {
     }
 
     private fun showData() {
-        viewModel.getLatLng().observe(viewLifecycleOwner){ latLng ->
-            viewModel.getDataOutput(latLng).observe(viewLifecycleOwner){
-                setBottomSheetVisibility(true)
-                binding.dataTextView.text = it
-            }
+        viewModel.getDataOutput().observe(viewLifecycleOwner){
+            setBottomSheetVisibility(true)
+            binding.dataTextView.text = it
         }
     }
 
     fun setBottomSheetVisibility(isVisible: Boolean) {
-        Log.d("set visibility", true.toString())
+        Log.d("Bottom sheet visibility", true.toString())
         val updatedState = if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.state = updatedState
     }
