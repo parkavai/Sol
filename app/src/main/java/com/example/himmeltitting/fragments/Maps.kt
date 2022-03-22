@@ -1,4 +1,4 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,12 +6,15 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentManager
-import com.example.himmeltitting.fragments.BottomSheet
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.himmeltitting.MapsActivityViewModel
+import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -21,16 +24,14 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
-
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-
-    // det vanlige
-    private lateinit var mMap: GoogleMap
+class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var binding: ActivityMapsBinding
+    private val viewModel: MapsActivityViewModel by activityViewModels()
+
+    private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var currentLatLng: LatLng
     private var marker: Marker? = null
-    private val viewModel: MapsActivityViewModel by viewModels()
 
     //fused location privider er en api som brukes til å få siste kjente lokasjon.
     // Den er vist veldig bra å bruke, står mer om det her https://developer.android.com/training/location/retrieve-current
@@ -42,27 +43,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     // companion object som er litt som java sin statiske variabler (sa en dude på youtube)
     // bruker i permission sjekk
     companion object{
-        private const val LOCATION_REQUEST_CODE = 1
+        const val LOCATION_REQUEST_CODE = 1
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container:  ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = ActivityMapsBinding.inflate(inflater, container, false)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // dette  trenges for å håndtere kart-fragmentet
-        //Map vises i appen som en fragment, fordi det skal vist være enklest(?): lifecycles av kartet osv handles automatisk og asyklisk
-        // kan ikke så mye om dette, men her står det bra:https://developers.google.com/android/reference/com/google/android/gms/maps/SupportMapFragment
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val mapView = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapView.getMapAsync(this)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -84,14 +83,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun setUpMap() {
         // sjekker permissions fra brukeren
-        if (ActivityCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(this.requireContext(),  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
             return
         }
 
         // får lokasjon, setter markøren på kartet
         mMap.isMyLocationEnabled = true
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+        fusedLocationClient.lastLocation.addOnSuccessListener(this.requireActivity()) { location ->
             if(location != null){
                 lastLocation = location
                 currentLatLng = LatLng(location.latitude, location.longitude)
@@ -150,7 +151,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 // checking if the entered location is null or not.
                 // on below line we are creating and initializing a geo coder.
-                val geocoder = Geocoder(this@MapsActivity)
+                val geocoder = Geocoder(activity)
                 try {
                     // on below line we are getting location from the
                     // location name and adding that location to address list.
@@ -185,13 +186,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private fun viewData() {
         viewModel.setLatLng(currentLatLng)
     }
-
-    private fun showFragment() {
-        val fm: FragmentManager = supportFragmentManager
-        val fragment: BottomSheet = fm.findFragmentById(R.id.bottomSheet) as BottomSheet
-        fragment.setBottomSheetVisibility(true)
-    }
 }
-
-
-
