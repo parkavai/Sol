@@ -8,7 +8,7 @@ import com.example.himmeltitting.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val mapsActivityViewModel: MapsActivityViewModel by viewModels()
+    private val viewModel: MapsActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

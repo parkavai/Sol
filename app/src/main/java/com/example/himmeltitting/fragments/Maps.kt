@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.MapsActivityViewModel
 import com.example.himmeltitting.R
-import com.example.himmeltitting.databinding.ActivityMapsBinding
+import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
 class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-    private lateinit var binding: ActivityMapsBinding
+    private lateinit var binding: FragmentMapsBinding
     private val viewModel: MapsActivityViewModel by activityViewModels()
 
     private lateinit var mMap: GoogleMap
@@ -51,7 +51,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         container:  ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ActivityMapsBinding.inflate(inflater, container, false)
+        binding = FragmentMapsBinding.inflate(inflater, container, false)
 
         return binding.root
     }

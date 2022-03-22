@@ -6,7 +6,7 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/bottomSheet"
+        android:id="@+id/mapsFragment"
         android:name="com.example.himmeltitting.fragments.Maps"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
