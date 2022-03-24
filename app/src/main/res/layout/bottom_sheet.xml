@@ -10,20 +10,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
+        android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#757575"
-        android:id="@+id/bottomSheet"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="40dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        >
+        app:behavior_peekHeight="90dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
-            android:layout_marginTop="40dp"
             android:id="@+id/dataTextView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="40dp"
             android:background="@color/cardview_dark_background"
             android:text="Loading data..."
             android:textColor="@color/white"
