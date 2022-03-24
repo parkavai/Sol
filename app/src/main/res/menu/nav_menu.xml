@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fav"
+        android:icon="@drawable/fav"
+        android:title="Favorites"
+        />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/search"
+        android:title="search"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/info"
+        android:title="info"
+        />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="settings"
+        android:visible="true" />
+
+</menu>
