@@ -39,7 +39,7 @@ class BottomSheet : Fragment() {
     private fun showData() {
         viewModel.getDataOutput().observe(viewLifecycleOwner){
             setBottomSheetVisibility(true)
-            binding.dataTextView.text = it
+            //binding.dataTextView.text = it
         }
     }
 
