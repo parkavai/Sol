@@ -5,10 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.himmeltitting.databinding.ActivityMainBinding
-import com.example.himmeltitting.fragments.FavoritesFragment
-import com.example.himmeltitting.fragments.InfoFragment
-import com.example.himmeltitting.fragments.Maps
-import com.example.himmeltitting.fragments.SettingsFragment
+import com.example.himmeltitting.fragments.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val favoritesFrafment = FavoritesFragment()
         val settingsFragment = SettingsFragment()
         val infoFragment = InfoFragment()
+        val calendar = CalendarShow()
 
         makeCuurentFragment(mapsFragment)
 

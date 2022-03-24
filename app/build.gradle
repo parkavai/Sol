@@ -90,6 +90,7 @@ dependencies {
     //fragments
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
+
     //til bottomnav
     implementation "com.google.android.material:material:1.5.0"
 
