@@ -22,7 +22,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:padding="10dp"
@@ -34,35 +34,42 @@
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintVertical_bias="0.498">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="415dp"
-                android:layout_height="150dp">
+            <TextView
+                android:layout_width="410dp"
+                android:layout_height="50dp"
+                android:text="Soloppgang kl. 13:37"
+                android:padding="10dp"
+                android:textSize="20sp" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="410dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="50dp">
 
                 <LinearLayout
-                    android:id="@+id/temperature_item"
+                    android:id="@+id/temperature_item_up"
                     android:layout_width="81dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="50dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/cloud_cover_item"
+                    card_view:layout_constraintStart_toEndOf="@+id/cloud_item_up"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="0.25">
 
                     <ImageView
-                        android:id="@+id/icon"
+                        android:id="@+id/temperature_icon_up"
 
                         android:layout_width="39dp"
                         android:layout_height="39dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        card_view:srcCompat="@drawable/ic_outline_wb_sunny_24" />
+                        card_view:srcCompat="@drawable/thermometer" />
 
                     <TextView
-                        android:id="@+id/temperature_text"
+                        android:id="@+id/temperature_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal"
@@ -74,7 +81,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/cloud_cover_item"
+                    android:id="@+id/cloud_item_up"
                     android:layout_width="81dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
@@ -86,7 +93,7 @@
                     card_view:layout_constraintVertical_bias="0.25">
 
                     <ImageView
-                        android:id="@+id/cloud_icon"
+                        android:id="@+id/cloud_icon_up"
 
                         android:layout_width="42dp"
                         android:layout_height="39dp"
@@ -96,7 +103,7 @@
                         card_view:srcCompat="@drawable/id_cloud" />
 
                     <TextView
-                        android:id="@+id/cloud_text"
+                        android:id="@+id/cloud_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -109,19 +116,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/wind_item"
+                    android:id="@+id/air_item_up"
                     android:layout_width="81dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintHorizontal_bias="0.0"
-                    card_view:layout_constraintStart_toEndOf="@+id/air_item"
+                    card_view:layout_constraintStart_toEndOf="@+id/wind_item_up"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="0.242">
 
                     <ImageView
-                        android:id="@+id/wind_icon"
+                        android:id="@+id/air_icon_up"
 
                         android:layout_width="42dp"
                         android:layout_height="39dp"
@@ -131,7 +138,7 @@
                         card_view:srcCompat="@drawable/ic_wind" />
 
                     <TextView
-                        android:id="@+id/wind_text"
+                        android:id="@+id/air_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal"
@@ -143,27 +150,27 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/air_item"
+                    android:id="@+id/wind_item_up"
                     android:layout_width="81dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/sunset_item"
+                    card_view:layout_constraintStart_toEndOf="@+id/rain_item_up"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="0.242">
 
                     <ImageView
-                        android:id="@+id/air_icon"
+                        android:id="@+id/wind_icon_up"
 
                         android:layout_width="42dp"
                         android:layout_height="39dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        card_view:srcCompat="@drawable/ic_air_quality" />
+                        card_view:srcCompat="@drawable/wind" />
 
                     <TextView
-                        android:id="@+id/air_text"
+                        android:id="@+id/wind_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal"
@@ -175,26 +182,206 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/sunset_item"
+                    android:id="@+id/rain_item_up"
                     android:layout_width="81dp"
                     android:layout_height="100dp"
-                    android:layout_marginBottom="40dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintStart_toEndOf="@+id/temperature_item">
+                    card_view:layout_constraintStart_toEndOf="@+id/temperature_item_up">
 
                     <ImageView
-                        android:id="@+id/sunset_icon"
+                        android:id="@+id/rain_icon_up"
 
                         android:layout_width="42dp"
                         android:layout_height="39dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        card_view:srcCompat="@drawable/ic_sunset" />
+                        card_view:srcCompat="@drawable/umbrella" />
 
                     <TextView
-                        android:id="@+id/sunset_text"
+                        android:id="@+id/rain_text_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+                    >
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="410dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="150dp"
+                android:text="Solnedgang kl. 13:37"
+                android:padding="10dp"
+                android:textSize="20sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="410dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="200dp">
+
+
+                <LinearLayout
+                    android:id="@+id/temperature_item_down"
+                    android:layout_width="81dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="50dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/cloud_item_down"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.25">
+
+                    <ImageView
+                        android:id="@+id/icon_temperature_down"
+
+                        android:layout_width="39dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        card_view:srcCompat="@drawable/thermometer" />
+
+                    <TextView
+                        android:id="@+id/temperature_text_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+                    >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cloud_item_down"
+                    android:layout_width="81dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="50dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.25">
+
+                    <ImageView
+                        android:id="@+id/cloud_icon_down"
+
+                        android:layout_width="42dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        card_view:srcCompat="@drawable/id_cloud" />
+
+                    <TextView
+                        android:id="@+id/cloud_text_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+                    >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/air_item_down"
+                    android:layout_width="81dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintHorizontal_bias="0.0"
+                    card_view:layout_constraintStart_toEndOf="@+id/wind_item_down"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.242">
+
+                    <ImageView
+                        android:id="@+id/air_icon_down"
+
+                        android:layout_width="42dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center|fill_horizontal"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        card_view:srcCompat="@drawable/ic_wind" />
+
+                    <TextView
+                        android:id="@+id/air_text_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+                    >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wind_item_down"
+                    android:layout_width="81dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/rain_item_down"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="0.242">
+
+                    <ImageView
+                        android:id="@+id/wind_icon_down"
+
+                        android:layout_width="42dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        card_view:srcCompat="@drawable/wind" />
+
+                    <TextView
+                        android:id="@+id/wind_text_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+                    >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rain_item_down"
+                    android:layout_width="81dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/temperature_item_down">
+
+                    <ImageView
+                        android:id="@+id/rain_icon_down"
+
+                        android:layout_width="42dp"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        card_view:srcCompat="@drawable/umbrella" />
+
+                    <TextView
+                        android:id="@+id/rain_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
