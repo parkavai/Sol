@@ -10,5 +10,17 @@
     <color name="white">#FFFFFFFF</color>
     
     <color name="primary">#f29b00</color>
+    <color name="primaryLightVariant">#ffebd4</color>
+    <color name="primaryDarkVariant">#ba6d00</color>
+    <color name="primaryKontrast">#5ea0d9</color>
+    <color name="primaryKontrastLightVariant">#92d1ff</color>
+    <color name="primaryKontrastDarkVariant">#66a0c4</color>
+
+    <color name="darkPrimary">#ffbb55</color>
+    <color name="darkVariant">#f29b00</color>
+    <color name="darkVariantDark">#ba6d00</color>
+    <color name="darkKontrast">#92d1ff</color>
+    <color name="darkKontrastVariant">#5ea0d9</color>
+    <color name="darkKontrastDarkVariant">#66a0c4</color>
 
 </resources>

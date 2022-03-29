@@ -8,6 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mapsFragment"
+        android:background="?attr/colorPrimaryVariant"
         android:name="com.example.himmeltitting.fragments.Maps"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="start"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
-        app:itemBackground="@color/black"
+        app:itemBackground="?attr/colorPrimary"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
