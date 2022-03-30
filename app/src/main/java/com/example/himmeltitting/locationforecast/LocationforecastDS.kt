@@ -75,7 +75,9 @@ class LocationforecastDS {
             if (diff < currentMin) {
                 currentMin = diff
                 closestIndex = index
-            }
+            } else if(diff != currentMin) {
+                    break
+                }
         }
 
         return data.properties.timeseries[closestIndex]
