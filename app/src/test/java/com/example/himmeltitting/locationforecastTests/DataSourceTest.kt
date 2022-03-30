@@ -12,12 +12,13 @@ class DataSourceTest {
 
     val lat = 60.10
     val lon = 9.58
+    val time = "2022-03-30T23:36:14"
 
     @Test
     fun response_isNotNull() {
 
         runBlocking {
-            val result = ls.getAllForecastData(lat, lon)
+            val result = ls.getCompactTimeseriesData(lat, lon, time)
             assert(result != null)
             print(result.toString())
         }

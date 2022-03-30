@@ -10,19 +10,36 @@ import kotlin.math.abs
 class LocationforecastDS {
     private val gson = Gson()
 
-    suspend fun getAllForecastData(lat: Double, lon: Double): Locationforecast? {
+    private var lastLat = 999.0 // value outside of lat range
+    private var lastLong = 999.0 // value outside of long range
+    private lateinit var lastData : Locationforecast
+
+    private suspend fun fetchForecastData(lat: Double, lon: Double): Locationforecast? {
         //complete?lat=-16.516667&lon=-68.166667&altitude=4150
         // ^eksempel med complete og altitude inkludert
         val path =
             "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}"
         val response = fetchData(path)
         val data: Locationforecast = gson.fromJson(response, Locationforecast::class.java)
-
+        lastData = data // updates cached data
         return if (data.properties.timeseries.isEmpty()) {
             null
         } else
             data
+    }
 
+    /**
+     * checks if latitude and longitude is same as in cache
+     * returns cached data if same, else fetches new data with coordinates
+     */
+    private suspend fun getAllForecastData(lat: Double, lon: Double): Locationforecast? {
+        return if (lastLat == lat && lastLong == lon) {
+            lastData
+        } else {
+            lastLat = lat
+            lastLong = lon
+            fetchForecastData(lat, lon)
+        }
     }
 
     suspend fun getCompactTimeseriesData(
