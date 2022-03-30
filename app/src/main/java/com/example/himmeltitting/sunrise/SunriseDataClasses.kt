@@ -35,4 +35,4 @@ data class Sunrise(val desc: String?, val time: String?)
 
 data class Sunset(val desc: String?, val time: String?)
 
-data class CompactSunriseData(val sunsetTime: String?)
+data class CompactSunriseData(val sunsetTime: String?, val sunriseTime: String?)

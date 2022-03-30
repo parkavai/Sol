@@ -1,5 +1,6 @@
 package com.example.himmeltitting
 
+import android.annotation.SuppressLint
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MapsActivityViewModel : ViewModel() {
 
@@ -136,7 +139,7 @@ class MapsActivityViewModel : ViewModel() {
         return if (data == null) {
             "Fant ikke solnedgang"
         }else{
-            "Solnedgang: ${data.sunsetTime}"
+            "Solnedgang: ${data.sunsetTime}, Soloppgang: ${data.sunriseTime}"
         }
     }
 
@@ -155,7 +158,8 @@ class MapsActivityViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            sunriseDS.getCompactSunriseData(lat, long).also{
+            val date = "2022-03-30" //will be from calendar
+            sunriseDS.getCompactSunriseData(lat, long, date).also{
                 sunriseData.postValue(it)
             }
         }
@@ -201,10 +205,39 @@ class MapsActivityViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            locationforecastDS.getCompactTimeseriesData(lat, long).also {
+            val time = currentSunsetTime() ?: currentTime() //sends current time if no time sent
+            locationforecastDS.getCompactTimeseriesData(lat, long, time).also {
                 compactForecastData.postValue(it)
             }
         }
+    }
+
+    /**
+     * Returns current sunset time in format yyyy-MM-dd'T'HH:mm:ss as String
+     */
+    fun currentSunsetTime() : String? {
+        val sunsetTime = sunriseData.value?.sunsetTime ?: return null
+        return sunTimeToForecastTime(sunsetTime)
+    }
+
+    /**
+     * Converts sunrise time of format yyyy-MM-dd'T'HH:mm:ssXXX,
+     * to time in format yyyy-MM-dd'T'HH:mm:ss as String
+     */
+    fun sunTimeToForecastTime(time: String): String {
+        return time.split("+")[0]
+    }
+
+    /**
+     * Returns current time in format yyyy-MM-dd'T'HH:mm:ss as String
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun currentTime(): String {
+        val date = Calendar.getInstance().time
+        //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
+        val formatedDate = formatter.format(date)
+        return formatedDate
     }
 
 }

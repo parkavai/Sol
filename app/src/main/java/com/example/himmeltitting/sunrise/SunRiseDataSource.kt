@@ -1,6 +1,5 @@
 package com.example.himmeltitting.sunrise
 
-import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
@@ -14,7 +13,7 @@ class SunRiseDataSource {
     private val path = "https://in2000-apiproxy.ifi.uio.no/weatherapi/sunrise/2.0/.json?"
 
     // Returnerer "Location" siden den er viktigst aa plukke ut
-    suspend fun fetchLocation(lat: Double?, long: Double?, date: String?, days: Int?, height: Double?, offset: String?): Location? {
+    private suspend fun fetchLocation(lat: Double?, long: Double?, date: String?, days: Int?, height: Double?, offset: String?): Location? {
         try {
             // Forsikre at man ikke skriver over å se 15 dager fremover
             if(days!! <= 15){
@@ -32,18 +31,18 @@ class SunRiseDataSource {
         }
     }
 
-    suspend fun getCompactSunriseData (latitude: Double, longitude: Double): CompactSunriseData? {
-        val date = "2022-03-08"
-        val time = "14:00"
+    suspend fun getCompactSunriseData (latitude: Double, longitude: Double, date: String): CompactSunriseData? {
+        val offset = "+02:00" //utc time zone offset norway, +01:00 winter time, +02:00 summer time
         val days = 1
-        val height = 0.2
-        val data = fetchLocation(latitude, longitude, date, days, height ,time)
+        val height = 20.0
+        val data = fetchLocation(latitude, longitude, date, days, height , offset)
 
         return data?.let { makeCompactSunriseData(it) }
     }
 
-    fun makeCompactSunriseData(data : Location): CompactSunriseData {
+    private fun makeCompactSunriseData(data : Location): CompactSunriseData {
         val sunsetTime = data.time?.get(0)?.sunset?.time.toString()
-        return CompactSunriseData(sunsetTime)
+        val sunriseTime = data.time?.get(0)?.sunrise?.time.toString()
+        return CompactSunriseData(sunsetTime, sunriseTime)
     }
 }
