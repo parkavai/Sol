@@ -15,22 +15,56 @@
 
     </style>
 
+    <!-- Style for button in activity_main-->
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/primary</item>
         <item name="android:colorButtonNormal">@color/primary</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- To change style of searchView-->
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/weather</item>
+    </style>
+
+    <!-- To change style of searchView-->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        ...
+        <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
+    </style>
+
+    <!-- Color of text in bottomsheet-->
     <style name="textColor" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!-- Color of cardview background -->
     <style name="cardViewStyle" parent="CardView">
         <item name="cardBackgroundColor">@color/white</item>
     </style>
 
+    <!-- Color of the whole bottomsheet -->
     <style name="constraintStyle">
         <item name="android:background">@color/white</item>
     </style>
+
+    <!-- Styles the bottomNavigatonBar's theme-->
+    <style name="bottomNavBarTheme">
+        <item name="itemBackground">?attr/colorPrimary</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+
+    <!-- Sets color of the fragmentContainerView in activity_main-->
+    <style name="mainFragmentContainerStyle">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!-- Colors for the container around button and search bar in activity_main-->
+    <style name="containerForButtonAndSearch">
+        <item name="android:background">@color/primaryLightVariant</item>
+    </style>
+
 
 </resources>
