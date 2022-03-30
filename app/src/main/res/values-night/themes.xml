@@ -19,4 +19,17 @@
         <item name="android:colorButtonNormal">@color/darkPrimary</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="textColor" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="cardViewStyle" parent="CardView">
+        <item name="cardBackgroundColor">@color/weather</item>
+    </style>
+
+    <style name="constraintStyle">
+        <item name="android:background">@color/darkerBackground</item>
+    </style>
+
 </resources>

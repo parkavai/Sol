@@ -10,23 +10,32 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        style="@style/constraintStyle"
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#757575"
         app:behavior_hideable="false"
         app:behavior_peekHeight="90dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            card_view:srcCompat="@drawable/drag" />
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
-            android:layout_width="wrap_content"
+            android:layout_width="370dp"
             android:layout_height="400dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
-            android:padding="10dp"
             card_view:cardCornerRadius="4dp"
+            style="@style/cardViewStyle"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.494"
@@ -35,20 +44,24 @@
             card_view:layout_constraintVertical_bias="0.498">
 
             <TextView
-                android:layout_width="410dp"
+                android:layout_width="349dp"
                 android:layout_height="50dp"
+                style="@style/textColor"
                 android:text="Soloppgang kl. 13:37"
+                android:layout_marginStart="20dp"
+
                 android:padding="10dp"
                 android:textSize="20sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="410dp"
+                android:layout_width="349dp"
                 android:layout_height="100dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="50dp">
 
                 <LinearLayout
                     android:id="@+id/temperature_item_up"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="50dp"
@@ -72,6 +85,7 @@
                         android:id="@+id/temperature_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -82,7 +96,7 @@
 
                 <LinearLayout
                     android:id="@+id/cloud_item_up"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="50dp"
@@ -106,7 +120,7 @@
                         android:id="@+id/cloud_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        style="@style/textColor"
                         android:layout_gravity="center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -117,7 +131,7 @@
 
                 <LinearLayout
                     android:id="@+id/air_item_up"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -141,6 +155,7 @@
                         android:id="@+id/air_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -151,7 +166,7 @@
 
                 <LinearLayout
                     android:id="@+id/wind_item_up"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -173,6 +188,7 @@
                         android:id="@+id/wind_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -183,7 +199,7 @@
 
                 <LinearLayout
                     android:id="@+id/rain_item_up"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -203,6 +219,7 @@
                         android:id="@+id/rain_text_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -214,22 +231,25 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:layout_width="410dp"
+                android:layout_width="349dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="150dp"
+                android:layout_marginStart="20dp"
+                style="@style/textColor"
                 android:text="Solnedgang kl. 13:37"
                 android:padding="10dp"
                 android:textSize="20sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="410dp"
+                android:layout_width="349dp"
                 android:layout_height="100dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="200dp">
 
 
                 <LinearLayout
                     android:id="@+id/temperature_item_down"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="50dp"
@@ -253,6 +273,7 @@
                         android:id="@+id/temperature_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -263,7 +284,7 @@
 
                 <LinearLayout
                     android:id="@+id/cloud_item_down"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="50dp"
@@ -287,7 +308,7 @@
                         android:id="@+id/cloud_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        style="@style/textColor"
                         android:layout_gravity="center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -298,7 +319,7 @@
 
                 <LinearLayout
                     android:id="@+id/air_item_down"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -322,6 +343,7 @@
                         android:id="@+id/air_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -332,7 +354,7 @@
 
                 <LinearLayout
                     android:id="@+id/wind_item_down"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -354,6 +376,7 @@
                         android:id="@+id/wind_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center|center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"
@@ -364,7 +387,7 @@
 
                 <LinearLayout
                     android:id="@+id/rain_item_down"
-                    android:layout_width="81dp"
+                    android:layout_width="71dp"
                     android:layout_height="100dp"
                     android:orientation="vertical"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -384,6 +407,7 @@
                         android:id="@+id/rain_text_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/textColor"
                         android:layout_gravity="center_horizontal"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="16dp"

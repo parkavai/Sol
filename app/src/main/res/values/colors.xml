@@ -23,4 +23,7 @@
     <color name="darkKontrastVariant">#5ea0d9</color>
     <color name="darkKontrastDarkVariant">#66a0c4</color>
 
+    <color name="weather">#707070</color>
+    <color name="darkerBackground">#454545</color>
+
 </resources>

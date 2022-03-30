@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primaryLightVariant</item>
         <item name="colorOnPrimary">@color/primaryDarkVariant</item>
-
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/primaryKontrast</item>
         <item name="colorSecondaryVariant">@color/primaryKontrastLightVariant</item>
@@ -21,9 +20,17 @@
         <item name="android:colorButtonNormal">@color/primary</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    
-    <style name="penguin">
-        <item name="background">@color/primary</item>
+
+    <style name="textColor" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="cardViewStyle" parent="CardView">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="constraintStyle">
+        <item name="android:background">@color/white</item>
     </style>
 
 </resources>
