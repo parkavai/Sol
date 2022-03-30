@@ -1,6 +1,5 @@
 package com.example.himmeltitting
 
-import android.annotation.SuppressLint
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,12 +11,11 @@ import com.example.himmeltitting.nilu.LuftKvalitet
 import com.example.himmeltitting.nilu.NiluDataSource
 import com.example.himmeltitting.sunrise.CompactSunriseData
 import com.example.himmeltitting.sunrise.SunRiseDataSource
+import com.example.himmeltitting.utils.TimeConversion
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MapsActivityViewModel : ViewModel() {
 
@@ -25,10 +23,10 @@ class MapsActivityViewModel : ViewModel() {
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 
-    private val outData : MutableLiveData<String> by lazy {
+    private val outData: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    private val latLong : MutableLiveData<LatLng> by lazy {
+    private val latLong: MutableLiveData<LatLng> by lazy {
         MutableLiveData<LatLng>()
     }
 
@@ -59,7 +57,7 @@ class MapsActivityViewModel : ViewModel() {
             val forecastString = getForecastString()
 
 
-            val outText = forecastString + "\n" + airQualityString + "\n" + sunriseString
+            val outText = sunriseString + "\n" + airQualityString + "\n" + forecastString
             outData.postValue(outText)
         }
     }
@@ -67,30 +65,32 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * Creates and return String with forecast data from LatLng coordinates
      */
-    private suspend fun getForecastString(): String{
-        val changedData = getCompactForecast()
-        val data = changedData.value
-        return if (data == null){
+    private suspend fun getForecastString(): String {
+        val sunriseLiveData = getSunriseForecast()
+        val sunsetLiveData = getSunsetForecast()
+        val sunriseData = sunriseLiveData.value
+        val sunsetData = sunsetLiveData.value
+        return if (sunriseData == null || sunsetData == null) {
             "Kunne ikke hente Forecast data"
-        }else{
-            "Nå (${data.time}):\n" +
-                    "Temperatur: ${data.temperature}, Skydekke: ${data.cloudCover}, Vindhastighet: ${data.wind_speed}\n" +
-                    "Precipation neste 6 timene: ${data.precipitation6Hours}\n" +
-                    "SymbolSummary neste 12 timer: ${data.summary12Hour}"
+        } else {
+            "${TimeConversion().prettyTimeString(sunriseData.time)}: ${sunriseData.temperature}, " +
+                    "${sunriseData.cloudCover} cloud, ${sunriseData.wind_speed} wind\n" +
+                    "${TimeConversion().prettyTimeString(sunsetData.time)}: ${sunsetData.temperature}, " +
+                    "${sunsetData.cloudCover} cloud, ${sunsetData.wind_speed} wind"
         }
     }
 
     /**
      * Creates and return String with Air Quality data from LatLng coordinates
      */
-    private suspend fun getAirQualityString(): String{
+    private suspend fun getAirQualityString(): String {
         val data = getNilu().value
 
         val closestData = getClosestAirQuality(data)
 
         return if (closestData == null) {
             return "Fant ikke luftkvalitet"
-        } else{
+        } else {
             "Luftkvalitet: ${closestData.value}"
         }
 
@@ -107,9 +107,11 @@ class MapsActivityViewModel : ViewModel() {
         var output: LuftKvalitet? = null
         var smallestDistance = 100000.0.toFloat()
         list?.forEach {
-            val location = it.latitude?.let { it1 -> it.longitude?.let { it2 ->
-                createLocation(it1, it2)
-            } }
+            val location = it.latitude?.let { it1 ->
+                it.longitude?.let { it2 ->
+                    createLocation(it1, it2)
+                }
+            }
             val distance = currentLocation.distanceTo(location)
             if (distance < smallestDistance) {
                 smallestDistance = distance
@@ -118,10 +120,11 @@ class MapsActivityViewModel : ViewModel() {
         }
         return output
     }
+
     /**
      * helper function to create Location data
      */
-    private fun createLocation(latitude : Double, longitude : Double) : Location{
+    private fun createLocation(latitude: Double, longitude: Double): Location {
         val location = Location("")
         location.latitude = latitude
         location.longitude = longitude
@@ -138,8 +141,9 @@ class MapsActivityViewModel : ViewModel() {
         //returns sunrise data as string if data is not null, else returns not found string
         return if (data == null) {
             "Fant ikke solnedgang"
-        }else{
-            "Solnedgang: ${data.sunsetTime}, Soloppgang: ${data.sunriseTime}"
+        } else {
+            "Solnedgang: ${TimeConversion().prettyTimeString(data.sunsetTime!!)}\n" +
+                    "Soloppgang: ${TimeConversion().prettyTimeString(data.sunriseTime!!)}"
         }
     }
 
@@ -149,7 +153,7 @@ class MapsActivityViewModel : ViewModel() {
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
      */
-    private suspend fun getSunriseData(): MutableLiveData<CompactSunriseData> {
+    private suspend fun getSunriseData(): LiveData<CompactSunriseData> {
         fetchSunriseData().join()
         return sunriseData
     }
@@ -158,8 +162,8 @@ class MapsActivityViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            val date = "2022-03-30" //will be from calendar
-            sunriseDS.getCompactSunriseData(lat, long, date).also{
+            val date = "2022-03-31" //will be from calendar
+            sunriseDS.getCompactSunriseData(lat, long, date).also {
                 sunriseData.postValue(it)
             }
         }
@@ -172,7 +176,7 @@ class MapsActivityViewModel : ViewModel() {
      * loads data from Nilu datasource, and waits for coroutine to finish, before returning data
      */
     private suspend fun getNilu(): LiveData<List<LuftKvalitet>> {
-        fetchNilu( 20).join()
+        fetchNilu(20).join()
         return niluData
     }
 
@@ -188,56 +192,41 @@ class MapsActivityViewModel : ViewModel() {
 
     //Locationforecast
 
-    private val compactForecastData: MutableLiveData<CompactTimeSeriesData?> by lazy {
+    private val sunriseForecast: MutableLiveData<CompactTimeSeriesData?> by lazy {
         MutableLiveData<CompactTimeSeriesData?>()
     }
 
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
      */
-    private suspend fun getCompactForecast(): LiveData<CompactTimeSeriesData?> {
-        loadCompactForecast().join()
-        return compactForecastData
+    private suspend fun getSunriseForecast(): LiveData<CompactTimeSeriesData?> {
+        val time = sunriseData.value?.sunriseTime ?: TimeConversion().currentTime()
+        loadForecast(sunriseForecast, time).join()
+        return sunriseForecast
 
     }
 
-    private fun loadCompactForecast(): Job {
+    private val sunsetForecast: MutableLiveData<CompactTimeSeriesData?> by lazy {
+        MutableLiveData<CompactTimeSeriesData?>()
+    }
+
+    /**
+     * loads data from forecast datasource, and waits for coroutine to finish, before returning data
+     */
+    private suspend fun getSunsetForecast(): LiveData<CompactTimeSeriesData?> {
+        val time = sunriseData.value?.sunsetTime ?: TimeConversion().currentTime()
+        loadForecast(sunsetForecast, time).join()
+        return sunsetForecast
+    }
+
+    private fun loadForecast(forecast: MutableLiveData<CompactTimeSeriesData?>, time: String): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            val time = currentSunsetTime() ?: currentTime() //sends current time if no time sent
             locationforecastDS.getCompactTimeseriesData(lat, long, time).also {
-                compactForecastData.postValue(it)
+                forecast.postValue(it)
             }
         }
-    }
-
-    /**
-     * Returns current sunset time in format yyyy-MM-dd'T'HH:mm:ss as String
-     */
-    fun currentSunsetTime() : String? {
-        val sunsetTime = sunriseData.value?.sunsetTime ?: return null
-        return sunTimeToForecastTime(sunsetTime)
-    }
-
-    /**
-     * Converts sunrise time of format yyyy-MM-dd'T'HH:mm:ssXXX,
-     * to time in format yyyy-MM-dd'T'HH:mm:ss as String
-     */
-    fun sunTimeToForecastTime(time: String): String {
-        return time.split("+")[0]
-    }
-
-    /**
-     * Returns current time in format yyyy-MM-dd'T'HH:mm:ss as String
-     */
-    @SuppressLint("SimpleDateFormat")
-    fun currentTime(): String {
-        val date = Calendar.getInstance().time
-        //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
-        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
-        val formatedDate = formatter.format(date)
-        return formatedDate
     }
 
 }

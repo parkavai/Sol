@@ -1,12 +1,10 @@
 package com.example.himmeltitting.locationforecast
 
-import android.annotation.SuppressLint
+import com.example.himmeltitting.utils.TimeConversion
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.math.abs
 
 class LocationforecastDS {
@@ -45,17 +43,18 @@ class LocationforecastDS {
      * If any errors with string to date conversion, returns first timeseries in list
      */
     private fun closestTimeseries(data: Locationforecast, time: String): Timeseries {
+        val timeConverter = TimeConversion()
         val firstTimeSeries = data.properties.timeseries[0]
         var closestIndex = 0
-        val timeValue = stringToDate(time)?.time ?: return firstTimeSeries //time as long value
+        val timeValue = timeConverter.timeStringToDate(time)?.time ?: return firstTimeSeries //time as long value
         var currentMin = abs(
-            (stringToDate(firstTimeSeries.time)?.time ?: return firstTimeSeries) - timeValue
+            (timeConverter.timeStringToDate(firstTimeSeries.time)?.time ?: return firstTimeSeries) - timeValue
         ) // current min difference
 
         // compares difference of times as float, and updates closest index and currentMin if
         // difference is smaller
         for ((index, timeseries) in data.properties.timeseries.withIndex()) {
-            val timeSeriesTimeValue = stringToDate(timeseries.time)?.time
+            val timeSeriesTimeValue = timeConverter.timeStringToDate(timeseries.time)?.time
             val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE)
             if (diff < currentMin) {
                 currentMin = diff
@@ -67,15 +66,6 @@ class LocationforecastDS {
 
     }
 
-    /**
-     * Converts time string with format yyyy-MM-dd'T'HH:mm:ss
-     * and returns string as Date class
-     */
-    @SuppressLint("SimpleDateFormat")
-    private fun stringToDate(date: String): Date? {
-        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
-        return formatter.parse(date)
-    }
 
     private fun createCompactData(timeSeries: Timeseries, units: Units): CompactTimeSeriesData {
         val data = timeSeries.data
