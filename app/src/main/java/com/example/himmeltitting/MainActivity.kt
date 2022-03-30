@@ -19,30 +19,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val mapsFragment = Maps()
-        val favoritesFrafment = FavoritesFragment()
+        val favoritesFragment = FavoritesFragment()
         val settingsFragment = SettingsFragment()
         val infoFragment = InfoFragment()
         val calendar = CalendarShow()
 
-        makeCuurentFragment(mapsFragment)
+        makeCurrentFragment(mapsFragment)
 
         //legge til egen metode
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.search -> {
-                    makeCuurentFragment(mapsFragment)
+                    makeCurrentFragment(mapsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.fav -> {
-                    makeCuurentFragment(favoritesFrafment)
+                    makeCurrentFragment(favoritesFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.info -> {
-                    makeCuurentFragment(infoFragment)
+                    makeCurrentFragment(infoFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.settings -> {
-                    makeCuurentFragment(settingsFragment)
+                    makeCurrentFragment(settingsFragment)
                     return@setOnItemSelectedListener true
                 }
             }
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // initializes fragments from navigation bar
-    private fun makeCuurentFragment(fragment: Fragment) =
+    private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.mapsFragment, fragment)
             commit()

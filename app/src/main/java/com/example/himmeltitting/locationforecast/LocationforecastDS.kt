@@ -1,6 +1,6 @@
 package com.example.himmeltitting.locationforecast
 
-import com.example.himmeltitting.utils.TimeConversion
+import com.example.himmeltitting.utils.timeStringToDate
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.coroutines.awaitString
@@ -43,18 +43,17 @@ class LocationforecastDS {
      * If any errors with string to date conversion, returns first timeseries in list
      */
     private fun closestTimeseries(data: Locationforecast, time: String): Timeseries {
-        val timeConverter = TimeConversion()
         val firstTimeSeries = data.properties.timeseries[0]
         var closestIndex = 0
-        val timeValue = timeConverter.timeStringToDate(time)?.time ?: return firstTimeSeries //time as long value
+        val timeValue = timeStringToDate(time)?.time ?: return firstTimeSeries //time as long value
         var currentMin = abs(
-            (timeConverter.timeStringToDate(firstTimeSeries.time)?.time ?: return firstTimeSeries) - timeValue
+            (timeStringToDate(firstTimeSeries.time)?.time ?: return firstTimeSeries) - timeValue
         ) // current min difference
 
         // compares difference of times as float, and updates closest index and currentMin if
         // difference is smaller
         for ((index, timeseries) in data.properties.timeseries.withIndex()) {
-            val timeSeriesTimeValue = timeConverter.timeStringToDate(timeseries.time)?.time
+            val timeSeriesTimeValue = timeStringToDate(timeseries.time)?.time
             val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE)
             if (diff < currentMin) {
                 currentMin = diff

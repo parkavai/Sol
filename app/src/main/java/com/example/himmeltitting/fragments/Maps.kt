@@ -114,7 +114,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         markerOptions.title("$currentLatLong")
         marker = mMap.addMarker(markerOptions)
         marker?.showInfoWindow()
-        viewData()
+        updateLatLng()
     }
 
 
@@ -183,7 +183,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     }
 
     //
-    private fun viewData() {
+    private fun updateLatLng() {
         viewModel.setLatLng(currentLatLng)
     }
 }
