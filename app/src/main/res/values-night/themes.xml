@@ -64,4 +64,10 @@
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
 
+    <!-- Colors for the container in favorites and settings-->
+    <style name="containerForFavoritesSettings">
+        <item name="android:background">@color/black</item>
+    </style>
+
+
 </resources>

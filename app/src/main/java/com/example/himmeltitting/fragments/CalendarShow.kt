@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.himmeltitting.R
-import com.example.himmeltitting.databinding.CalendarBinding
+import com.example.himmeltitting.databinding.CalendarFragmentBinding
 import java.util.*
 
-class CalendarShow : Fragment(R.layout.calendar) {
-    private lateinit var binding: CalendarBinding
+class CalendarShow : Fragment(R.layout.calendar_fragment) {
+    private lateinit var binding: CalendarFragmentBinding
 
     /*
     OnViewCreated is the same as onCreate for Activities
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = CalendarBinding.bind(view)
+        binding = CalendarFragmentBinding.bind(view)
 
         setupCalendar()
     }
