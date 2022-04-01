@@ -32,6 +32,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var lastLocation: Location
     private lateinit var currentLatLng: LatLng
     private var marker: Marker? = null
+    private var lastLatLng: LatLng? = null
 
     //fused location privider er en api som brukes til å få siste kjente lokasjon.
     // Den er vist veldig bra å bruke, står mer om det her https://developer.android.com/training/location/retrieve-current
@@ -51,6 +52,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         container:  ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentMapsBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -61,6 +63,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         mapView.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -74,11 +77,14 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     }
 
     //setter start lokasjon, hvis stedlokasjon ikke er satt, til Norge
-    private fun setDefaultMapLocationNorway(googleMap: GoogleMap) {
-        val mPoint : CameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng(62.47, 8.46), 4f)
-        // moves camera to coordinates
-        googleMap.moveCamera(mPoint)
+    private fun setDefaultMapLocationNorway(googleMap: GoogleMap) = if (lastLatLng == null) {
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(62.47, 8.46), 4f))
+    } else {
+        lastLatLng?.let { placeMarkerOnMap(it) }
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng!!, 12f))
     }
+
+
 
 
     private fun setUpMap() {
@@ -96,6 +102,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             if(location != null){
                 lastLocation = location
                 currentLatLng = LatLng(location.latitude, location.longitude)
+                lastLatLng = currentLatLng
 
                 // egendefinert metode
                 //placeMarkerOnMap(currentLatLng)
@@ -127,6 +134,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         mMap.setOnMapClickListener { latlng ->
             val location = LatLng(latlng.latitude, latlng.longitude)
             currentLatLng = location
+            lastLatLng = currentLatLng
             placeMarkerOnMap(location)
             // kan velge hvor mye vi vil zoome inn
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
@@ -167,7 +175,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
                 // where we will add our locations latitude and longitude.
                 val latLng = LatLng(address.latitude, address.longitude)
                 currentLatLng = latLng
-
+                lastLatLng = currentLatLng
                 // on below line we are adding marker to that position.
                 placeMarkerOnMap(latLng)
 
@@ -186,4 +194,6 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private fun viewData() {
         viewModel.setLatLng(currentLatLng)
     }
+
+
 }
