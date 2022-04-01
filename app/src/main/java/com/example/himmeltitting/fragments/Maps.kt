@@ -20,6 +20,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
@@ -71,6 +72,11 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
         setDefaultMapLocationNorway(mMap)
+        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
+            requireActivity(),
+            R.raw.map_style
+        )
+        googleMap.setMapStyle(mapStyleOptions)
         setUpMap()
         addOnMapClickListener()
         addSearchView()
