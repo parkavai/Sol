@@ -19,10 +19,7 @@ import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import java.io.IOException
 
 class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -124,7 +121,8 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private fun placeMarkerOnMap(currentLatLong: LatLng) {
         marker?.remove()
         val markerOptions = MarkerOptions().position(currentLatLong)
-        markerOptions.title("$currentLatLong")
+        // add marker color
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
         marker = mMap.addMarker(markerOptions)
         marker?.showInfoWindow()
         viewData()
