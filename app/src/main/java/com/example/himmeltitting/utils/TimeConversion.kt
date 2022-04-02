@@ -26,6 +26,17 @@ fun currentTime(): String {
 }
 
 /**
+ * Returns current date in format yyyy-MM-dd as String
+ */
+@SuppressLint("SimpleDateFormat")
+fun currentDate(): String {
+    val date = Calendar.getInstance().time
+    //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+    val formatter = SimpleDateFormat("yyyy-MM-dd") //or use getDateInstance()
+    return formatter.format(date)
+}
+
+/**
  * Converts time string with format yyyy-MM-dd'T'HH:mm:ss
  * and returns string as Date class
  */

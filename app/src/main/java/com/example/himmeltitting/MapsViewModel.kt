@@ -1,15 +1,14 @@
 package com.example.himmeltitting
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
 import com.example.himmeltitting.locationforecast.LocationforecastDS
 import com.example.himmeltitting.nilu.LuftKvalitet
 import com.example.himmeltitting.nilu.NiluDataSource
 import com.example.himmeltitting.sunrise.CompactSunriseData
 import com.example.himmeltitting.sunrise.SunRiseDataSource
+import com.example.himmeltitting.utils.currentDate
 import com.example.himmeltitting.utils.currentTime
 import com.example.himmeltitting.utils.prettyTimeString
 import com.google.android.gms.maps.model.LatLng
@@ -29,6 +28,12 @@ class MapsActivityViewModel : ViewModel() {
     private val latLong: MutableLiveData<LatLng> by lazy {
         MutableLiveData<LatLng>()
     }
+
+    private val _date = MutableLiveData<String>().also {
+        it.postValue(currentDate())
+    }
+
+    val date : LiveData<String> = _date
 
     /**
      * returns a string of data for the current location
@@ -125,7 +130,8 @@ class MapsActivityViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            val date = "2022-04-02" //will be from calendar
+            val date = _date.value?: currentDate() //_date value or current date
+            Log.d("Date", date)
             sunriseDS.getCompactSunriseData(lat, long, date).also {
                 sunriseData.postValue(it)
             }
