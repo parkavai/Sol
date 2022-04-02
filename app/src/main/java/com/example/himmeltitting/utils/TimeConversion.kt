@@ -46,3 +46,13 @@ fun prettyTimeString(time: String): String {
     }
     return timeString
 }
+
+/**
+ * Returns current timezone offset from GMT with format +-HH:mm, example +02:00
+ */
+@SuppressLint("SimpleDateFormat")
+fun timeZoneOffset(): String {
+    val calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault())
+    val timeZone = SimpleDateFormat("Z").format(calendar.time)
+    return timeZone.substring(0, 3) + ":" + timeZone.substring(3, 5)
+}

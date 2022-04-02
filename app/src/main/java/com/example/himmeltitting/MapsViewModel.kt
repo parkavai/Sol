@@ -125,7 +125,7 @@ class MapsActivityViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            val date = "2022-03-31" //will be from calendar
+            val date = "2022-04-02" //will be from calendar
             sunriseDS.getCompactSunriseData(lat, long, date).also {
                 sunriseData.postValue(it)
             }

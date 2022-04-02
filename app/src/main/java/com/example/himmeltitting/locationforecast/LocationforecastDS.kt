@@ -70,12 +70,12 @@ class LocationforecastDS {
         // compares difference of times as float, and updates closest index and currentMin if
         // difference is smaller
         for ((index, timeseries) in data.properties.timeseries.withIndex()) {
-            val timeSeriesTimeValue = timeStringToDate(timeseries.time)?.time
-            val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE)
-            if (diff < currentMin) {
+            val timeSeriesTimeValue = timeStringToDate(timeseries.time)?.time // time as long value
+            val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE) // difference as long
+            if (diff < currentMin) { // closer date timestamp
                 currentMin = diff
                 closestIndex = index
-            } else if(diff != currentMin) {
+            } else if(diff != currentMin) { // if diff increases, min is found in sorted list
                     break
                 }
         }

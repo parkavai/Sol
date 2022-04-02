@@ -1,5 +1,7 @@
 package com.example.himmeltitting.sunrise
 
+import android.util.Log
+import com.example.himmeltitting.utils.timeZoneOffset
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
@@ -32,7 +34,7 @@ class SunRiseDataSource {
     }
 
     suspend fun getCompactSunriseData (latitude: Double, longitude: Double, date: String): CompactSunriseData? {
-        val offset = "+02:00" //utc time zone offset norway, +01:00 winter time, +02:00 summer time
+        val offset = timeZoneOffset() //utc time zone offset for norway is +01:00 winter time, +02:00 summer time
         val days = 1
         val height = 20.0
         val data = fetchLocation(latitude, longitude, date, days, height , offset)
