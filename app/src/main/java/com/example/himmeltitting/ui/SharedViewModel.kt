@@ -1,7 +1,10 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.ui
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.himmeltitting.ds.locationforecast.CompactTimeSeriesData
 import com.example.himmeltitting.ds.locationforecast.LocationforecastDS
 import com.example.himmeltitting.ds.nilu.LuftKvalitet
@@ -10,7 +13,6 @@ import com.example.himmeltitting.ds.sunrise.CompactSunriseData
 import com.example.himmeltitting.ds.sunrise.SunRiseDataSource
 import com.example.himmeltitting.utils.currentDate
 import com.example.himmeltitting.utils.currentTime
-import com.example.himmeltitting.utils.prettyTimeString
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,9 +23,6 @@ class SharedViewModel : ViewModel() {
     private val sunriseDS = SunRiseDataSource()
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
-
-    private val _outData = MutableLiveData<String>()
-    val outData : LiveData<String> = _outData
 
     private val _latLong = MutableLiveData<LatLng>()
     val latLong : LiveData<LatLng> = _latLong
@@ -50,83 +49,18 @@ class SharedViewModel : ViewModel() {
      */
     fun setLatLng(latlng: LatLng) {
         _latLong.value = latlng
-        loadDataOutput()
+        updateData()
     }
 
-    /**
-     * Loads strings from all data sources in ViewModelScope Coroutine
-     * and sets outText value in outData Livedata
-     */
-    private fun loadDataOutput() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val sunriseString = getSunriseString()
-            val airQualityString = getAirQualityString()
-            val forecastString = getForecastString()
-
-
-            val outText = sunriseString + "\n" + airQualityString + "\n" + forecastString
-            _outData.postValue(outText)
-        }
-    }
-
-    /**
-     * Creates and return String with forecast data from LatLng coordinates
-     */
-    private suspend fun getForecastString(): String {
-        val sunriseLiveData = getSunriseForecast()
-        val sunsetLiveData = getSunsetForecast()
-        val sunriseData = sunriseLiveData.value
-        val sunsetData = sunsetLiveData.value
-        return if (sunriseData == null || sunsetData == null) {
-            "Kunne ikke hente Forecast data"
-        } else {
-            "${prettyTimeString(sunriseData.time)}: ${sunriseData.temperature}, " +
-                    "${sunriseData.cloudCover} cloud, ${sunriseData.wind_speed} wind\n" +
-                    "${prettyTimeString(sunsetData.time)}: ${sunsetData.temperature}, " +
-                    "${sunsetData.cloudCover} cloud, ${sunsetData.wind_speed} wind"
-        }
-    }
-
-    /**
-     * Creates and return String with Air Quality data from LatLng coordinates
-     */
-    private suspend fun getAirQualityString(): String {
-        val data = getNilu().value
-
-        return if (data == null) {
-            return "Fant ikke luftkvalitet"
-        } else {
-            "Luftkvalitet: ${data.value}"
-        }
-
-
-    }
-
-    /**
-     * Creates and return String with Sunrise data from LatLng coordinates
-     */
-    private suspend fun getSunriseString(): String {
-        val data = getSunriseData().value
-
-        //returns sunrise data as string if data is not null, else returns not found string
-        return if (data == null) {
-            "Fant ikke solnedgang"
-        } else {
-            "Solnedgang: ${prettyTimeString(data.sunsetTime!!)}\n" +
-                    "Soloppgang: ${prettyTimeString(data.sunriseTime!!)}"
+    private fun updateData() {
+        viewModelScope.launch{
+            fetchSunriseData().join()
+            updateForecasts().join()
+            fetchNilu(20).join()
         }
     }
 
     //Sunrise
-
-    /**
-     * loads data from forecast datasource, and waits for coroutine to finish, before returning data
-     */
-    private suspend fun getSunriseData(): LiveData<CompactSunriseData> {
-        fetchSunriseData().join()
-        return sunriseData
-    }
-
     private fun fetchSunriseData(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
@@ -140,14 +74,6 @@ class SharedViewModel : ViewModel() {
     }
 
     //Nilu
-    /**
-     * loads data from Nilu datasource, and waits for coroutine to finish, before returning data
-     */
-    private suspend fun getNilu(): LiveData<LuftKvalitet> {
-        fetchNilu(20).join()
-        return niluData
-    }
-
     private fun fetchNilu(radius: Int): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
@@ -159,24 +85,17 @@ class SharedViewModel : ViewModel() {
     }
 
     //Locationforecast
-
     /**
-     * loads data from forecast datasource, and waits for coroutine to finish, before returning data
+     * updates forecast data with sunrise times from location
      */
-    private suspend fun getSunriseForecast(): LiveData<CompactTimeSeriesData?> {
-        val time = sunriseData.value?.sunriseTime ?: currentTime()
-        fetchForecast(_sunriseForecast, time).join()
-        return sunriseForecast
+    private fun updateForecasts(): Job {
+        return viewModelScope.launch(Dispatchers.IO) {
+            val sunriseTime = sunriseData.value?.sunriseTime ?: currentTime()
+            val sunsetTime = sunriseData.value?.sunsetTime ?: currentTime()
 
-    }
-
-    /**
-     * loads data from forecast datasource, and waits for coroutine to finish, before returning data
-     */
-    private suspend fun getSunsetForecast(): LiveData<CompactTimeSeriesData?> {
-        val time = sunriseData.value?.sunsetTime ?: currentTime()
-        fetchForecast(_sunsetForecast, time).join()
-        return sunsetForecast
+            fetchForecast(_sunriseForecast, sunriseTime).join()
+            fetchForecast(_sunsetForecast, sunsetTime).join()
+        }
     }
 
     private fun fetchForecast(forecast: MutableLiveData<CompactTimeSeriesData?>, time: String): Job {

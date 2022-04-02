@@ -8,14 +8,16 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.himmeltitting.SharedViewModel
 import com.example.himmeltitting.databinding.BottomSheetBinding
+import com.example.himmeltitting.ui.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class BottomSheetFragment : Fragment() {
     private lateinit var binding: BottomSheetBinding
-    private val viewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var bottomSheetViewModelFactory : BottomSheetViewModelFactory
+    private lateinit var viewModel : BottomSheetViewModel
     private val bottomSheetView by lazy { binding.bottomSheet }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -26,16 +28,22 @@ class BottomSheetFragment : Fragment() {
     ): View {
         binding = BottomSheetBinding.inflate(inflater, container, false)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        bottomSheetViewModelFactory = BottomSheetViewModelFactory(sharedViewModel)
+        viewModel = bottomSheetViewModelFactory.create()
         setBottomSheetVisibility(false)
         showData()
-
+        lookForData()
     }
 
+    private fun lookForData() {
+        sharedViewModel.niluData.observe(viewLifecycleOwner){
+            viewModel.loadDataOutput()
+        }
+    }
     private fun showData() {
         viewModel.outData.observe(viewLifecycleOwner){
             setBottomSheetVisibility(true)

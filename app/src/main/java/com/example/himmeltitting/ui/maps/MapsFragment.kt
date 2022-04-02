@@ -13,7 +13,7 @@ import android.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.himmeltitting.SharedViewModel
+import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
