@@ -2,12 +2,12 @@ package com.example.himmeltitting
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.himmeltitting.locationforecast.CompactTimeSeriesData
-import com.example.himmeltitting.locationforecast.LocationforecastDS
-import com.example.himmeltitting.nilu.LuftKvalitet
-import com.example.himmeltitting.nilu.NiluDataSource
-import com.example.himmeltitting.sunrise.CompactSunriseData
-import com.example.himmeltitting.sunrise.SunRiseDataSource
+import com.example.himmeltitting.ds.locationforecast.CompactTimeSeriesData
+import com.example.himmeltitting.ds.locationforecast.LocationforecastDS
+import com.example.himmeltitting.ds.nilu.LuftKvalitet
+import com.example.himmeltitting.ds.nilu.NiluDataSource
+import com.example.himmeltitting.ds.sunrise.CompactSunriseData
+import com.example.himmeltitting.ds.sunrise.SunRiseDataSource
 import com.example.himmeltitting.utils.currentDate
 import com.example.himmeltitting.utils.currentTime
 import com.example.himmeltitting.utils.prettyTimeString
@@ -16,38 +16,40 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MapsActivityViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
 
     private val sunriseDS = SunRiseDataSource()
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 
-    private val outData: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-    private val latLong: MutableLiveData<LatLng> by lazy {
-        MutableLiveData<LatLng>()
-    }
+    private val _outData = MutableLiveData<String>()
+    val outData : LiveData<String> = _outData
+
+    private val _latLong = MutableLiveData<LatLng>()
+    val latLong : LiveData<LatLng> = _latLong
 
     private val _date = MutableLiveData<String>().also {
         it.postValue(currentDate())
     }
-
     val date : LiveData<String> = _date
 
+    private val _sunriseData = MutableLiveData<CompactSunriseData>()
+    val sunriseData : LiveData<CompactSunriseData> = _sunriseData
+
+    private val _niluData = MutableLiveData<LuftKvalitet>()
+    val niluData : LiveData<LuftKvalitet> = _niluData
+
+    private val _sunriseForecast = MutableLiveData<CompactTimeSeriesData?>()
+    val sunriseForecast : LiveData<CompactTimeSeriesData?> = _sunriseForecast
+
+    private val _sunsetForecast = MutableLiveData<CompactTimeSeriesData?>()
+    val sunsetForecast : LiveData<CompactTimeSeriesData?> = _sunsetForecast
+
     /**
-     * returns a string of data for the current location
+     * set latLong coordinates with new values, and update data values for new location
      */
-    fun getDataOutput(): LiveData<String> {
-        return outData
-    }
-
-    fun getLatLng(): LiveData<LatLng> {
-        return latLong
-    }
-
     fun setLatLng(latlng: LatLng) {
-        latLong.value = latlng
+        _latLong.value = latlng
         loadDataOutput()
     }
 
@@ -63,7 +65,7 @@ class MapsActivityViewModel : ViewModel() {
 
 
             val outText = sunriseString + "\n" + airQualityString + "\n" + forecastString
-            outData.postValue(outText)
+            _outData.postValue(outText)
         }
     }
 
@@ -116,7 +118,6 @@ class MapsActivityViewModel : ViewModel() {
     }
 
     //Sunrise
-    private val sunriseData = MutableLiveData<CompactSunriseData>()
 
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
@@ -133,14 +134,12 @@ class MapsActivityViewModel : ViewModel() {
             val date = _date.value?: currentDate() //_date value or current date
             Log.d("Date", date)
             sunriseDS.getCompactSunriseData(lat, long, date).also {
-                sunriseData.postValue(it)
+                _sunriseData.postValue(it)
             }
         }
     }
 
     //Nilu
-    private val niluData = MutableLiveData<LuftKvalitet>()
-
     /**
      * loads data from Nilu datasource, and waits for coroutine to finish, before returning data
      */
@@ -154,29 +153,21 @@ class MapsActivityViewModel : ViewModel() {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
             niluDS.fetchNilu(lat, long, radius).also {
-                niluData.postValue(it)
+                _niluData.postValue(it)
             }
         }
     }
 
     //Locationforecast
 
-    private val sunriseForecast: MutableLiveData<CompactTimeSeriesData?> by lazy {
-        MutableLiveData<CompactTimeSeriesData?>()
-    }
-
     /**
      * loads data from forecast datasource, and waits for coroutine to finish, before returning data
      */
     private suspend fun getSunriseForecast(): LiveData<CompactTimeSeriesData?> {
         val time = sunriseData.value?.sunriseTime ?: currentTime()
-        fetchForecast(sunriseForecast, time).join()
+        fetchForecast(_sunriseForecast, time).join()
         return sunriseForecast
 
-    }
-
-    private val sunsetForecast: MutableLiveData<CompactTimeSeriesData?> by lazy {
-        MutableLiveData<CompactTimeSeriesData?>()
     }
 
     /**
@@ -184,7 +175,7 @@ class MapsActivityViewModel : ViewModel() {
      */
     private suspend fun getSunsetForecast(): LiveData<CompactTimeSeriesData?> {
         val time = sunriseData.value?.sunsetTime ?: currentTime()
-        fetchForecast(sunsetForecast, time).join()
+        fetchForecast(_sunsetForecast, time).join()
         return sunsetForecast
     }
 

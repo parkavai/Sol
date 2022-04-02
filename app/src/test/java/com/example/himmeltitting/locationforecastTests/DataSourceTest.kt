@@ -1,7 +1,7 @@
 package com.example.himmeltitting.locationforecastTests
 
 
-import com.example.himmeltitting.locationforecast.LocationforecastDS
+import com.example.himmeltitting.ds.locationforecast.LocationforecastDS
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import kotlin.system.exitProcess

@@ -1,4 +1,4 @@
-package com.example.himmeltitting.fragments
+package com.example.himmeltitting.ui.info
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

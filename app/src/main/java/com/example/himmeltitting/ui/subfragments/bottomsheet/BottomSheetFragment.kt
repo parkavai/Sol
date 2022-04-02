@@ -1,4 +1,4 @@
-package com.example.himmeltitting.fragments
+package com.example.himmeltitting.ui.subfragments.bottomsheet
 
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.himmeltitting.MapsActivityViewModel
+import com.example.himmeltitting.SharedViewModel
 import com.example.himmeltitting.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
-class BottomSheet : Fragment() {
+class BottomSheetFragment : Fragment() {
     private lateinit var binding: BottomSheetBinding
-    private val viewModel: MapsActivityViewModel by activityViewModels()
+    private val viewModel: SharedViewModel by activityViewModels()
     private val bottomSheetView by lazy { binding.bottomSheet }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -37,7 +37,7 @@ class BottomSheet : Fragment() {
     }
 
     private fun showData() {
-        viewModel.getDataOutput().observe(viewLifecycleOwner){
+        viewModel.outData.observe(viewLifecycleOwner){
             setBottomSheetVisibility(true)
             binding.dataTextView.text = it
         }

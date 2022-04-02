@@ -1,6 +1,5 @@
-package com.example.himmeltitting.sunrise
+package com.example.himmeltitting.ds.sunrise
 
-import android.util.Log
 import com.example.himmeltitting.utils.timeZoneOffset
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString

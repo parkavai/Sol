@@ -1,4 +1,4 @@
-package com.example.himmeltitting.fragments
+package com.example.himmeltitting.ui.maps
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,7 +13,7 @@ import android.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.himmeltitting.MapsActivityViewModel
+import com.example.himmeltitting.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -24,9 +24,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
-class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var binding: FragmentMapsBinding
-    private val viewModel: MapsActivityViewModel by activityViewModels()
+    private val viewModel: SharedViewModel by activityViewModels()
 
     private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location

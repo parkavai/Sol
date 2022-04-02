@@ -1,4 +1,4 @@
-package com.example.himmeltitting.locationforecast
+package com.example.himmeltitting.ds.locationforecast
 
 import com.example.himmeltitting.utils.timeStringToDate
 import com.github.kittinunf.fuel.Fuel
