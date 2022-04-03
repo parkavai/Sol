@@ -6,10 +6,12 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -173,19 +175,30 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
                 }
                 // on below line we are getting the location
                 // from our list a first position.
-                val address: Address = addressList!![0]
+                if (addressList != null) {
+                    if(!addressList.isEmpty()){
+                        val address: Address = addressList[0]
 
-                // on below line we are creating a variable for our location
-                // where we will add our locations latitude and longitude.
-                val latLng = LatLng(address.latitude, address.longitude)
-                currentLatLng = latLng
-                lastLatLng = currentLatLng
-                // on below line we are adding marker to that position.
-                placeMarkerOnMap(latLng)
+                        // on below line we are creating a variable for our location
+                        // where we will add our locations latitude and longitude.
+                        val latLng = LatLng(address.latitude, address.longitude)
+                        currentLatLng = latLng
+                        lastLatLng = currentLatLng
+                        // on below line we are adding marker to that position.
+                        placeMarkerOnMap(latLng)
 
-                // below line is to animate camera to that position.
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                        // below line is to animate camera to that position.
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                        return false
+                    }
+
+                }
+                val toast = Toast.makeText(context, "Fant ikke sted med dette navnet", Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+
                 return false
+
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
