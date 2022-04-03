@@ -1,7 +1,10 @@
 package com.example.himmeltitting.fragments
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -13,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.MapsActivityViewModel
@@ -124,7 +128,8 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         marker?.remove()
         val markerOptions = MarkerOptions().position(currentLatLong)
         // add marker color
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+        val mBitmap = context?.let { getBitmapFromVectorDrawable(it, R.drawable.ic_location) }
+        markerOptions.icon(mBitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
         marker = mMap.addMarker(markerOptions)
         marker?.showInfoWindow()
         viewData()
@@ -210,6 +215,18 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     //
     private fun viewData() {
         viewModel.setLatLng(currentLatLng)
+    }
+
+    private fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context, drawableId)
+        val bitmap = Bitmap.createBitmap(
+            drawable!!.intrinsicWidth,
+            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return bitmap
     }
 
 
