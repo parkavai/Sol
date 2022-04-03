@@ -34,7 +34,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottomSheet"
-        android:name="com.example.himmeltitting.ui.subfragments.bottomsheet.BottomSheetFragment"
+        android:name="com.example.himmeltitting.ui.bottomsheet.BottomSheetFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />

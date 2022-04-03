@@ -9,7 +9,7 @@ import com.example.himmeltitting.ui.favorites.FavoritesFragment
 import com.example.himmeltitting.ui.info.InfoFragment
 import com.example.himmeltitting.ui.maps.MapsFragment
 import com.example.himmeltitting.ui.settings.SettingsFragment
-import com.example.himmeltitting.ui.subfragments.calendar.CalendarShow
+import com.example.himmeltitting.ui.calendar.CalendarShow
 
 
 class MainActivity : AppCompatActivity() {

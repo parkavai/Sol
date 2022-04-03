@@ -1,4 +1,4 @@
-package com.example.himmeltitting.ui.subfragments.bottomsheet
+package com.example.himmeltitting.ui.bottomsheet
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 class BottomSheetFragment : Fragment() {
     private lateinit var binding: BottomSheetBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var bottomSheetViewModelFactory : BottomSheetViewModelFactory
     private lateinit var viewModel : BottomSheetViewModel
     private val bottomSheetView by lazy { binding.bottomSheet }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
@@ -28,19 +27,18 @@ class BottomSheetFragment : Fragment() {
     ): View {
         binding = BottomSheetBinding.inflate(inflater, container, false)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+        viewModel = BottomSheetViewModel(sharedViewModel)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bottomSheetViewModelFactory = BottomSheetViewModelFactory(sharedViewModel)
-        viewModel = bottomSheetViewModelFactory.create()
         setBottomSheetVisibility(false)
         showData()
         lookForData()
     }
 
     private fun lookForData() {
-        sharedViewModel.niluData.observe(viewLifecycleOwner){
+        sharedViewModel.sunsetForecast.observe(viewLifecycleOwner){
             viewModel.loadDataOutput()
         }
     }

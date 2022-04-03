@@ -1,4 +1,4 @@
-package com.example.himmeltitting.ui.subfragments.calendar
+package com.example.himmeltitting.ui.calendar
 
 import android.os.Bundle
 import android.view.View

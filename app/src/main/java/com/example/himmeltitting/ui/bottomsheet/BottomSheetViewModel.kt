@@ -1,4 +1,4 @@
-package com.example.himmeltitting.ui.subfragments.bottomsheet
+package com.example.himmeltitting.ui.bottomsheet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

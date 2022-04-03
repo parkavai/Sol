@@ -54,9 +54,9 @@ class SharedViewModel : ViewModel() {
 
     private fun updateData() {
         viewModelScope.launch{
+            fetchNilu(20)
             fetchSunriseData().join()
             updateForecasts().join()
-            fetchNilu(20).join()
         }
     }
 
