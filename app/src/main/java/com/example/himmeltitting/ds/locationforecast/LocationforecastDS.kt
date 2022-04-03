@@ -21,7 +21,6 @@ class LocationforecastDS {
             "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}"
         val response = fetchData(path)
         val data: Locationforecast = gson.fromJson(response, Locationforecast::class.java)
-        lastData = data // updates cached data
         return if (data.properties.timeseries.isEmpty()) {
             null
         } else
@@ -36,9 +35,12 @@ class LocationforecastDS {
         return if (lastLat == lat && lastLong == lon) {
             lastData
         } else {
-            lastLat = lat
-            lastLong = lon
-            fetchForecastData(lat, lon)
+            val currentData = fetchForecastData(lat, lon)
+            currentData?.let {
+                lastData = it
+                lastLat = lat
+                lastLong = lon} // updates cached data
+            currentData
         }
     }
 
