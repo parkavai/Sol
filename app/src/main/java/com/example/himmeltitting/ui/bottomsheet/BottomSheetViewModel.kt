@@ -12,7 +12,7 @@ class BottomSheetViewModel(private val dataSource: SharedViewModel) {
 
     /**
      * Loads strings from all data sources in ViewModelScope Coroutine
-     * and sets outText value in outData Livedata
+     * and updates outData value in outData Livedata
      */
     fun loadDataOutput() {
         val sunriseString = getSunriseString()

@@ -24,11 +24,22 @@
             android:layout_height="300dp"
             android:layout_marginTop="40dp"
             android:background="@color/cardview_dark_background"
-            android:text="Loading data..."
+            android:text="Choose location"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
 
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/indeterminateBar"
+            style="@android:style/Widget.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

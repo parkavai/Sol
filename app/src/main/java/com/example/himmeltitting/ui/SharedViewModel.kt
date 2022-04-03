@@ -27,6 +27,9 @@ class SharedViewModel : ViewModel() {
     private val _latLong = MutableLiveData<LatLng>()
     val latLong : LiveData<LatLng> = _latLong
 
+    private val _state = MutableLiveData<String>()
+    val state : LiveData<String> = _state
+
     private val _date = MutableLiveData<String>().also {
         it.postValue(currentDate())
     }
@@ -52,11 +55,18 @@ class SharedViewModel : ViewModel() {
         updateData()
     }
 
+    /**
+     * sets _state value as loading,
+     * updates data from all apis with coordinates in _latLong, and sets
+     * _state value finished on completion
+     */
     private fun updateData() {
+        _state.value = "loading"
         viewModelScope.launch{
             fetchNilu(20)
             fetchSunriseData().join()
             updateForecasts().join()
+            _state.value = "finished"
         }
     }
 
@@ -86,7 +96,7 @@ class SharedViewModel : ViewModel() {
 
     //Locationforecast
     /**
-     * updates forecast data with sunrise times from location
+     * updates forecast data with sunrise and sunset times for location
      */
     private fun updateForecasts(): Job {
         return viewModelScope.launch(Dispatchers.IO) {

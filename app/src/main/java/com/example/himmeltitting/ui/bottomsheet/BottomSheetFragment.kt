@@ -33,15 +33,30 @@ class BottomSheetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setBottomSheetVisibility(false)
+        observeState()
         showData()
-        lookForData()
     }
 
-    private fun lookForData() {
-        sharedViewModel.sunsetForecast.observe(viewLifecycleOwner){
-            viewModel.loadDataOutput()
+    /**
+     * Observes shared viewmodel data fetching state,
+     * sets intermediate loading bar visibility according to state
+     * and makes bottom sheet viewmodel update strings with new data
+     */
+    private fun observeState() {
+        sharedViewModel.state.observe(viewLifecycleOwner){
+            if(it == "loading"){
+                binding.indeterminateBar.visibility = View.VISIBLE
+            }
+            else if (it == "finished"){
+                viewModel.loadDataOutput()
+                binding.indeterminateBar.visibility = View.INVISIBLE
+            }
         }
     }
+
+    /**
+     * Observes string with data from bottom sheet viewmodel
+     */
     private fun showData() {
         viewModel.outData.observe(viewLifecycleOwner){
             setBottomSheetVisibility(true)
@@ -49,7 +64,11 @@ class BottomSheetFragment : Fragment() {
         }
     }
 
-    fun setBottomSheetVisibility(isVisible: Boolean) {
+    /**
+     * Makes bottom sheet visible/popup or invisible/popdown
+     * with values true of false
+     */
+    private fun setBottomSheetVisibility(isVisible: Boolean) {
         Log.d("Bottom sheet visibility", true.toString())
         val updatedState = if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.state = updatedState
