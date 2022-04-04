@@ -8,7 +8,8 @@
     
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
+
+    <!-- For light mode -->
     <color name="primary">#f29b00</color>
     <color name="primaryLightVariant">#ffebd4</color>
     <color name="primaryDarkVariant">#ba6d00</color>
@@ -16,6 +17,7 @@
     <color name="primaryKontrastLightVariant">#92d1ff</color>
     <color name="primaryKontrastDarkVariant">#66a0c4</color>
 
+    <!-- For dark mode -->
     <color name="darkPrimary">#ffbb55</color>
     <color name="darkVariant">#f29b00</color>
     <color name="darkVariantDark">#ba6d00</color>
