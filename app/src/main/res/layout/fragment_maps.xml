@@ -61,7 +61,7 @@
     <!-- Bro hva er egentlig den her for???-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottomSheet"
-        android:name="com.example.himmeltitting.fragments.BottomSheet"
+        android:name="com.example.himmeltitting.ui.bottomsheet.BottomSheetFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />

@@ -1,4 +1,4 @@
-package com.example.himmeltitting.sunrise
+package com.example.himmeltitting.ds.sunrise
 
 data class SunriseBase(val location: Location?, val meta: Meta?)
 
@@ -35,4 +35,4 @@ data class Sunrise(val desc: String?, val time: String?)
 
 data class Sunset(val desc: String?, val time: String?)
 
-data class CompactSunriseData(val sunsetTime: String?)
+data class CompactSunriseData(val sunsetTime: String?, val sunriseTime: String?)

@@ -1,48 +1,51 @@
-package com.example.himmeltitting
+package com.example.himmeltitting.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.ActivityMainBinding
-import com.example.himmeltitting.fragments.*
+import com.example.himmeltitting.ui.favorites.FavoritesFragment
+import com.example.himmeltitting.ui.info.InfoFragment
+import com.example.himmeltitting.ui.maps.MapsFragment
+import com.example.himmeltitting.ui.settings.SettingsFragment
+import com.example.himmeltitting.ui.calendar.CalendarShow
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MapsActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mapsFragment = Maps()
-        val favoritesFrafment = FavoritesFragment()
+        val mapsFragment = MapsFragment()
+        val favoritesFragment = FavoritesFragment()
         val settingsFragment = SettingsFragment()
         val infoFragment = InfoFragment()
         val calendar = CalendarShow()
 
-        makeCuurentFragment(mapsFragment)
+        makeCurrentFragment(mapsFragment)
 
         //legge til egen metode
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.search -> {
-                    makeCuurentFragment(mapsFragment)
+                    makeCurrentFragment(mapsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.fav -> {
-                    makeCuurentFragment(favoritesFrafment)
+                    makeCurrentFragment(favoritesFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.info -> {
-                    makeCuurentFragment(infoFragment)
+                    makeCurrentFragment(infoFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.settings -> {
-                    makeCuurentFragment(settingsFragment)
+                    makeCurrentFragment(settingsFragment)
                     return@setOnItemSelectedListener true
                 }
             }
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // initializes fragments from navigation bar
-    private fun makeCuurentFragment(fragment: Fragment) =
+    private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.mapsFragment, fragment)
             commit()

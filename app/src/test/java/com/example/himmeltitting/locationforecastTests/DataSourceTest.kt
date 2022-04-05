@@ -1,9 +1,10 @@
 package com.example.himmeltitting.locationforecastTests
 
 
-import com.example.himmeltitting.locationforecast.LocationforecastDS
+import com.example.himmeltitting.ds.locationforecast.LocationforecastDS
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import kotlin.system.exitProcess
 
 
 class DataSourceTest {
@@ -11,14 +12,29 @@ class DataSourceTest {
 
     val lat = 60.10
     val lon = 9.58
+    val time = "2022-03-30T23:36:14"
 
     @Test
     fun response_isNotNull() {
 
         runBlocking {
-            val result = ls.getAllForecastData(lat, lon)
+            val result = ls.getCompactTimeseriesData(lat, lon, time)
             assert(result != null)
             print(result.toString())
+        }
+
+    }
+
+    @Test
+    fun closestForeCastData_isNotNull() {
+
+        runBlocking {
+            val result = ls.getCompactTimeseriesData(lat, lon, "2022-03-30T23:36:14")
+            assert(result != null)
+            if (result == null) exitProcess(0)
+            print(
+                "Time: ${result.time}\nCloudCover: ${result.cloudCover} \nTemperature: ${result.temperature}"
+            )
         }
 
     }
