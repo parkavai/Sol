@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_search">Søk</string>
     <string name="nav_favorites">Favoritter</string>
-    <string name="nav_info">info</string>
+    <string name="nav_info">Info</string>
     <string name="nav_settings">Instillinger</string>
     <string name="mapSearch_text">Søk</string>
 </resources>
