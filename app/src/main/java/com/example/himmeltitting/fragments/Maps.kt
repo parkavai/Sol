@@ -1,16 +1,22 @@
 package com.example.himmeltitting.fragments
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.MapsActivityViewModel
@@ -22,64 +28,65 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import java.io.IOException
 
+/**
+ * Fragment containing GoogleMap.
+ */
 class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var binding: FragmentMapsBinding
     private val viewModel: MapsActivityViewModel by activityViewModels()
-
     private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var currentLatLng: LatLng
     private var marker: Marker? = null
     private var lastLatLng: LatLng? = null
-
-    //fused location privider er en api som brukes til å få siste kjente lokasjon.
-    // Den er vist veldig bra å bruke, står mer om det her https://developer.android.com/training/location/retrieve-current
     private lateinit var fusedLocationClient : FusedLocationProviderClient
 
-    // variabler for koordinater
-
-
-    // companion object som er litt som java sin statiske variabler (sa en dude på youtube)
-    // bruker i permission sjekk
     companion object{
         const val LOCATION_REQUEST_CODE = 1
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container:  ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentMapsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
+    /**
+     *  Makes sure that the view is initialized and gets fused location provider.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mapView = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapView.getMapAsync(this)
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
-
     }
 
+    /**
+     * Initializes map listeners, default location, search view and map style.
+     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
         setDefaultMapLocationNorway(mMap)
-        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
-            requireActivity(),
-            R.raw.map_style
-        )
-        googleMap.setMapStyle(mapStyleOptions)
+        setMapTheme(googleMap)
         setUpMap()
         addOnMapClickListener()
         addSearchView()
     }
 
-    //setter start lokasjon, hvis stedlokasjon ikke er satt, til Norge
+    /**
+     * Function that either sets the initialial location as Norway is no previous location choice exists
+     * or puts the marker at the last visited place.
+     *
+     * Used on initial opening of the app or during switching between fragments.
+     *
+     */
     private fun setDefaultMapLocationNorway(googleMap: GoogleMap) = if (lastLatLng == null) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(62.47, 8.46), 4f))
     } else {
@@ -87,116 +94,145 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng!!, 12f))
     }
 
+    /**
+     * Initilizes map theme. Called in onMapReady()
+     */
+    private fun setMapTheme(googleMap: GoogleMap){
+        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
+            requireActivity(),
+            R.raw.map_style
+        )
+        googleMap.setMapStyle(mapStyleOptions)
+    }
 
 
-
+    /**
+     * Checks location access permissions from user. Finds longitude and latitude on the current location.
+     */
     private fun setUpMap() {
-        // sjekker permissions fra brukeren
+        // permission checks
         if (ActivityCompat.checkSelfPermission(this.requireContext(),  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_REQUEST_CODE
             )
             return
         }
-
-        // får lokasjon, setter markøren på kartet
         mMap.isMyLocationEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener(this.requireActivity()) { location ->
             if(location != null){
                 lastLocation = location
                 currentLatLng = LatLng(location.latitude, location.longitude)
                 lastLatLng = currentLatLng
-
-                // egendefinert metode
-                //placeMarkerOnMap(currentLatLng)
-
-                // zoom effekt som skjer når lokasjon blir funnet
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
     }
 
-
-
+    /**
+     * Initialized marker style and places marker at the given position.
+     */
     private fun placeMarkerOnMap(currentLatLong: LatLng) {
         marker?.remove()
         val markerOptions = MarkerOptions().position(currentLatLong)
-        // add marker color
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+        // change marker style
+        //move to separate method?
+        val mBitmap = context?.let { getBitmapFromVectorDrawable(it, R.drawable.ic_location) }
+        markerOptions.icon(mBitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
         marker = mMap.addMarker(markerOptions)
         marker?.showInfoWindow()
         viewData()
     }
 
 
-
+    /**
+     *
+     */
     override fun onMarkerClick(p0: Marker)= false
 
 
+    /**
+     * Initialized on OnClickListener for map.
+     */
     private fun addOnMapClickListener(){
-        // gjør at vi kan klikke på et sted og få koordinater
         mMap.setOnMapClickListener { latlng ->
             val location = LatLng(latlng.latitude, latlng.longitude)
             currentLatLng = location
             lastLatLng = currentLatLng
             placeMarkerOnMap(location)
-            // kan velge hvor mye vi vil zoome inn
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
         }
     }
 
 
-    // copy paste fra https://www.geeksforgeeks.org/how-to-add-searchview-in-google-maps-in-android/
+    /**
+     * Initialize SearchView with text. Text input from user is used to get
+     * coordinates and place marker on the map.
+     */
     private fun addSearchView(){
         val searchView = binding.idSearchView
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // on below line we are getting the
-                // location name from search view.
                 val location: String = searchView.query.toString()
-
-                // below line is to create a list of address
-                // where we will store the list of all address.
+                // list of address where results will be stored
                 var addressList: List<Address>? = null
-
-                // checking if the entered location is null or not.
-                // on below line we are creating and initializing a geo coder.
+                //  initialize a geo coder.
                 val geocoder = Geocoder(activity)
                 try {
-                    // on below line we are getting location from the
-                    // location name and adding that location to address list.
+                    // get location from the location name, add to address list.
                     addressList = geocoder.getFromLocationName(location, 1)
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    e.printStackTrace() }
+
+                // get the first location in the list
+                if (addressList != null) {
+                    if(addressList.isNotEmpty()){
+                        val address: Address = addressList[0]
+                        val latLng = LatLng(address.latitude, address.longitude)
+                        currentLatLng = latLng
+                        lastLatLng = currentLatLng
+                        placeMarkerOnMap(latLng)
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                        return false }
                 }
-                // on below line we are getting the location
-                // from our list a first position.
-                val address: Address = addressList!![0]
-
-                // on below line we are creating a variable for our location
-                // where we will add our locations latitude and longitude.
-                val latLng = LatLng(address.latitude, address.longitude)
-                currentLatLng = latLng
-                lastLatLng = currentLatLng
-                // on below line we are adding marker to that position.
-                placeMarkerOnMap(latLng)
-
-                // below line is to animate camera to that position.
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                setToast("Fant ikke noe med dette navnet")
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
         })
     }
 
-    //
+    /**
+     *
+     */
     private fun viewData() {
         viewModel.setLatLng(currentLatLng)
+    }
+
+    /**
+     * Converts vector icon into a bitmap. Used when initializing marker style.
+     */
+    private fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context, drawableId)
+        val bitmap = Bitmap.createBitmap(
+            drawable!!.intrinsicWidth,
+            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return bitmap
+    }
+
+    /**
+     * Generates and displays a Toast message with custom input.
+     */
+    private fun setToast(message: String){
+        val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
     }
 
 
