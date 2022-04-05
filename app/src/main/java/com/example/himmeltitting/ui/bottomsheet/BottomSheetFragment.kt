@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.databinding.BottomSheetBinding
 import com.example.himmeltitting.ui.SharedViewModel
+import com.example.himmeltitting.utils.prettyTimeString
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -35,6 +36,7 @@ class BottomSheetFragment : Fragment() {
         setBottomSheetVisibility(false)
         observeState()
         showData()
+        showDataUnSynced()
     }
 
     /**
@@ -72,6 +74,30 @@ class BottomSheetFragment : Fragment() {
         Log.d("Bottom sheet visibility", true.toString())
         val updatedState = if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.state = updatedState
+    }
+
+    private fun showDataUnSynced() {
+        sharedViewModel.niluData.observe(viewLifecycleOwner) {
+            binding.airTextUp.text = it.value.toString()
+            binding.airTextDown.text = it.value.toString()
+        }
+        sharedViewModel.sunriseData.observe(viewLifecycleOwner) {
+            binding.topHeader.text = "Soloppgang ${prettyTimeString(it.sunriseTime!!)}"
+            binding.botHeader.text = "Solnedgang ${prettyTimeString(it.sunsetTime!!)}"
+        }
+        sharedViewModel.sunriseForecast.observe(viewLifecycleOwner) {
+            binding.temperatureTextUp.text = it?.temperature ?: "None"
+            binding.windTextUp.text = it?.wind_speed ?: "None"
+            binding.rainTextUp.text = it?.precipitation6Hours ?: "None"
+            binding.cloudTextUp.text = it?.cloudCover ?: "None"
+        }
+        sharedViewModel.sunsetForecast.observe(viewLifecycleOwner) {
+            binding.temperatureTextDown.text = it?.temperature ?: "None"
+            binding.windTextDown.text = it?.wind_speed ?: "None"
+            binding.rainTextDown.text = it?.precipitation6Hours ?: "None"
+            binding.cloudTextDown.text = it?.cloudCover ?: "None"
+        }
+
     }
 }
 
