@@ -47,7 +47,7 @@
                 android:layout_width="349dp"
                 android:layout_height="50dp"
                 style="@style/textColor"
-                android:text="Soloppgang kl. 13:37"
+                android:id="@+id/topHeader"
                 android:layout_marginStart="20dp"
 
                 android:padding="10dp"
@@ -229,16 +229,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="349dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="150dp"
-                android:layout_marginStart="20dp"
-                style="@style/textColor"
-                android:text="Solnedgang kl. 13:37"
-                android:padding="10dp"
-                android:textSize="20sp" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="349dp"
                 android:layout_height="100dp"
@@ -417,7 +407,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
         <ProgressBar
             android:id="@+id/indeterminateBar"
@@ -425,12 +414,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
+            android:indeterminate="true"
+            android:indeterminateTintMode="multiply"
+            android:indeterminateTint="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="@dimen/cardview_default_elevation"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/botHeader"
+        style="@style/textColor"
+        android:layout_width="349dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_anchor="@+id/bottomSheet"
+        app:layout_anchorGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
