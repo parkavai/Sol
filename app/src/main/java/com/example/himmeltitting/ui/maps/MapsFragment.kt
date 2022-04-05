@@ -22,6 +22,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
+import com.example.himmeltitting.utils.currentDate
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -65,6 +66,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         val mapView = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapView.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
+        binding.calendarButton.text = currentDate()
     }
 
     /**
