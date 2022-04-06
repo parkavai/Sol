@@ -2,6 +2,8 @@ package com.example.himmeltitting.ds.nilu
 
 import android.location.Location
 import android.util.Log
+import com.example.himmeltitting.utils.currentDate
+import com.example.himmeltitting.utils.yesterdaysDate
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.coroutines.awaitString
@@ -28,8 +30,10 @@ class NiluDataSource {
 
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
     suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int): LuftKvalitet? {
-        val path = "https://api.nilu.no/aq/utd"
-        val parametere = "/$latitude/$longitude/$radius?method=within&components=no2"
+        val path = "https://api.nilu.no/aq/historical"
+        val yesterday = yesterdaysDate()
+        val today = currentDate()
+        val parametere = "$yesterday/$today/$latitude/$longitude/$radius?method=within&components=no2"
         val gson = Gson()
 
         return try {
