@@ -69,5 +69,10 @@
         <item name="android:background">@color/black</item>
     </style>
 
+    <!-- Colors for linearLayout in settings-->
+    <style name="containerForLinearLayout">
+        <item name="android:background">@color/black</item>
+    </style>
+
 
 </resources>

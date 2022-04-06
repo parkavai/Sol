@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">HimmelTitting</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Bottom_navigation_bar -->
     <string name="nav_search">Søk</string>
     <string name="nav_favorites">Favoritter</string>
     <string name="nav_info">Info</string>
-    <string name="nav_settings">Instillinger</string>
+    <string name="nav_settings">Innstillinger</string>
     <string name="mapSearch_text">Søk</string>
+    <!-- Settings -->
+    <string name="darkMode">Map darkmode</string>
+    <string name="api_text">API</string>
+    <string name="info_text">Soleklart er en app som tilbyr muligheten for brukeren å søke opp en lokasjon
+        i kartet eller gjennom tastetrykk, hvor brukeren vil få informasjon om følgende: luftkvalitet, skydekke,
+        soloppgang, solnedgang og temperatur. Dette gjør det mulig for brukeren å planlegge eventuelle turer
+        basert på informasjonen for et gitt sted valgt av brukeren.
+    </string>
+    <string name="version_text">Version 1.0</string>
 </resources>

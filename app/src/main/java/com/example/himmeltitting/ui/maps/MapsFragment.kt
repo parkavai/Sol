@@ -9,6 +9,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.example.himmeltitting.utils.currentDate
+import com.example.himmeltitting.utils.getMapIdTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -77,7 +79,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
         setDefaultMapLocationNorway(mMap)
-        setMapTheme(googleMap)
+        setMapTheme(mMap)
         setUpMap()
         addOnMapClickListener()
         addSearchView()
@@ -101,10 +103,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      * Initilizes map theme. Called in onMapReady()
      */
     private fun setMapTheme(googleMap: GoogleMap){
+        val theme = getMapIdTheme()
+        Log.d("Switchen er endret og da er maptheme´en ", theme.toString())
+        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
+            requireActivity(),
+            theme
+        )
+        /*
         val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
             requireActivity(),
             R.raw.map_style
         )
+        */
         googleMap.setMapStyle(mapStyleOptions)
     }
 
@@ -164,6 +174,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             placeMarkerOnMap(location)
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
         }
+
     }
 
 
