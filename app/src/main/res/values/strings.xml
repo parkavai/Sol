@@ -9,9 +9,11 @@
     <string name="nav_settings">Innstillinger</string>
     <string name="mapSearch_text">Søk</string>
     <!-- Settings -->
-    <string name="darkMode">Map darkmode</string>
-    <string name="api_text">API</string>
-    <string name="info_text">Soleklart er en app som tilbyr muligheten for brukeren å søke opp en lokasjon
+    <string name="settings_title">Map bakgrunn</string>
+    <string name="map_standard_Mode">Standard</string>
+    <string name="map_dark_Mode">Dark</string>
+    <string name="settings_api_text">API</string>
+    <string name="settings_info_text">Soleklart er en app som tilbyr muligheten for brukeren å søke opp en lokasjon
         i kartet eller gjennom tastetrykk, hvor brukeren vil få informasjon om følgende: luftkvalitet, skydekke,
         soloppgang, solnedgang og temperatur. Dette gjør det mulig for brukeren å planlegge eventuelle turer
         basert på informasjonen for et gitt sted valgt av brukeren.

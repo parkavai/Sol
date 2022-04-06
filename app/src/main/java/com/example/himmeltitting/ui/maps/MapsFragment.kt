@@ -104,7 +104,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      */
     private fun setMapTheme(googleMap: GoogleMap){
         val theme = getMapIdTheme()
-        Log.d("Switchen er endret og da er maptheme´en ", theme.toString())
         val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
             requireActivity(),
             theme

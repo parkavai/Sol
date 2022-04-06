@@ -48,26 +48,61 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
+            android:id="@+id/titleSwitch"
+            style="@style/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/settings_title"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textDarkMode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.577" />
+
+        <TextView
             android:id="@+id/textDarkMode"
             style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="36dp"
-            android:text="@string/darkMode"
-            android:textSize="20sp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="84dp"
+            android:text="@string/map_dark_Mode"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchDarkMode"
-            android:checked="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="28dp"
+            android:checked="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textStandardMode"
+            style="@style/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/map_standard_Mode"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textDarkMode" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchStandardMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="28dp"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchDarkMode" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/textViewContainer"
@@ -87,7 +122,7 @@
                 android:layout_height="26dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="4dp"
-                android:text="@string/api_text"
+                android:text="@string/settings_api_text"
                 app:layout_constraintBottom_toTopOf="@+id/infoTextView"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -97,7 +132,7 @@
                 android:layout_width="359dp"
                 android:layout_height="118dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/info_text"
+                android:text="@string/settings_info_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.842"
