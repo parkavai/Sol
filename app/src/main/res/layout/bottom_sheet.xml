@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             card_view:srcCompat="@drawable/drag"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/cd_dragImage" />
 
 
         <androidx.cardview.widget.CardView

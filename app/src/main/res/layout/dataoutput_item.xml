@@ -11,7 +11,6 @@
 
     <TextView
         android:id="@+id/header"
-        android:text="Sunheader: time:time:time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -34,7 +33,7 @@
             android:id="@+id/cloud_icon"
             android:src="@drawable/cloudsun"
             style="@style/dataOutputImage"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/cd_cloudImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,7 +60,7 @@
             android:id="@+id/temperature_icon"
             android:src="@drawable/thermometer"
             style="@style/dataOutputImage"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/cd_temperatureImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -88,7 +87,7 @@
             android:id="@+id/rain_icon"
             android:src="@drawable/umbrella"
             style="@style/dataOutputImage"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/cd_rainImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -115,7 +114,7 @@
             android:id="@+id/wind_icon"
             android:src="@drawable/wind"
             style="@style/dataOutputImage"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/cd_windImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -142,7 +141,7 @@
             android:id="@+id/air_icon"
             android:src="@drawable/factory_green"
             style="@style/dataOutputImage"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/cd_airImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

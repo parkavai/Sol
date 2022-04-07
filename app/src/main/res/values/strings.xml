@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HimmelTitting</string>
+    <string name="app_name">Soleklart</string>
     <string name="title_activity_maps">MapsActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,4 +8,11 @@
     <string name="nav_info">Info</string>
     <string name="nav_settings">Instillinger</string>
     <string name="mapSearch_text">Søk</string>
+    <string name="cd_airImage">Luftkvalitet bilde</string>
+    <string name="cd_cloudImage">Skydekke bilde</string>
+    <string name="cd_temperatureImage">Termometer bilde</string>
+    <string name="cd_rainImage">Paraply bilde</string>
+    <string name="cd_windImage">vind bilde</string>
+    <string name="cd_dragImage">dra hånd</string>
+    <string name="cd_logo">Sol</string>
 </resources>
