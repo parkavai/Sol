@@ -38,7 +38,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_persistent.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/calendar.xml" value="0.1" />
         <entry key="app/src/main/res/layout/calendar_fragment.xml" value="0.21875" />
-        <entry key="app/src/main/res/layout/dataoutput_item.xml" value="0.6568481445312501" />
+        <entry key="app/src/main/res/layout/dataoutput_item.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.12395833333333334" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.12395833333333334" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.13179347826086957" />

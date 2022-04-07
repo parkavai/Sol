@@ -31,7 +31,7 @@ class BottomSheetViewModel(private val dataSource: SharedViewModel) {
         _outData.postValue(outArray)
     }
 
-    fun createForeCastData(forecast: CompactTimeSeriesData?, niluVal: Double?, sunTime: String?, headerStart: String) : ForecastData {
+    private fun createForeCastData(forecast: CompactTimeSeriesData?, niluVal: Double?, sunTime: String?, headerStart: String) : ForecastData {
         val header = "$headerStart ${sunTime?.let { prettyTimeString(it) }}"
         val temperature = forecast?.temperature ?: "None"
         val cloudCover = forecast?.cloudCover ?: "None"

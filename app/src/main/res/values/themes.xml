@@ -71,5 +71,22 @@
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
 
+    <style name="dataOutputItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="dataOutputText" parent="@style/textColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:text">TextView</item>
+    </style>
+
+    <style name="dataOutputImage">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
 
 </resources>

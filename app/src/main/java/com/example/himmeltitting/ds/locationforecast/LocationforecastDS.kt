@@ -95,7 +95,7 @@ class LocationforecastDS {
         val hour6 = data.next_6_hours
 
         val time = timeSeries.time
-        val temperature = instantDetails.air_temperature.toString() + " " + units.air_temperature
+        val temperature = instantDetails.air_temperature.toString() + " C"
         val cloudCover =
             instantDetails.cloud_area_fraction.toString() + " " + units.cloud_area_fraction
         val windSpeed = instantDetails.wind_speed.toString() + " " + units.wind_speed

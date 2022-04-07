@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent">
 
@@ -12,27 +14,26 @@
         android:text="Sunheader: time:time:time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/textColor"
-        android:layout_marginStart="20dp"
         android:padding="10dp"
+        style="@style/textColor"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cloud_item"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
+        style="@style/dataOutputItem"
+        android:layout_marginStart="10dp"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/temperature_item"
         app:layout_constraintTop_toBottomOf="@id/header">
 
 
         <ImageView
             android:id="@+id/cloud_icon"
             android:src="@drawable/cloudsun"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            style="@style/dataOutputImage"
             android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,11 +41,7 @@
 
         <TextView
             android:id="@+id/cloud_text"
-            style="@style/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
+            style="@style/dataOutputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cloud_icon" />
@@ -54,17 +51,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/temperature_item"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
+        style="@style/dataOutputItem"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/cloud_item"
+        app:layout_constraintEnd_toStartOf="@id/rain_item"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/temperature_icon"
             android:src="@drawable/thermometer"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            style="@style/dataOutputImage"
             android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,11 +68,7 @@
 
         <TextView
             android:id="@+id/temperature_text"
-            style="@style/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
+            style="@style/dataOutputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temperature_icon"  />
@@ -86,17 +78,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rain_item"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
+        style="@style/dataOutputItem"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/temperature_item"
+        app:layout_constraintEnd_toStartOf="@id/wind_item"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/rain_icon"
             android:src="@drawable/umbrella"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            style="@style/dataOutputImage"
             android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,11 +95,7 @@
 
         <TextView
             android:id="@+id/rain_text"
-            style="@style/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
+            style="@style/dataOutputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rain_icon"  />
@@ -118,17 +105,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/wind_item"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
+        style="@style/dataOutputItem"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/rain_item"
+        app:layout_constraintEnd_toStartOf="@id/air_item"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/wind_icon"
             android:src="@drawable/wind"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            style="@style/dataOutputImage"
             android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,11 +122,7 @@
 
         <TextView
             android:id="@+id/wind_text"
-            style="@style/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
+            style="@style/dataOutputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wind_icon"  />
@@ -149,17 +131,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/air_item"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
+        style="@style/dataOutputItem"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/wind_item"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/air_icon"
             android:src="@drawable/factory_green"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            style="@style/dataOutputImage"
             android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,11 +149,7 @@
 
         <TextView
             android:id="@+id/air_text"
-            style="@style/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
+            style="@style/dataOutputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/air_icon"  />
