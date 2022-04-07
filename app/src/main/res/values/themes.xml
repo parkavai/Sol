@@ -71,12 +71,10 @@
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
 
-    <!-- Colors for linearLayout in settings-->
-    <style name="containerForLinearLayout">
+    <!-- Colors for constraintLayout in settings-->
+    <style name="containerForConstraintLayout">
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
-
-
 
 
 </resources>

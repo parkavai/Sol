@@ -45,7 +45,8 @@ class SettingsFragment : Fragment() {
     }
 
     /**
-     * Function for setting darkmode or not depending on the state of the switch
+     * Function for changing the theme of the map depending on
+     * switch which was clicked.
      */
     private fun switchMapTheme(switch: SwitchCompat, textMode: String){
         switch.setOnCheckedChangeListener { compoundButton, b ->
@@ -56,7 +57,7 @@ class SettingsFragment : Fragment() {
     }
 
     /**
-     * Checks if the switch is "checked" or not
+     * Checks which switch was clicked in order to adjust the map theme
      */
     private fun checkSwitch(modeText: String){
         if(modeText == "Retro"){
@@ -70,6 +71,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * If a switch is "checked" then all the other switches except the one which was chosen,
+     * are disabled. Otherwise, every switch are enabled.
+     */
     private fun changeAllSwitches(clickedSwitch: SwitchCompat, arraySwitches: ArrayList<SwitchCompat>, isChecked: Boolean){
         for(switch in arraySwitches){
             if(switch != clickedSwitch && isChecked){

@@ -1,15 +1,22 @@
 package com.example.himmeltitting.utils
 import com.example.himmeltitting.R
 
-var mapId = 0
+private var themeId = 0
 
+/**
+ * Based on which theme was chosen, an id will be given which
+ * represents the chosen theme.
+ */
 fun changeMapTheme(id: Int){
-    mapId = id
+    themeId = id
 }
 
-fun getMapIdTheme(): Int{
+/**
+ * Returns the chosen theme based on the value of themeId.
+ */
+fun getThemeId(): Int{
     var theme = 0
-    when(mapId){
+    when(themeId){
         0 -> theme = R.raw.retro_style
         1 -> theme = R.raw.standard_style
         2 -> theme = R.raw.night_style
