@@ -78,8 +78,8 @@ class BottomSheetFragment : Fragment() {
 
     private fun showDataUnSynced() {
         sharedViewModel.niluData.observe(viewLifecycleOwner) {
-            binding.airTextUp.text = it.value.toString()
-            binding.airTextDown.text = it.value.toString()
+            binding.airTextUp.text = it?.airQualitySunrise.toString()
+            binding.airTextDown.text = it?.airQualitySunset.toString()
         }
         sharedViewModel.sunriseData.observe(viewLifecycleOwner) {
             binding.topHeader.text = "Soloppgang ${prettyTimeString(it.sunriseTime!!)}"

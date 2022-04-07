@@ -43,12 +43,12 @@ class BottomSheetViewModel(private val dataSource: SharedViewModel) {
      * Creates and return String with Air Quality data from LatLng coordinates
      */
     private fun getAirQualityString(): String {
-        val data = dataSource.niluData.value
+        val data = dataSource.niluData.value?.airQualitySunrise
 
         return if (data == null) {
             return "Fant ikke luftkvalitet"
         } else {
-            "Luftkvalitet: ${data.value}"
+            "Luftkvalitet: ${data}"
         }
     }
 

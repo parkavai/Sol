@@ -69,7 +69,7 @@ fun timeZoneOffset(): String {
 }
 
 /**
- * Returns current date in format yyyy-MM-dd as String
+ * Returns yesterdays date in format yyyy-MM-dd as String
  */
 @SuppressLint("SimpleDateFormat")
 fun yesterdaysDate(): String {

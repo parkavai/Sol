@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.himmeltitting.ds.locationforecast.CompactTimeSeriesData
 import com.example.himmeltitting.ds.locationforecast.LocationforecastDS
-import com.example.himmeltitting.ds.nilu.LuftKvalitet
+import com.example.himmeltitting.ds.nilu.CollectiveAirQuality
 import com.example.himmeltitting.ds.nilu.NiluDataSource
 import com.example.himmeltitting.ds.sunrise.CompactSunriseData
 import com.example.himmeltitting.ds.sunrise.SunRiseDataSource
@@ -38,8 +38,8 @@ class SharedViewModel : ViewModel() {
     private val _sunriseData = MutableLiveData<CompactSunriseData>()
     val sunriseData : LiveData<CompactSunriseData> = _sunriseData
 
-    private val _niluData = MutableLiveData<LuftKvalitet>()
-    val niluData : LiveData<LuftKvalitet> = _niluData
+    private val _niluData = MutableLiveData<CollectiveAirQuality>()
+    val niluData : LiveData<CollectiveAirQuality> = _niluData
 
     private val _sunriseForecast = MutableLiveData<CompactTimeSeriesData?>()
     val sunriseForecast : LiveData<CompactTimeSeriesData?> = _sunriseForecast
@@ -63,8 +63,8 @@ class SharedViewModel : ViewModel() {
     private fun updateData() {
         _state.value = "loading"
         viewModelScope.launch{
-            fetchNilu(20)
             fetchSunriseData().join()
+            fetchNilu(20, ).join()
             updateForecasts().join()
             _state.value = "finished"
         }
@@ -83,12 +83,15 @@ class SharedViewModel : ViewModel() {
         }
     }
 
+
+
     //Nilu
-    private fun fetchNilu(radius: Int): Job {
+    private fun fetchNilu(radius: Int ): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            niluDS.fetchNilu(lat, long, radius).also {
+
+            niluDS.fetchNilu(lat, long, radius, sunriseData).also {
                 _niluData.postValue(it)
             }
         }
