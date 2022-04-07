@@ -39,7 +39,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
+        android:id="@+id/preferencesContainer"
+        android:layout_width="match_parent"
         android:layout_height="619dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,32 +49,32 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/titleSwitch"
+            android:id="@+id/titleTheme"
             style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="@string/settings_title"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/textDarkMode"
+            app:layout_constraintBottom_toTopOf="@+id/textRetroTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.577" />
 
         <TextView
-            android:id="@+id/textDarkMode"
+            android:id="@+id/textRetroTheme"
             style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:layout_marginTop="84dp"
-            android:text="@string/map_dark_Mode"
+            android:text="@string/map_retro_theme"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchDarkMode"
+            android:id="@+id/switchRetro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
@@ -83,26 +84,49 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textStandardMode"
+            android:id="@+id/textStandardTheme"
             style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:layout_marginTop="24dp"
-            android:text="@string/map_standard_Mode"
+            android:text="@string/map_standard_theme"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textDarkMode" />
+            app:layout_constraintTop_toBottomOf="@+id/textRetroTheme" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchStandardMode"
+            android:id="@+id/switchStandard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="28dp"
             android:checked="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switchDarkMode" />
+            app:layout_constraintTop_toBottomOf="@+id/switchRetro" />
+
+
+        <TextView
+            android:id="@+id/textNightTheme"
+            style="@style/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/map_night_theme"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textStandardTheme" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="28dp"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchStandard" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/textViewContainer"
@@ -118,8 +142,8 @@
             <TextView
                 android:id="@+id/apiTextView"
                 style="@style/textColor"
-                android:layout_width="40dp"
-                android:layout_height="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="4dp"
                 android:text="@string/settings_api_text"

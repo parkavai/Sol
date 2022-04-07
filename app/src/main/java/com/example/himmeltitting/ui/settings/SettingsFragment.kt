@@ -25,14 +25,23 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val darkModeText = binding.textDarkMode.text.toString()
-        val darkModeSwitch = binding.switchDarkMode
-        val standardModeText = binding.textStandardMode.text.toString()
-        val standardModeSwitch = binding.switchStandardMode
-        arraySwitches.add(darkModeSwitch)
-        arraySwitches.add(standardModeSwitch)
-        switchMapTheme(darkModeSwitch, darkModeText)
-        switchMapTheme(standardModeSwitch, standardModeText)
+
+        val textNight = binding.textNightTheme.text.toString()
+        val switchNight = binding.switchNight
+
+        val textStandard = binding.textStandardTheme.text.toString()
+        val switchStandard = binding.switchStandard
+
+        val textRetro = binding.textRetroTheme.text.toString()
+        val switchRetro = binding.switchRetro
+
+        arraySwitches.add(switchNight)
+        arraySwitches.add(switchStandard)
+        arraySwitches.add(switchRetro)
+
+        switchMapTheme(switchNight, textNight)
+        switchMapTheme(switchStandard, textStandard)
+        switchMapTheme(switchRetro, textRetro)
     }
 
     /**
@@ -40,7 +49,7 @@ class SettingsFragment : Fragment() {
      */
     private fun switchMapTheme(switch: SwitchCompat, textMode: String){
         switch.setOnCheckedChangeListener { compoundButton, b ->
-            checkSwitch(b, switch, textMode)
+            checkSwitch(textMode)
             changeAllSwitches(switch, arraySwitches, b)
             changeMapTheme(idSwitchMode)
         }
@@ -49,39 +58,25 @@ class SettingsFragment : Fragment() {
     /**
      * Checks if the switch is "checked" or not
      */
-
-    // Feilen er at du ikke sender TextViewet til hverken darkmode eller standardmode, du bruker switchen sitt textview som er feil
-    private fun checkSwitch(isChecked: Boolean, switch: SwitchCompat, modeText: String){
-        var id = 0
-        if(modeText == "Dark"){
-            id = 1
+    private fun checkSwitch(modeText: String){
+        if(modeText == "Retro"){
+            idSwitchMode = 0
         }
         else if(modeText == "Standard"){
-            id = 2
-        }
-        isSwitchEnabled(isChecked, id)
-    }
-
-    private fun isSwitchEnabled(isChecked:Boolean, id: Int){
-        if(isChecked){
-            idSwitchMode = id
+            idSwitchMode = 1
         }
         else{
-            idSwitchMode = 0
+            idSwitchMode = 2
         }
     }
 
     private fun changeAllSwitches(clickedSwitch: SwitchCompat, arraySwitches: ArrayList<SwitchCompat>, isChecked: Boolean){
-        for (switch in arraySwitches){
-            if(isChecked){
-                if(switch != clickedSwitch){
-                    switch.isEnabled = false
-                }
+        for(switch in arraySwitches){
+            if(switch != clickedSwitch && isChecked){
+                switch.isEnabled = false
             }
-            else{
-                if(switch != clickedSwitch){
-                    switch.isEnabled = true
-                }
+            else if(switch != clickedSwitch && !isChecked){
+                switch.isEnabled = true
             }
         }
     }
