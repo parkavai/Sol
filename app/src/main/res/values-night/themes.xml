@@ -74,5 +74,13 @@
         <item name="android:background">@color/black</item>
     </style>
 
+    <!-- Colors for switches in settings-->
+    <style name="switches">
+        <!-- Active thumb track & track color -->
+        <item name="colorControlActivated">@color/primary</item>
+        <!-- Inactive track color -->
+        <item name="android:colorForeground">@color/primary</item>
+    </style>
+
 
 </resources>

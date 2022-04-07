@@ -76,6 +76,7 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchRetro"
+            android:theme="@style/switches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
@@ -98,6 +99,7 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchStandard"
+            android:theme="@style/switches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -121,6 +123,7 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchNight"
+            android:theme="@style/switches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
