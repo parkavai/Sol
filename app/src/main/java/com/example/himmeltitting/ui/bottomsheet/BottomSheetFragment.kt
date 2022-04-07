@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.databinding.BottomSheetBinding
 import com.example.himmeltitting.ui.SharedViewModel
-import com.example.himmeltitting.utils.prettyTimeString
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -36,7 +35,7 @@ class BottomSheetFragment : Fragment() {
         setBottomSheetVisibility(false)
         observeState()
         showData()
-        showDataUnSynced()
+        //showDataUnSynced()
     }
 
     /**
@@ -62,6 +61,7 @@ class BottomSheetFragment : Fragment() {
     private fun showData() {
         viewModel.outData.observe(viewLifecycleOwner){
             setBottomSheetVisibility(true)
+            binding.recyclerView.adapter = DataOutoutAdapter(it, this.requireContext())
             //binding.dataTextView.text = it
         }
     }
@@ -76,7 +76,7 @@ class BottomSheetFragment : Fragment() {
         bottomSheetBehavior.state = updatedState
     }
 
-    private fun showDataUnSynced() {
+    /** private fun showDataUnSynced() {
         sharedViewModel.niluData.observe(viewLifecycleOwner) {
             binding.airTextUp.text = it.value.toString()
             binding.airTextDown.text = it.value.toString()
@@ -98,6 +98,6 @@ class BottomSheetFragment : Fragment() {
             binding.cloudTextDown.text = it?.cloudCover ?: "None"
         }
 
-    }
+    } */
 }
 

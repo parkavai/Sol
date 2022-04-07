@@ -22,7 +22,8 @@ fun cloudImageCalculator(cover : String): String {
 /**
  * Method that uses data from Nilu API and calculates what image to represent
  */
-fun airQualityImageCalculator(quality : Double): String {
+fun airQualityImageCalculator(qualityString : String): String {
+    val quality = qualityString.toDouble()
     if (quality < 60.0) {
         return "@drawable/factory_green"
     }
