@@ -15,7 +15,7 @@
 
     </style>
 
-    <!-- Style for button in activity_main-->
+    <!-- Style for button in fragment_maps-->
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/primary</item>
         <item name="android:colorButtonNormal">@color/primary</item>

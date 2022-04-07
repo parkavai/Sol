@@ -5,13 +5,21 @@
       <map>
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/fav.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_air_quality.xml" value="0.1205" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_outline_wb_sunny_24.xml" value="0.1205" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_right.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_sunset.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_wind.xml" value="0.1205" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/icon_background.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/icon_outer_background.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/id_cloud.xml" value="0.1205" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/indicatior_active_background.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/indicator_active_background.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/indicator_inactive_background.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/info.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/search.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/settings.xml" value="0.1205" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/view_pager_background.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/activity_location_tmp.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/bottom_sheet.xml" value="0.13728470111448834" />
@@ -23,6 +31,8 @@
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_maps.xml" value="0.1" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_settings2.xml" value="0.19519927536231885" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/onboarding_activity.xml" value="0.25" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/onboarding_item_container.xml" value="0.2375" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/menu/nav_menu.xml" value="0.20520833333333333" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.1" />

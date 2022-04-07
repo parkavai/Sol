@@ -27,5 +27,6 @@
 
     <color name="weather">#707070</color>
     <color name="darkerBackground">#454545</color>
+    <color name="darkBackgroundVariant">#121212</color>
 
 </resources>
