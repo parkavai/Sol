@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- Style for button in activity_main-->
+    <!-- Style for button in fragment_maps-->
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/black</item>
     </style>

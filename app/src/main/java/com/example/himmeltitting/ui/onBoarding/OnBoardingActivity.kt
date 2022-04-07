@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.himmeltitting.R
+import com.example.himmeltitting.databinding.OnboardingActivityBinding
 import com.example.himmeltitting.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 
@@ -17,9 +19,13 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var onboardingItemsAdapter: OnboardingItemsAdapter
     private lateinit var indicatorsContainer: LinearLayout
+    private lateinit var binding: OnboardingActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.onboarding_activity)
+        binding = OnboardingActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         setOnboardingItems()
         setupIndicators()
         setCurrentIndicator(0)
@@ -50,25 +56,25 @@ class OnBoardingActivity : AppCompatActivity() {
                 ),
             )
         )
-        val onboardingViewPager = findViewById<ViewPager2>(R.id.onBoardingViewPager)
-        onboardingViewPager.adapter = onboardingItemsAdapter
-        onboardingViewPager.registerOnPageChangeCallback(object :
+
+        binding.onBoardingViewPager.adapter = onboardingItemsAdapter
+        binding.onBoardingViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 setCurrentIndicator(position)
             }
         })
-        (onboardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
+        (binding.onBoardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
-        findViewById<ImageView>(R.id.iv_next).setOnClickListener {
-            if(onboardingViewPager.currentItem+1 < onboardingItemsAdapter.itemCount) {
-                onboardingViewPager.currentItem += 1
+        binding.ivNext.setOnClickListener {
+            if(binding.onBoardingViewPager.currentItem+1 < onboardingItemsAdapter.itemCount) {
+                binding.onBoardingViewPager.currentItem += 1
             }else{
                 navigateToHomeActivity()
             }
         }
-        findViewById<MaterialButton>(R.id.buttonSkip).setOnClickListener {
+        binding.buttonSkip.setOnClickListener {
             navigateToHomeActivity()
         }
     }
@@ -77,7 +83,7 @@ class OnBoardingActivity : AppCompatActivity() {
         finish()
     }
     private fun setupIndicators(){
-        indicatorsContainer = findViewById(R.id.indicatorsContainer)
+        indicatorsContainer = binding.indicatorsContainer
         val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.itemCount)
         val layoutParams: LinearLayout.LayoutParams =
             LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
