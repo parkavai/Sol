@@ -11,7 +11,7 @@ import com.example.himmeltitting.utils.airQualityImageCalculator
 import com.example.himmeltitting.utils.cloudImageCalculator
 
 
-class DataOutputAdapter(private val dataSet: List<ForecastData>, private val context: Context) :
+class DataOutputAdapter(private val dataSet: List<OutputData>, private val context: Context) :
     RecyclerView.Adapter<DataOutputAdapter.ViewHolder>()  {
 
     /**
@@ -51,10 +51,9 @@ class DataOutputAdapter(private val dataSet: List<ForecastData>, private val con
         viewHolder.windText.text = dataSet[position].wind_speed
         viewHolder.airText.text = airQualityValue
 
-        if (airQualityValue != "None") {
-            val airDrawableString = airQualityImageCalculator(airQualityValue)
-            viewHolder.airImage.setImageDrawable(getImageDrawable(context, airDrawableString))
-        }
+        val airDrawableString = airQualityImageCalculator(airQualityValue)
+        viewHolder.airImage.setImageDrawable(getImageDrawable(context, airDrawableString))
+
 
         val cloudDrawableString = cloudImageCalculator(cloudCoverValue)
         viewHolder.cloudImage.setImageDrawable(getImageDrawable(context, cloudDrawableString))

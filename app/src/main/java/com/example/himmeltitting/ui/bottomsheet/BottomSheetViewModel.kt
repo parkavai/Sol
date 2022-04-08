@@ -2,45 +2,48 @@ package com.example.himmeltitting.ui.bottomsheet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.himmeltitting.ds.locationforecast.CompactTimeSeriesData
+import com.example.himmeltitting.ds.locationforecast.ForecastData
 import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.utils.prettyTimeString
+import com.example.himmeltitting.utils.timeTypeToHeader
 
 class BottomSheetViewModel(private val dataSource: SharedViewModel) {
 
-    private val _outData = MutableLiveData<List<ForecastData>>()
-    val outData : LiveData<List<ForecastData>> = _outData
+    private val _outData = MutableLiveData<List<OutputData>>()
+    val outData : LiveData<List<OutputData>> = _outData
 
     /**
-     * Loads strings from all data sources in ViewModelScope Coroutine
-     * and updates outData value in outData Livedata
+     * Loads data from all data sources in ViewModelScope Coroutine
+     * and updates outData value
      */
     fun loadDataOutput() {
-        val sunriseForecastValue = dataSource.sunriseForecast.value
-        val sunsetForecastValue = dataSource.sunsetForecast.value
 
-        val niluSunrise = dataSource.niluData.value?.airQualitySunrise
-        val niluSunset= dataSource.niluData.value?.airQualitySunset
-        val sunriseTime = dataSource.sunriseData.value?.sunriseTime
-        val sunsetTime = dataSource.sunriseData.value?.sunsetTime
+        val forecasts = dataSource.forecasts.value
+        val niluVals = dataSource.niluData.value
+        val times = dataSource.times.value
 
-        val sunriseForecastData = createForecastData(sunriseForecastValue, niluSunrise, sunriseTime, "Soloppgang:")
-        val sunsetForecastData = createForecastData(sunsetForecastValue, niluSunset, sunsetTime, "Solnedgang:")
+        // creates list of OutputData from list of pairs of timetype and forecast
+        val outArray = forecasts?.map {
+            createOutputData(it.second, niluVals?.get(it.first), times?.get(it.first), it.first)
+        }
 
-
-        val outArray = listOf(sunriseForecastData, sunsetForecastData)
-        _outData.postValue(outArray)
+        outArray?.let {_outData.postValue(it)}
     }
 
-    private fun createForecastData(forecast: CompactTimeSeriesData?, niluVal: String?, sunTime: String?, headerStart: String) : ForecastData {
+    /**
+     * creates & returns outputData class with params: forecast, niluVal, suntime & type
+     */
+    private fun createOutputData(forecast: ForecastData, niluVal: Double?, sunTime: String?, type: String) : OutputData {
         val missingValue = "-"
-        val header = "$headerStart ${sunTime?.let { prettyTimeString(it) }}"
-        val temperature = forecast?.temperature ?: missingValue
-        val cloudCover = forecast?.cloudCover ?: missingValue
-        val windSpeed = forecast?.wind_speed ?: missingValue
-        val rain = forecast?.precipitation6Hours ?: missingValue
-        val airQuality = niluVal ?: missingValue
+        val headerStart = timeTypeToHeader(type)
+        val header = "$headerStart ${sunTime?.let { prettyTimeString(it) } ?: missingValue}"
+        val temperature = forecast.temperature
+        val cloudCover = forecast.cloudCover
+        val windSpeed = forecast.wind_speed
+        val rain = forecast.precipitation6Hours
+        val airQuality = if (niluVal != null) "%.2f".format(niluVal) else missingValue
 
-        return ForecastData(header, temperature, cloudCover, windSpeed, rain, airQuality)
+        return OutputData(header, temperature, cloudCover, windSpeed, rain, airQuality)
     }
+
 }

@@ -82,3 +82,31 @@ fun yesterdaysDate(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd") //or use getDateInstance()
     return formatter.format(date)
 }
+
+/**
+ * Returns time string + 2 hours in format yyyy-MM-dd'T'HH:mm:ss as String
+ */
+@SuppressLint("SimpleDateFormat")
+fun plusHours(time: String, hours: Int): String? {
+    val calendar = Calendar.getInstance()
+    val date = timeStringToDate(time)
+    calendar.time = date?: return null
+    calendar.add(Calendar.HOUR_OF_DAY, hours)
+    val newDate = calendar.time
+
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
+    return formatter.format(newDate)
+}
+
+
+/**
+ * returns header based on time type (sunrise, sunset, after)
+ */
+fun timeTypeToHeader(type: String) : String{
+    return when(type) {
+        "sunrise" -> "Soloppgang:"
+        "sunset" -> "Solnedgang:"
+        "after" -> "+2 Timer:"
+        else -> "Invalid type"
+    }
+}

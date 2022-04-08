@@ -44,11 +44,15 @@ class LocationforecastDS {
         }
     }
 
-    suspend fun getCompactTimeseriesData(
+    /**
+     * returns ForecastData at latitude, longitude and time
+     */
+
+    suspend fun getForecast(
         lat: Double,
         lon: Double,
-        time: String
-    ): CompactTimeSeriesData? {
+        time: String,
+    ): ForecastData? {
         val data = getAllForecastData(lat, lon) ?: return null
 
         val timeSeries = closestTimeseries(data, time)
@@ -87,7 +91,7 @@ class LocationforecastDS {
     }
 
 
-    private fun createCompactData(timeSeries: Timeseries, units: Units): CompactTimeSeriesData {
+    private fun createCompactData(timeSeries: Timeseries, units: Units): ForecastData {
         val data = timeSeries.data
         val instant = data.instant
         val instantDetails = instant.details
@@ -104,7 +108,7 @@ class LocationforecastDS {
         val precipitation6Hours =
             hour6.details.precipitation_amount.toString() + " " + units.precipitation_amount
 
-        return CompactTimeSeriesData(
+        return ForecastData(
             time,
             temperature,
             cloudCover,

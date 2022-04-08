@@ -2,10 +2,7 @@ package com.example.himmeltitting.ds.nilu
 
 import android.location.Location
 import android.util.Log
-import androidx.lifecycle.LiveData
-import com.example.himmeltitting.ds.sunrise.CompactSunriseData
 import com.example.himmeltitting.utils.currentDate
-import com.example.himmeltitting.utils.currentTime
 import com.example.himmeltitting.utils.prettyTimeString
 import com.example.himmeltitting.utils.yesterdaysDate
 import com.github.kittinunf.fuel.Fuel
@@ -16,13 +13,13 @@ import com.google.gson.reflect.TypeToken
 
 class NiluDataSource {
     //Henter ut alt fra APIet
-    suspend fun fetchNiluDefualt(): List<LuftKvalitet>? {
+    suspend fun fetchNiluDefualt(): List<AirQuality>? {
         val path = "https://api.nilu.no/aq/utd"
         val gson = Gson()
 
         return try {
             // https://api.nilu.no/
-            val liste = object : TypeToken<List<LuftKvalitet>>() {}.type
+            val liste = object : TypeToken<List<AirQuality>>() {}.type
             gson.fromJson(
                 Fuel.get(path).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste
             )
@@ -33,37 +30,33 @@ class NiluDataSource {
     }
 
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
-    suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, sunriseData: LiveData<CompactSunriseData>): CollectiveAirQuality? {
+    suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, time: String): Double? {
         val path = "https://api.nilu.no/aq/historical"
 
         //get todays and yesterdays date -- need to be changed when we can actual user input
         val yesterday = yesterdaysDate()
         val today = currentDate()
 
-        // get pretty string representation of sunrise and sunset times
-        val sunriseTime = "T"+sunriseData.value?.sunriseTime?.let { prettyTimeString(it) }
-        val sunsetTime = "T"+sunriseData.value?.sunsetTime?.let { prettyTimeString(it) }
+        // get pretty string representation of time
+        val mTime = "T"+ prettyTimeString(time)
 
-        // make API call paths for sunrise and sunset
-        val paramSunrise = "/$yesterday$sunriseTime/$today$sunriseTime/$latitude/$longitude/$radius?method=within&components=no2;pm10"
-        val paramSunset = "/$yesterday$sunsetTime/$today$sunsetTime/$latitude/$longitude/$radius?method=within&components=no2;pm10"
+        // make API call paths for time
+        val param = "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=no2;pm10"
 
         val gson = Gson()
 
 
         return try {
             // https://api.nilu.no/
-            val liste = object : TypeToken<List<LuftKvalitet>>() {}.type
-            // get a list of results for sunsrise and sunset (should join calls?)
-            val luftKvalitetListSunrise : List<LuftKvalitet> = gson.fromJson(Fuel.get(path + paramSunrise).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
-            val luftKvalitetListSunset : List<LuftKvalitet> = gson.fromJson(Fuel.get(path + paramSunset).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
+            val liste = object : TypeToken<List<AirQuality>>() {}.type
+            // get a list of result
+            val airQualityList : List<AirQuality> = gson.fromJson(Fuel.get(path + param).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
 
             // get closest station for each of the result list
-            val airQualitySunrise = getClosestAirQuality(luftKvalitetListSunrise, latitude, longitude)?.values?.get(0)?.value.toString()
-            val airQualitySunset = getClosestAirQuality(luftKvalitetListSunset, latitude, longitude)?.values?.get(0)?.value.toString()
+            val airQuality = getClosestAirQuality(airQualityList, latitude, longitude)?.values?.get(0)?.value
 
             //make a simple return object which includes only the
-            CollectiveAirQuality(airQualitySunrise, airQualitySunset)
+            airQuality?.toDouble()
 
 
         } catch(exception: Exception) {
@@ -76,9 +69,9 @@ class NiluDataSource {
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
 
-    private fun getClosestAirQuality(list: List<LuftKvalitet>?, lat: Double, long: Double): LuftKvalitet? {
+    private fun getClosestAirQuality(list: List<AirQuality>?, lat: Double, long: Double): AirQuality? {
         val currentLocation: Location = createLocation(lat, long)
-        var output: LuftKvalitet? = null
+        var output: AirQuality? = null
         var smallestDistance = 100000.0.toFloat()
         list?.forEach {
             val location = it.latitude?.let { it1 ->
@@ -106,13 +99,13 @@ class NiluDataSource {
     }
 }
 
-data class LuftKvalitet(val id: Number?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val type: String?, val eoi: String?, val component: String?, val latitude: Double?, val longitude: Double?, val timestep: Number?, val isVisible: Boolean?, val unit: String?, val values: List<Value>?)
+data class AirQuality(val id: Number?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val type: String?, val eoi: String?, val component: String?, val latitude: Double?, val longitude: Double?, val timestep: Number?, val isVisible: Boolean?, val unit: String?, val values: List<Value>?)
 
 // klasse som inneholder verdier målt på alle tidspunkter
 data class Value(val fromTime: String?, val toTime: String?, val value: Number?, val qualityControlled: Boolean?, val index: Number?, val color: String?)
 
 // kompakt klasse for enkel retur av verdier
-data class CollectiveAirQuality(val airQualitySunrise:String, val airQualitySunset: String)
+data class CollectiveAirQuality(val type: String, val value: Double)
 
 // Har laget en annen klasse som matcher api respons fra historisk data
 //data class LuftKvalitet (val id: String?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val eoi: String?, val type: String?, val component: String?, val fromTime: String?, val toTime: String?, val value: Double?, val unit: String?, val latitude: Double?, val longitude: Double?, val timestep: Int?, val index: Int?, val color: String?, val isValid: Boolean?, val isVisible: Boolean?)
