@@ -35,7 +35,7 @@ class BottomSheetFragment : Fragment() {
         setBottomSheetVisibility(false)
         observeState()
         showData()
-        //showDataUnSynced()
+        showDataUnSynced()
     }
 
     /**

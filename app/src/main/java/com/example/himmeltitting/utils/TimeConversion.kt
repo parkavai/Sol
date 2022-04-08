@@ -67,3 +67,18 @@ fun timeZoneOffset(): String {
     val timeZone = SimpleDateFormat("Z").format(calendar.time)
     return timeZone.substring(0, 3) + ":" + timeZone.substring(3, 5)
 }
+
+/**
+ * Returns yesterdays date in format yyyy-MM-dd as String
+ */
+@SuppressLint("SimpleDateFormat")
+fun yesterdaysDate(): String {
+
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -1)
+    val date = calendar.time
+
+    //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+    val formatter = SimpleDateFormat("yyyy-MM-dd") //or use getDateInstance()
+    return formatter.format(date)
+}
