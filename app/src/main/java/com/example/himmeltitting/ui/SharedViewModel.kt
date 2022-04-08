@@ -41,6 +41,9 @@ class SharedViewModel : ViewModel() {
     private val _niluData = MutableLiveData<CollectiveAirQuality>()
     val niluData : LiveData<CollectiveAirQuality> = _niluData
 
+    private val _forecasts = MutableLiveData<List<CompactTimeSeriesData?>>()
+    val forecasts : LiveData<List<CompactTimeSeriesData?>> = _forecasts
+
     private val _sunriseForecast = MutableLiveData<CompactTimeSeriesData?>()
     val sunriseForecast : LiveData<CompactTimeSeriesData?> = _sunriseForecast
 
@@ -64,8 +67,10 @@ class SharedViewModel : ViewModel() {
         _state.value = "loading"
         viewModelScope.launch{
             fetchSunriseData().join()
-            fetchNilu(20, ).join()
-            updateForecasts().join()
+            val niluJob = fetchNilu(20, )
+            val forecastJob = updateForecasts()
+            niluJob.join()
+            forecastJob.join()
             _state.value = "finished"
         }
     }

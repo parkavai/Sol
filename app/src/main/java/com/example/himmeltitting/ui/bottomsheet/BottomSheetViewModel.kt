@@ -16,28 +16,30 @@ class BottomSheetViewModel(private val dataSource: SharedViewModel) {
      * and updates outData value in outData Livedata
      */
     fun loadDataOutput() {
-        val sunriseForcastValue = dataSource.sunriseForecast.value
-        val sunsetForcastValue = dataSource.sunsetForecast.value
+        val sunriseForecastValue = dataSource.sunriseForecast.value
+        val sunsetForecastValue = dataSource.sunsetForecast.value
 
-        val niluValue = dataSource.niluData.value?.value
+        val niluSunrise = dataSource.niluData.value?.airQualitySunrise
+        val niluSunset= dataSource.niluData.value?.airQualitySunset
         val sunriseTime = dataSource.sunriseData.value?.sunriseTime
         val sunsetTime = dataSource.sunriseData.value?.sunsetTime
 
-        val sunriseForcastData = createForeCastData(sunriseForcastValue, niluValue, sunriseTime, "Soloppgang:")
-        val sunsetForecastData = createForeCastData(sunsetForcastValue, niluValue, sunsetTime, "Solnedgang:")
+        val sunriseForecastData = createForecastData(sunriseForecastValue, niluSunrise, sunriseTime, "Soloppgang:")
+        val sunsetForecastData = createForecastData(sunsetForecastValue, niluSunset, sunsetTime, "Solnedgang:")
 
 
-        val outArray = listOf(sunriseForcastData, sunsetForecastData)
+        val outArray = listOf(sunriseForecastData, sunsetForecastData)
         _outData.postValue(outArray)
     }
 
-    private fun createForeCastData(forecast: CompactTimeSeriesData?, niluVal: Double?, sunTime: String?, headerStart: String) : ForecastData {
+    private fun createForecastData(forecast: CompactTimeSeriesData?, niluVal: String?, sunTime: String?, headerStart: String) : ForecastData {
+        val missingValue = "-"
         val header = "$headerStart ${sunTime?.let { prettyTimeString(it) }}"
-        val temperature = forecast?.temperature ?: "None"
-        val cloudCover = forecast?.cloudCover ?: "None"
-        val windSpeed = forecast?.wind_speed ?: "None"
-        val rain = forecast?.precipitation6Hours ?: "None"
-        val airQuality = niluVal?.toString() ?: "None"
+        val temperature = forecast?.temperature ?: missingValue
+        val cloudCover = forecast?.cloudCover ?: missingValue
+        val windSpeed = forecast?.wind_speed ?: missingValue
+        val rain = forecast?.precipitation6Hours ?: missingValue
+        val airQuality = niluVal ?: missingValue
 
         return ForecastData(header, temperature, cloudCover, windSpeed, rain, airQuality)
     }
