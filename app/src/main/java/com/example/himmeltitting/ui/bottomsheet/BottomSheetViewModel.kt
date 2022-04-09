@@ -10,40 +10,46 @@ import com.example.himmeltitting.utils.timeTypeToHeader
 class BottomSheetViewModel(private val dataSource: SharedViewModel) {
 
     private val _outData = MutableLiveData<List<OutputData>>()
-    val outData : LiveData<List<OutputData>> = _outData
+    val outData: LiveData<List<OutputData>> = _outData
 
     /**
      * Loads data from all data sources in ViewModelScope Coroutine
-     * and updates outData value
+     * and updates outData value with List of OutputData data class
      */
     fun loadDataOutput() {
-
         val forecasts = dataSource.forecasts.value
-        val niluVals = dataSource.niluData.value
+        val airQuality = dataSource.niluData.value
         val times = dataSource.times.value
 
-        // creates list of OutputData from list of pairs of timetype and forecast
+        // creates list of OutputData from map of timeType and forecast
         val outArray = forecasts?.map {
-            createOutputData(it.second, niluVals?.get(it.first), times?.get(it.first), it.first)
+            val timeType = it.key
+            val forecast = it.value
+            createOutputData(forecast, airQuality?.get(timeType), times?.get(timeType), timeType)
         }
 
-        outArray?.let {_outData.postValue(it)}
+        outArray?.let { _outData.postValue(it) }
     }
 
     /**
-     * creates & returns outputData class with params: forecast, niluVal, suntime & type
+     * creates & returns outputData class with params: forecast, airQuality, time & type
      */
-    private fun createOutputData(forecast: ForecastData, niluVal: Double?, sunTime: String?, type: String) : OutputData {
+    private fun createOutputData(
+        forecast: ForecastData,
+        airQuality: Double?,
+        time: String?,
+        type: String
+    ): OutputData {
         val missingValue = "-"
         val headerStart = timeTypeToHeader(type)
-        val header = "$headerStart ${sunTime?.let { prettyTimeString(it) } ?: missingValue}"
+        val header = "$headerStart ${time?.let { prettyTimeString(it) } ?: missingValue}"
         val temperature = forecast.temperature
         val cloudCover = forecast.cloudCover
         val windSpeed = forecast.wind_speed
         val rain = forecast.precipitation6Hours
-        val airQuality = if (niluVal != null) "%.2f".format(niluVal) else missingValue
+        val mAirQuality = if (airQuality != null) "%.2f".format(airQuality) else missingValue
 
-        return OutputData(header, temperature, cloudCover, windSpeed, rain, airQuality)
+        return OutputData(header, temperature, cloudCover, windSpeed, rain, mAirQuality)
     }
 
 }

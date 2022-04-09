@@ -12,7 +12,7 @@ class LocationforecastDS {
 
     private var lastLat = 999.0 // value outside of lat range
     private var lastLong = 999.0 // value outside of long range
-    private lateinit var lastData : Locationforecast
+    private lateinit var lastData: Locationforecast
 
     private suspend fun fetchForecastData(lat: Double, lon: Double): Locationforecast? {
         //complete?lat=-16.516667&lon=-68.166667&altitude=4150
@@ -39,7 +39,8 @@ class LocationforecastDS {
             currentData?.let {
                 lastData = it
                 lastLat = lat
-                lastLong = lon} // updates cached data
+                lastLong = lon
+            } // updates cached data
             currentData
         }
     }
@@ -77,13 +78,14 @@ class LocationforecastDS {
         // difference is smaller
         for ((index, timeseries) in data.properties.timeseries.withIndex()) {
             val timeSeriesTimeValue = timeStringToDate(timeseries.time)?.time // time as long value
-            val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE) // difference as long
+            val diff =
+                abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE) // difference as long
             if (diff < currentMin) { // closer date timestamp
                 currentMin = diff
                 closestIndex = index
-            } else if(diff != currentMin) { // if diff increases, min is found in sorted list
-                    break
-                }
+            } else if (diff != currentMin) { // if diff increases, min is found in sorted list
+                break
+            }
         }
 
         return data.properties.timeseries[closestIndex]

@@ -58,7 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <!-- Bro hva er egentlig den her for???-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottomSheet"
         android:name="com.example.himmeltitting.ui.bottomsheet.BottomSheetFragment"

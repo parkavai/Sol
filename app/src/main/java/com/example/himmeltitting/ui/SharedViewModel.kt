@@ -25,27 +25,30 @@ class SharedViewModel : ViewModel() {
     private val locationforecastDS = LocationforecastDS()
 
     private val _latLong = MutableLiveData<LatLng>()
-    val latLong : LiveData<LatLng> = _latLong
+    val latLong: LiveData<LatLng> = _latLong
 
     private val _state = MutableLiveData<String>()
-    val state : LiveData<String> = _state
+    val state: LiveData<String> = _state
 
     private val _date = MutableLiveData<String>().also {
         it.postValue(currentDate())
     }
-    val date : LiveData<String> = _date
+    val date: LiveData<String> = _date
 
+    /**
+     * map of time types (sunrise, sunset, after) to times relevant for data
+     */
     private val _times = MutableLiveData<Map<String, String>>()
-    val times : LiveData<Map<String, String>> = _times
+    val times: LiveData<Map<String, String>> = _times
 
     private val _sunriseData = MutableLiveData<CompactSunriseData>()
-    val sunriseData : LiveData<CompactSunriseData> = _sunriseData
+    val sunriseData: LiveData<CompactSunriseData> = _sunriseData
 
     private val _niluData = MutableLiveData<Map<String, Double?>>()
-    val niluData : LiveData<Map<String, Double?>> = _niluData
+    val niluData: LiveData<Map<String, Double?>> = _niluData
 
-    private val _forecasts = MutableLiveData<List<Pair<String,ForecastData>>>()
-    val forecasts : LiveData<List<Pair<String,ForecastData>>> = _forecasts
+    private val _forecasts = MutableLiveData<Map<String, ForecastData>>()
+    val forecasts: LiveData<Map<String, ForecastData>> = _forecasts
 
     /**
      * set latLong coordinates with new values, and update data values for new location
@@ -62,7 +65,7 @@ class SharedViewModel : ViewModel() {
      */
     private fun updateData() {
         _state.value = "loading"
-        viewModelScope.launch{
+        viewModelScope.launch {
             fetchSunriseData().join()
             updateTimes()
             val niluJob = updateNilu()
@@ -74,14 +77,19 @@ class SharedViewModel : ViewModel() {
     }
 
     /**
-     * Updates times relevant for data output from APIs
+     * Updates times relevant for data output from APIs and updates timesMap
+     * maps type of time (sunrise, sunset, after) to respective times from sunrise
      */
     private fun updateTimes() {
         val sunriseTime = sunriseData.value?.sunriseTime
         val sunsetTime = sunriseData.value?.sunsetTime
         val afterSunsetTime = sunsetTime?.let { plusHours(it, 2) }
-        val timesMap = mapOf("sunrise" to sunriseTime, "sunset" to sunsetTime, "after" to afterSunsetTime)
-        _times.postValue(timesMap.filterNotNullValues()) // removes entries where values is null
+        Log.d("sunriseTime", sunriseTime.toString())
+        Log.d("sunsetTime", sunsetTime.toString())
+        Log.d("afterSunsetTime", afterSunsetTime.toString())
+        val timesMap =
+            mapOf("sunrise" to sunriseTime, "sunset" to sunsetTime, "after" to afterSunsetTime)
+        _times.value = timesMap.filterNotNullValues() // removes entries where values is null
     }
 
     //Sunrise
@@ -89,7 +97,7 @@ class SharedViewModel : ViewModel() {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
             val long = latLong.value?.longitude ?: 0.0
-            val date = _date.value?: currentDate() //_date value or current date
+            val date = _date.value ?: currentDate() //_date value or current date
             Log.d("Date", date)
             sunriseDS.getCompactSunriseData(lat, long, date).also {
                 _sunriseData.postValue(it)
@@ -100,45 +108,45 @@ class SharedViewModel : ViewModel() {
 
     //Nilu
     /**
-     * updates nilu data with data times
+     * updates nilu data and maps time types (sunrise, sunset, after) to data
      */
     private fun updateNilu(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val timeValues = times.value
-            if (timeValues != null){
-                // creates Pair of time key & list of non null forecasts from timeValues
+            if (timeValues != null) {
+                // creates Pair of time key & double of non null airQuality from timeValues
                 val mNilu = timeValues.mapNotNull {
                     val value = fetchNilu(it.value)
                     if (value != null) Pair(it.key, value) else null
                 }
-                _niluData.postValue(mNilu.toMap())
+                _niluData.postValue(mNilu.toMap()) //returns map of pairs
             }
         }
     }
 
-    private suspend fun fetchNilu(time: String ): Double? {
-            val lat = latLong.value?.latitude ?: 0.0
-            val long = latLong.value?.longitude ?: 0.0
+    private suspend fun fetchNilu(time: String): Double? {
+        val lat = latLong.value?.latitude ?: 0.0
+        val long = latLong.value?.longitude ?: 0.0
 
-            niluDS.fetchNilu(lat, long, 20, time).also {
-                return it
-            }
+        niluDS.fetchNilu(lat, long, 20, time).also {
+            return it
+        }
     }
 
     //Locationforecast
     /**
-     * updates forecast data with data times
+     * updates forecast data and maps time types (sunrise, sunset, after) to data
      */
     private fun updateForecasts(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val timeValues = times.value
-            if (timeValues != null){
+            if (timeValues != null) {
                 // creates Pair of time key & list of non null forecasts from timeValues
                 val mForecasts = timeValues.mapNotNull {
                     val value = fetchForecast(it.value)
                     if (value != null) Pair(it.key, value) else null
                 }
-                _forecasts.postValue(mForecasts)
+                _forecasts.postValue(mForecasts.toMap()) //returns map of pairs
             }
         }
     }

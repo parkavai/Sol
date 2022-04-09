@@ -16,13 +16,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 class BottomSheetFragment : Fragment() {
     private lateinit var binding: BottomSheetBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var viewModel : BottomSheetViewModel
+    private lateinit var viewModel: BottomSheetViewModel
     private val bottomSheetView by lazy { binding.bottomSheet }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container:  ViewGroup?,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = BottomSheetBinding.inflate(inflater, container, false)
@@ -43,11 +43,10 @@ class BottomSheetFragment : Fragment() {
      * and makes bottom sheet viewmodel update strings with new data
      */
     private fun observeState() {
-        sharedViewModel.state.observe(viewLifecycleOwner){
-            if(it == "loading"){
+        sharedViewModel.state.observe(viewLifecycleOwner) {
+            if (it == "loading") {
                 binding.indeterminateBar.visibility = View.VISIBLE
-            }
-            else if (it == "finished"){
+            } else if (it == "finished") {
                 viewModel.loadDataOutput()
                 binding.indeterminateBar.visibility = View.INVISIBLE
             }
@@ -58,7 +57,7 @@ class BottomSheetFragment : Fragment() {
      * Observes string with data from bottom sheet viewmodel
      */
     private fun showData() {
-        viewModel.outData.observe(viewLifecycleOwner){
+        viewModel.outData.observe(viewLifecycleOwner) {
             setBottomSheetVisibility(true)
             binding.recyclerView.adapter = DataOutputAdapter(it, this.requireContext())
             //binding.dataTextView.text = it
@@ -71,7 +70,8 @@ class BottomSheetFragment : Fragment() {
      */
     private fun setBottomSheetVisibility(isVisible: Boolean) {
         Log.d("Bottom sheet visibility", true.toString())
-        val updatedState = if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
+        val updatedState =
+            if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.state = updatedState
     }
 }
