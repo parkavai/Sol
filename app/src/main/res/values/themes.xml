@@ -46,7 +46,9 @@
 
     <!-- Color of the whole bottomsheet -->
     <style name="constraintStyle">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/bottom_background_light</item>
+        <item name="android:elevation">24dp</item>
+        <item name="android:outlineProvider">paddedBounds</item>
     </style>
 
     <!-- Styles the bottomNavigatonBar's theme-->
@@ -58,7 +60,7 @@
 
     <!-- Sets color of the fragmentContainerView in activity_main-->
     <style name="mainFragmentContainerStyle">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/primaryLightVariant</item>
     </style>
 
     <!-- Colors for the container around button and search bar in activity_main-->
