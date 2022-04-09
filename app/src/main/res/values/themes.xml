@@ -12,7 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
-
     </style>
 
     <!-- Style for button in activity_main-->
@@ -46,7 +45,9 @@
 
     <!-- Color of the whole bottomsheet -->
     <style name="constraintStyle">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/bottom_background_light</item>
+        <item name="android:elevation">24dp</item>
+        <item name="android:outlineProvider">paddedBounds</item>
     </style>
 
     <!-- Styles the bottomNavigatonBar's theme-->
@@ -70,6 +71,5 @@
     <style name="containerForFavoritesSettings">
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
-
 
 </resources>

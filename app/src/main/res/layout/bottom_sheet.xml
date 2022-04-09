@@ -15,17 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="90dp"
+        app:behavior_peekHeight="100dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-
+            android:layout_width="75dp"
+            android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@drawable/drag" />
+            card_view:srcCompat="@drawable/drag_handle" />
 
 
         <androidx.cardview.widget.CardView
