@@ -41,7 +41,7 @@ class NiluDataSource {
         val mTime = "T"+ prettyTimeString(time)
 
         // make API call paths for time
-        val param = "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=no2;pm10"
+        val param = "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=pm10"
 
         val gson = Gson()
 
