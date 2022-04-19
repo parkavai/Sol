@@ -91,4 +91,18 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <!-- Colors for constraintLayout in settings-->
+    <style name="containerForConstraintLayout">
+        <item name="android:background">@color/primaryLightVariant</item>
+    </style>
+
+    <!-- Colors for switches in settings-->
+    <style name="switches">
+        <!-- Active thumb track & track color -->
+        <item name="colorControlActivated">@color/primaryDarkVariant</item>
+        <!-- Inactive track color -->
+        <item name="android:colorForeground">@color/primaryDarkVariant</item>
+    </style>
+
+
 </resources>

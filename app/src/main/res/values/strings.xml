@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Soleklart</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Bottom_navigation_bar -->
     <string name="nav_search">Søk</string>
     <string name="nav_favorites">Favoritter</string>
     <string name="nav_info">Info</string>
-    <string name="nav_settings">Instillinger</string>
+    <string name="nav_settings">Innstillinger</string>
     <string name="mapSearch_text">Søk</string>
     <string name="cd_airImage">Luftkvalitet bilde</string>
     <string name="cd_cloudImage">Skydekke bilde</string>
@@ -15,4 +15,16 @@
     <string name="cd_windImage">vind bilde</string>
     <string name="cd_dragImage">dra hånd</string>
     <string name="cd_logo">Sol</string>
+    <!-- Settings -->
+    <string name="settings_title">Map bakgrunn</string>
+    <string name="map_retro_theme">Retro</string>
+    <string name="map_standard_theme">Standard</string>
+    <string name="map_night_theme">Night</string>
+    <string name="settings_api_text">API 29</string>
+    <string name="settings_info_text">Soleklart er en app som tilbyr muligheten for brukeren å søke opp en lokasjon
+        i kartet eller gjennom tastetrykk, hvor brukeren vil få informasjon om følgende: luftkvalitet, skydekke,
+        soloppgang, solnedgang og temperatur. Dette gjør det mulig for brukeren å planlegge eventuelle turer
+        basert på informasjonen for et gitt sted valgt av brukeren.
+    </string>
+    <string name="version_text">Version 1.0</string>
 </resources>
