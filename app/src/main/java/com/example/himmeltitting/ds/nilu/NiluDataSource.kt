@@ -2,6 +2,9 @@ package com.example.himmeltitting.ds.nilu
 
 import android.location.Location
 import android.util.Log
+import com.example.himmeltitting.utils.currentDate
+import com.example.himmeltitting.utils.prettyTimeString
+import com.example.himmeltitting.utils.yesterdaysDate
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.coroutines.awaitString
@@ -10,13 +13,13 @@ import com.google.gson.reflect.TypeToken
 
 class NiluDataSource {
     //Henter ut alt fra APIet
-    suspend fun fetchNiluDefualt(): List<LuftKvalitet>? {
+    suspend fun fetchNiluDefualt(): List<AirQuality>? {
         val path = "https://api.nilu.no/aq/utd"
         val gson = Gson()
 
         return try {
             // https://api.nilu.no/
-            val liste = object : TypeToken<List<LuftKvalitet>>() {}.type
+            val liste = object : TypeToken<List<AirQuality>>() {}.type
             gson.fromJson(
                 Fuel.get(path).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste
             )
@@ -27,16 +30,35 @@ class NiluDataSource {
     }
 
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
-    suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int): LuftKvalitet? {
-        val path = "https://api.nilu.no/aq/utd"
-        val parametere = "/$latitude/$longitude/$radius?method=within&components=no2"
+    suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, time: String): Double? {
+        val path = "https://api.nilu.no/aq/historical"
+
+        //get todays and yesterdays date -- need to be changed when we can actual user input
+        val yesterday = yesterdaysDate()
+        val today = currentDate()
+
+        // get pretty string representation of time
+        val mTime = "T"+ prettyTimeString(time)
+
+        // make API call paths for time
+        val param = "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=no2;pm10"
+
         val gson = Gson()
+
 
         return try {
             // https://api.nilu.no/
-            val liste = object : TypeToken<List<LuftKvalitet>>() {}.type
-            val luftKvalitetList : List<LuftKvalitet> = gson.fromJson(Fuel.get(path + parametere).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
-            getClosestAirQuality(luftKvalitetList, latitude, longitude)
+            val liste = object : TypeToken<List<AirQuality>>() {}.type
+            // get a list of result
+            val airQualityList : List<AirQuality> = gson.fromJson(Fuel.get(path + param).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
+
+            // get closest station for each of the result list
+            val airQuality = getClosestAirQuality(airQualityList, latitude, longitude)?.values?.get(0)?.value
+
+            //make a simple return object which includes only the
+            airQuality?.toDouble()
+
+
         } catch(exception: Exception) {
             Log.d("MAIN_ACTIVITY", "A network request exception was thrown: ${exception.message}")
             null
@@ -46,9 +68,10 @@ class NiluDataSource {
     /**
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
-    private fun getClosestAirQuality(list: List<LuftKvalitet>?, lat: Double, long: Double): LuftKvalitet? {
+
+    private fun getClosestAirQuality(list: List<AirQuality>?, lat: Double, long: Double): AirQuality? {
         val currentLocation: Location = createLocation(lat, long)
-        var output: LuftKvalitet? = null
+        var output: AirQuality? = null
         var smallestDistance = 100000.0.toFloat()
         list?.forEach {
             val location = it.latitude?.let { it1 ->
@@ -75,5 +98,3 @@ class NiluDataSource {
         return location
     }
 }
-
-data class LuftKvalitet (val id: String?, val zone: String?, val municipality: String?, val area: String?, val station: String?, val eoi: String?, val type: String?, val component: String?, val fromTime: String?, val toTime: String?, val value: Double?, val unit: String?, val latitude: Double?, val longitude: Double?, val timestep: Int?, val index: Int?, val color: String?, val isValid: Boolean?, val isVisible: Boolean?)

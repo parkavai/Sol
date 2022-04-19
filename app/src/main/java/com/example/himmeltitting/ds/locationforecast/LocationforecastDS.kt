@@ -12,7 +12,7 @@ class LocationforecastDS {
 
     private var lastLat = 999.0 // value outside of lat range
     private var lastLong = 999.0 // value outside of long range
-    private lateinit var lastData : Locationforecast
+    private lateinit var lastData: Locationforecast
 
     private suspend fun fetchForecastData(lat: Double, lon: Double): Locationforecast? {
         //complete?lat=-16.516667&lon=-68.166667&altitude=4150
@@ -39,16 +39,21 @@ class LocationforecastDS {
             currentData?.let {
                 lastData = it
                 lastLat = lat
-                lastLong = lon} // updates cached data
+                lastLong = lon
+            } // updates cached data
             currentData
         }
     }
 
-    suspend fun getCompactTimeseriesData(
+    /**
+     * returns ForecastData at latitude, longitude and time
+     */
+
+    suspend fun getForecast(
         lat: Double,
         lon: Double,
-        time: String
-    ): CompactTimeSeriesData? {
+        time: String,
+    ): ForecastData? {
         val data = getAllForecastData(lat, lon) ?: return null
 
         val timeSeries = closestTimeseries(data, time)
@@ -73,13 +78,14 @@ class LocationforecastDS {
         // difference is smaller
         for ((index, timeseries) in data.properties.timeseries.withIndex()) {
             val timeSeriesTimeValue = timeStringToDate(timeseries.time)?.time // time as long value
-            val diff = abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE) // difference as long
+            val diff =
+                abs(timeSeriesTimeValue?.minus(timeValue) ?: Long.MAX_VALUE) // difference as long
             if (diff < currentMin) { // closer date timestamp
                 currentMin = diff
                 closestIndex = index
-            } else if(diff != currentMin) { // if diff increases, min is found in sorted list
-                    break
-                }
+            } else if (diff != currentMin) { // if diff increases, min is found in sorted list
+                break
+            }
         }
 
         return data.properties.timeseries[closestIndex]
@@ -87,7 +93,7 @@ class LocationforecastDS {
     }
 
 
-    private fun createCompactData(timeSeries: Timeseries, units: Units): CompactTimeSeriesData {
+    private fun createCompactData(timeSeries: Timeseries, units: Units): ForecastData {
         val data = timeSeries.data
         val instant = data.instant
         val instantDetails = instant.details
@@ -95,7 +101,7 @@ class LocationforecastDS {
         val hour6 = data.next_6_hours
 
         val time = timeSeries.time
-        val temperature = instantDetails.air_temperature.toString() + " " + units.air_temperature
+        val temperature = instantDetails.air_temperature.toString() + " C"
         val cloudCover =
             instantDetails.cloud_area_fraction.toString() + " " + units.cloud_area_fraction
         val windSpeed = instantDetails.wind_speed.toString() + " " + units.wind_speed
@@ -104,7 +110,7 @@ class LocationforecastDS {
         val precipitation6Hours =
             hour6.details.precipitation_amount.toString() + " " + units.precipitation_amount
 
-        return CompactTimeSeriesData(
+        return ForecastData(
             time,
             temperature,
             cloudCover,

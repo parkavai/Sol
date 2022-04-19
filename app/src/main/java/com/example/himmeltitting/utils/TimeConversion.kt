@@ -67,3 +67,46 @@ fun timeZoneOffset(): String {
     val timeZone = SimpleDateFormat("Z").format(calendar.time)
     return timeZone.substring(0, 3) + ":" + timeZone.substring(3, 5)
 }
+
+/**
+ * Returns yesterdays date in format yyyy-MM-dd as String
+ */
+@SuppressLint("SimpleDateFormat")
+fun yesterdaysDate(): String {
+
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -1)
+    val date = calendar.time
+
+    //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+    val formatter = SimpleDateFormat("yyyy-MM-dd") //or use getDateInstance()
+    return formatter.format(date)
+}
+
+/**
+ * Returns time string + 2 hours in format yyyy-MM-dd'T'HH:mm:ss as String
+ */
+@SuppressLint("SimpleDateFormat")
+fun plusHours(time: String, hours: Int): String? {
+    val calendar = Calendar.getInstance()
+    val date = timeStringToDate(time)
+    calendar.time = date?: return null
+    calendar.add(Calendar.HOUR_OF_DAY, hours)
+    val newDate = calendar.time
+
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
+    return formatter.format(newDate)
+}
+
+
+/**
+ * returns header based on time type (sunrise, sunset, after)
+ */
+fun timeTypeToHeader(type: String) : String{
+    return when(type) {
+        "sunrise" -> "Soloppgang:"
+        "sunset" -> "Solnedgang:"
+        "after" -> "+2 Timer:"
+        else -> "Invalid type"
+    }
+}

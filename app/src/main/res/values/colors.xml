@@ -26,6 +26,7 @@
     <color name="darkKontrastDarkVariant">#66a0c4</color>
 
     <color name="weather">#707070</color>
+    <color name="dragHandle">#B3B3B3</color>
     <color name="darkerBackground">#454545</color>
     <color name="darkBackgroundVariant">#121212</color>
 

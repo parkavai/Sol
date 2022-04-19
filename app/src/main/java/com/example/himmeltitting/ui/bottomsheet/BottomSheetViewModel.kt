@@ -2,68 +2,54 @@ package com.example.himmeltitting.ui.bottomsheet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.himmeltitting.ds.locationforecast.ForecastData
 import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.utils.prettyTimeString
+import com.example.himmeltitting.utils.timeTypeToHeader
 
 class BottomSheetViewModel(private val dataSource: SharedViewModel) {
 
-    private val _outData = MutableLiveData<String>()
-    val outData : LiveData<String> = _outData
+    private val _outData = MutableLiveData<List<OutputData>>()
+    val outData: LiveData<List<OutputData>> = _outData
 
     /**
-     * Loads strings from all data sources in ViewModelScope Coroutine
-     * and updates outData value in outData Livedata
+     * Loads data from all data sources in ViewModelScope Coroutine
+     * and updates outData value with List of OutputData data class
      */
     fun loadDataOutput() {
-        val sunriseString = getSunriseString()
-        val airQualityString = getAirQualityString()
-        val forecastString = getForecastString()
+        val forecasts = dataSource.forecasts.value
+        val airQuality = dataSource.niluData.value
+        val times = dataSource.times.value
 
-        val outText = sunriseString + "\n" + airQualityString + "\n" + forecastString
-        _outData.postValue(outText)
+        // creates list of OutputData from map of timeType and forecast
+        val outArray = forecasts?.map {
+            val timeType = it.key
+            val forecast = it.value
+            createOutputData(forecast, airQuality?.get(timeType), times?.get(timeType), timeType)
+        }
+
+        outArray?.let { _outData.postValue(it) }
     }
 
     /**
-     * Creates and return String with forecast data from LatLng coordinates
+     * creates & returns outputData class with params: forecast, airQuality, time & type
      */
-    private fun getForecastString(): String {
-        val sunriseData = dataSource.sunriseForecast.value
-        val sunsetData = dataSource.sunsetForecast.value
-        return if (sunriseData == null || sunsetData == null) {
-            "Kunne ikke hente Forecast data"
-        } else {
-            "${prettyTimeString(sunriseData.time)}: ${sunriseData.temperature}, " +
-                    "${sunriseData.cloudCover} cloud, ${sunriseData.wind_speed} wind\n" +
-                    "${prettyTimeString(sunsetData.time)}: ${sunsetData.temperature}, " +
-                    "${sunsetData.cloudCover} cloud, ${sunsetData.wind_speed} wind"
-        }
+    private fun createOutputData(
+        forecast: ForecastData,
+        airQuality: Double?,
+        time: String?,
+        type: String
+    ): OutputData {
+        val missingValue = "-"
+        val headerStart = timeTypeToHeader(type)
+        val header = "$headerStart ${time?.let { prettyTimeString(it) } ?: missingValue}"
+        val temperature = forecast.temperature
+        val cloudCover = forecast.cloudCover
+        val windSpeed = forecast.wind_speed
+        val rain = forecast.precipitation6Hours
+        val mAirQuality = if (airQuality != null) "%.2f".format(airQuality) else missingValue
+
+        return OutputData(header, temperature, cloudCover, windSpeed, rain, mAirQuality)
     }
 
-    /**
-     * Creates and return String with Air Quality data from LatLng coordinates
-     */
-    private fun getAirQualityString(): String {
-        val data = dataSource.niluData.value
-
-        return if (data == null) {
-            return "Fant ikke luftkvalitet"
-        } else {
-            "Luftkvalitet: ${data.value}"
-        }
-    }
-
-    /**
-     * Creates and return String with Sunrise data from LatLng coordinates
-     */
-    private fun getSunriseString(): String {
-        val data = dataSource.sunriseData.value
-
-        //returns sunrise data as string if data is not null, else returns not found string
-        return if (data == null) {
-            "Fant ikke solnedgang"
-        } else {
-            "Solnedgang: ${prettyTimeString(data.sunsetTime!!)}\n" +
-                    "Soloppgang: ${prettyTimeString(data.sunriseTime!!)}"
-        }
-    }
 }

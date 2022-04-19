@@ -44,7 +44,8 @@
 
     <!-- Color of the whole bottomsheet -->
     <style name="constraintStyle">
-        <item name="android:background">@color/darkerBackground</item>
+        <item name="android:background">@drawable/bottom_background_dark</item>
+        <item name="android:elevation">3dp</item>
     </style>
 
     <!-- Styles the bottomNavigatonBar's theme-->
