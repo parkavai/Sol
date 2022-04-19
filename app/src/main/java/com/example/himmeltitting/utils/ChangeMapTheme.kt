@@ -14,7 +14,7 @@ fun changeMapTheme(id: Int){
 /**
  * Returns the chosen theme based on the value of themeId.
  */
-fun getThemeId(): Int{
+fun getChosenTheme(): Int{
     var theme = 0
     when(themeId){
         0 -> theme = R.raw.retro_style

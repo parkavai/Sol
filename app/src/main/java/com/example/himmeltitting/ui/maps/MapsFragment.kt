@@ -24,7 +24,7 @@ import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.example.himmeltitting.utils.currentDate
-import com.example.himmeltitting.utils.getThemeId
+import com.example.himmeltitting.utils.getChosenTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -105,7 +105,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      * on the switch which was clicked in settings.
      */
     private fun setMapTheme(googleMap: GoogleMap){
-        val theme = getThemeId()
+        val theme = getChosenTheme()
         val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
             requireActivity(),
             theme
