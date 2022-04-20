@@ -1,12 +1,12 @@
 package com.example.himmeltitting.ui.settings
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.Fragment
 import com.example.himmeltitting.databinding.FragmentSettingsBinding
 import com.example.himmeltitting.utils.changeMapTheme
 
@@ -40,7 +40,6 @@ class SettingsFragment : Fragment() {
         switchMapTheme(switchAubergine, textAubergine)
         switchMapTheme(switchStandard, textStandard)
         switchMapTheme(switchNight, textNight)
-
     }
 
     /**
@@ -85,7 +84,6 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
 }
 
 
