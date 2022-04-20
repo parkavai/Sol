@@ -10,7 +10,7 @@ class AirQualityConversionTest {
      */
     @Test
     fun correctImageGood() {
-        val quality =  airQualityImageCalculator(35.231)
+        val quality =  airQualityImageCalculator("35.231")
         assert(quality == "@drawable/factory_green")
     }
 
@@ -19,7 +19,7 @@ class AirQualityConversionTest {
      */
     @Test
     fun correctImageAverage() {
-        val quality =  airQualityImageCalculator(86.53)
+        val quality =  airQualityImageCalculator("86.53")
         assert(quality == "@drawable/factory_orange")
     }
 
@@ -28,7 +28,7 @@ class AirQualityConversionTest {
      */
     @Test
     fun correctImageBad() {
-        val quality =  airQualityImageCalculator(234.2323)
+        val quality =  airQualityImageCalculator("234.2323")
         assert(quality == "@drawable/factory_red")
     }
 }
