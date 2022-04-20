@@ -17,7 +17,7 @@
     <string name="cd_logo">Sol</string>
     <!-- Settings -->
     <string name="settings_title">Map bakgrunn</string>
-    <string name="map_retro_theme">Retro</string>
+    <string name="map_aubergine_theme">Aubergine</string>
     <string name="map_standard_theme">Standard</string>
     <string name="map_night_theme">Night</string>
     <string name="settings_api_text">API 29</string>

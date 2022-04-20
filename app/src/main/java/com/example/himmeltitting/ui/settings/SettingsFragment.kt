@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.example.himmeltitting.databinding.FragmentSettingsBinding
 import com.example.himmeltitting.utils.changeMapTheme
@@ -26,22 +24,23 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textNight = binding.textNightTheme.text.toString()
-        val switchNight = binding.switchNight
-
         val textStandard = binding.textStandardTheme.text.toString()
         val switchStandard = binding.switchStandard
 
-        val textRetro = binding.textRetroTheme.text.toString()
-        val switchRetro = binding.switchRetro
+        val textAubergine = binding.textAubergineTheme.text.toString()
+        val switchAubergine = binding.switchAubergine
 
-        arraySwitches.add(switchNight)
+        val textNight = binding.textNightTheme.text.toString()
+        val switchNight = binding.switchNight
+
+        arraySwitches.add(switchAubergine)
         arraySwitches.add(switchStandard)
-        arraySwitches.add(switchRetro)
+        arraySwitches.add(switchNight)
 
-        switchMapTheme(switchNight, textNight)
+        switchMapTheme(switchAubergine, textAubergine)
         switchMapTheme(switchStandard, textStandard)
-        switchMapTheme(switchRetro, textRetro)
+        switchMapTheme(switchNight, textNight)
+
     }
 
     /**
@@ -49,7 +48,7 @@ class SettingsFragment : Fragment() {
      * switch which was clicked.
      */
     private fun switchMapTheme(switch: SwitchCompat, textMode: String){
-        switch.setOnCheckedChangeListener { compoundButton, b ->
+        switch.setOnCheckedChangeListener { _, b ->
             checkSwitch(textMode)
             changeAllSwitches(switch, arraySwitches, b)
             changeMapTheme(idSwitchMode)
@@ -60,7 +59,7 @@ class SettingsFragment : Fragment() {
      * Checks which switch was clicked in order to adjust the map theme
      */
     private fun checkSwitch(modeText: String){
-        if(modeText == "Retro"){
+        if(modeText == "Aubergine"){
             idSwitchMode = 0
         }
         else if(modeText == "Standard"){
@@ -73,7 +72,7 @@ class SettingsFragment : Fragment() {
 
     /**
      * If a switch is "checked" then all the other switches except the one which was chosen,
-     * are disabled. Otherwise, every switch are enabled.
+     * are disabled. Otherwise, every switch are enabled and retro-style is the current map theme.
      */
     private fun changeAllSwitches(clickedSwitch: SwitchCompat, arraySwitches: ArrayList<SwitchCompat>, isChecked: Boolean){
         for(switch in arraySwitches){
@@ -81,6 +80,7 @@ class SettingsFragment : Fragment() {
                 switch.isEnabled = false
             }
             else if(switch != clickedSwitch && !isChecked){
+                idSwitchMode = 3
                 switch.isEnabled = true
             }
         }

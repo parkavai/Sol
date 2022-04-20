@@ -57,25 +57,25 @@
             android:layout_marginStart="32dp"
             android:text="@string/settings_title"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/textRetroTheme"
+            app:layout_constraintBottom_toTopOf="@+id/textAubergineTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.577" />
 
         <TextView
-            android:id="@+id/textRetroTheme"
+            android:id="@+id/textAubergineTheme"
             style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:layout_marginTop="84dp"
-            android:text="@string/map_retro_theme"
+            android:text="@string/map_aubergine_theme"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchRetro"
+            android:id="@+id/switchAubergine"
             android:theme="@style/switches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:text="@string/map_standard_theme"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textRetroTheme" />
+            app:layout_constraintTop_toBottomOf="@+id/textAubergineTheme" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchStandard"
@@ -106,7 +106,7 @@
             android:layout_marginEnd="28dp"
             android:checked="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switchRetro" />
+            app:layout_constraintTop_toBottomOf="@+id/switchAubergine" />
 
 
         <TextView
