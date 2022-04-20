@@ -83,5 +83,7 @@
         <item name="android:colorForeground">@color/primary</item>
     </style>
 
+    <!-- Check for what mode the Android Emulator is set to-->
+    <string name="mode">Night</string>
 
 </resources>
