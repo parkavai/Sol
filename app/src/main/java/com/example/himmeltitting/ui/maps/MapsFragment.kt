@@ -9,7 +9,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +19,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.himmeltitting.ui.SharedViewModel
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
+import com.example.himmeltitting.ui.SharedViewModel
+import com.example.himmeltitting.ui.bottomsheet.DataOutputAdapter
 import com.example.himmeltitting.utils.currentDate
 import com.example.himmeltitting.utils.getChosenTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.io.IOException
 
@@ -68,7 +71,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         val mapView = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapView.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.context)
-        binding.calendarButton.text = currentDate()
+        setUpCalendar()
     }
 
     /**
@@ -243,6 +246,28 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
     }
+
+    private fun setUpCalendar() {
+        viewModel.date.observe(viewLifecycleOwner) {
+            binding.calendarButton.text = it
+        }
+        binding.calendarButton.text = currentDate()
+        binding.calendarButton.setOnClickListener {
+            showCalendar()
+        }
+
+    }
+
+    private fun showCalendar() {
+        binding.calendarFragment.visibility = View.VISIBLE
+
+    }
+
+    fun hideCalendar() {
+        binding.calendarFragment.visibility = View.GONE
+    }
+
+
 
 
 }

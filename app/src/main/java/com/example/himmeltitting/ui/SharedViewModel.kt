@@ -58,6 +58,11 @@ class SharedViewModel : ViewModel() {
         updateData()
     }
 
+    fun setDate(date: String) {
+        _date.value = date
+        updateData()
+    }
+
     /**
      * sets _state value as loading,
      * updates data from all apis with coordinates in _latLong, and sets

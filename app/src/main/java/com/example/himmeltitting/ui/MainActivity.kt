@@ -9,7 +9,7 @@ import com.example.himmeltitting.ui.favorites.FavoritesFragment
 import com.example.himmeltitting.ui.info.InfoFragment
 import com.example.himmeltitting.ui.maps.MapsFragment
 import com.example.himmeltitting.ui.settings.SettingsFragment
-import com.example.himmeltitting.ui.calendar.CalendarShow
+import com.example.himmeltitting.ui.calendar.CalendarFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         val favoritesFragment = FavoritesFragment()
         val settingsFragment = SettingsFragment()
         val infoFragment = InfoFragment()
-        val calendar = CalendarShow()
 
         makeCurrentFragment(mapsFragment)
 
