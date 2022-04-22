@@ -110,3 +110,12 @@ fun timeTypeToHeader(type: String) : String{
         else -> "Invalid type"
     }
 }
+
+/**
+ * Returns Calendar with current date + days
+ */
+fun getCalendarDaysFromToday(days: Int): Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_MONTH, days)
+    return calendar
+}

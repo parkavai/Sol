@@ -58,9 +58,14 @@ class SharedViewModel : ViewModel() {
         updateData()
     }
 
+    /**
+     * set date as value, and update data values for new date, if location is set
+     */
     fun setDate(date: String) {
         _date.value = date
-        updateData()
+        state.value?.let {
+            updateData()
+        }
     }
 
     /**

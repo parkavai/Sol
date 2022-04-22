@@ -22,7 +22,6 @@ import androidx.fragment.app.activityViewModels
 import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentMapsBinding
 import com.example.himmeltitting.ui.SharedViewModel
-import com.example.himmeltitting.ui.bottomsheet.DataOutputAdapter
 import com.example.himmeltitting.utils.currentDate
 import com.example.himmeltitting.utils.getChosenTheme
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -249,6 +248,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         toast.show()
     }
 
+    /**
+     * Adds observer to date to update text in calendar button,
+     * sets text as current date on start and
+     * sets onclick listener for calendar button
+     */
     private fun setUpCalendar() {
         viewModel.date.observe(viewLifecycleOwner) {
             binding.calendarButton.text = it
@@ -257,14 +261,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         binding.calendarButton.setOnClickListener {
             showCalendar()
         }
-
     }
 
+    /**
+     * Shows calendar fragment
+     */
     private fun showCalendar() {
         binding.calendarFragment.visibility = View.VISIBLE
 
     }
 
+    /**
+     * Hides calendar fragment
+     */
     fun hideCalendar() {
         binding.calendarFragment.visibility = View.GONE
     }
