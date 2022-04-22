@@ -86,6 +86,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         setUpMap()
         addOnMapClickListener()
         addSearchView()
+        mMap.setPadding(0, 0, 0, 70)
     }
 
     /**
@@ -104,18 +105,22 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
     /**
      * Initializes the map theme. The function is called in onMapReady().
-     * Retro style is the default map theme, but the theme changes depending
-     * on the switch which was clicked in settings.
+     * Retro style is the default map theme for light mode,
+     * Night style is the default theme for dark mode.
+     * But the theme also changes depending on the switch which was clicked in settings.
      */
     private fun setMapTheme(googleMap: GoogleMap){
-        val theme = getChosenTheme()
+        var theme = 0
+        when (resources.getString(R.string.mode)) {
+            "Night" -> theme = R.raw.night_style
+            "Day" -> theme = getChosenTheme()
+        }
         val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
             requireActivity(),
             theme
         )
         googleMap.setMapStyle(mapStyleOptions)
     }
-
 
     /**
      * Checks location access permissions from user. Finds longitude and latitude on the current location.
@@ -154,12 +159,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         updateLatLng()
     }
 
-
     /**
      *
      */
     override fun onMarkerClick(p0: Marker)= false
-
 
     /**
      * Initialized on OnClickListener for map.
@@ -174,7 +177,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         }
 
     }
-
 
     /**
      * Initialize SearchView with text. Text input from user is used to get

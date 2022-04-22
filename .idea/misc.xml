@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_button.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_button_onboarding.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_search.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/drag_handle.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/fav.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_air_quality.xml" value="0.1205" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
@@ -24,11 +28,12 @@
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/bottom_sheet.xml" value="0.13728470111448834" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/calendar.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/dataoutput_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_favorites.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_favorites2.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_info.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_info2.xml" value="0.19519927536231885" />
-        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_maps.xml" value="0.1" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_maps.xml" value="0.25" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/fragment_settings2.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/layout/onboarding_activity.xml" value="0.25" />

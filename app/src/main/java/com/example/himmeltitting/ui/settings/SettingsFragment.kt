@@ -1,12 +1,13 @@
 package com.example.himmeltitting.ui.settings
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.Fragment
+import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.FragmentSettingsBinding
 import com.example.himmeltitting.utils.changeMapTheme
 
@@ -40,7 +41,9 @@ class SettingsFragment : Fragment() {
         switchMapTheme(switchAubergine, textAubergine)
         switchMapTheme(switchStandard, textStandard)
         switchMapTheme(switchNight, textNight)
-
+        if (resources.getString(R.string.mode) == "Night") {
+            disableSwitches(arraySwitches)
+        }
     }
 
     /**
@@ -71,6 +74,15 @@ class SettingsFragment : Fragment() {
     }
 
     /**
+     * Help method that disables switches if dark mode is enabled
+     */
+    private fun disableSwitches(arraySwitches: ArrayList<SwitchCompat>){
+        for (switch in arraySwitches) {
+            switch.isEnabled = false
+        }
+    }
+
+    /**
      * If a switch is "checked" then all the other switches except the one which was chosen,
      * are disabled. Otherwise, every switch are enabled and retro-style is the current map theme.
      */
@@ -85,7 +97,6 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
 }
 
 

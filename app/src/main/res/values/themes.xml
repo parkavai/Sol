@@ -19,7 +19,7 @@
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/primary</item>
         <item name="android:colorButtonNormal">@color/primary</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- To change style of searchView-->
@@ -54,8 +54,8 @@
     <!-- Styles the bottomNavigatonBar's theme-->
     <style name="bottomNavBarTheme">
         <item name="itemBackground">?attr/colorPrimary</item>
-        <item name="itemIconTint">@color/white</item>
-        <item name="itemTextColor">@color/white</item>
+        <item name="itemIconTint">@color/black</item>
+        <item name="itemTextColor">@color/black</item>
     </style>
 
     <!-- Sets color of the fragmentContainerView in activity_main-->
@@ -93,7 +93,7 @@
 
     <!-- Colors for constraintLayout in settings-->
     <style name="containerForConstraintLayout">
-        <item name="android:background">@color/primaryLightVariant</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <!-- Colors for switches in settings-->
@@ -104,5 +104,7 @@
         <item name="android:colorForeground">@color/primaryDarkVariant</item>
     </style>
 
+    <!-- Check for what mode the Android Emulator is set to-->
+    <string name="mode">Day</string>
 
 </resources>
