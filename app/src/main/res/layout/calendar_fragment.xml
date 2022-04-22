@@ -6,6 +6,9 @@
 
     <CalendarView
         android:id="@+id/calendarView"
+        android:elevation="4dp"
+        android:theme="@style/CustomCalendarMonth"
+        android:weekDayTextAppearance="@style/CustomCalendarWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

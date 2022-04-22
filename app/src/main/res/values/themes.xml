@@ -107,4 +107,24 @@
     <!-- Check for what mode the Android Emulator is set to-->
     <string name="mode">Day</string>
 
+    <style name="CustomCalendarMonth" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--
+    android:focusedMonthDateColor="@color/black"
+        android:weekDayTextAppearance="@style/CustomCalendarWeek"
+        android:unfocusedMonthDateColor="@color/cardview_dark_background"
+        android:selectedDateVerticalBar="@color/cardview_dark_background"
+        android:selectedWeekBackgroundColor="@color/white"
+        android:weekSeparatorLineColor="@color/black"
+    -->
+
+    <style name="UnFocusedCalendarDay" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/cardview_dark_background</item>
+    </style>
 </resources>
