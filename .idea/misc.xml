@@ -43,20 +43,19 @@
         <entry key="app/src/main/res/drawable/fav.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_air_quality.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1675" />
-        <entry key="app/src/main/res/drawable/fav.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outline_wb_sunny_24.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_sunset.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/ic_wind.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/id_cloud.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/info.xml" value="0.1675" />
-        <entry key="app/src/main/res/drawable/rounded_bottomsheet.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/round_corners.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/rounded_bottomsheet.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/search.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/search_view_icon.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/settings.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/shadow.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/sun_image_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_location_tmp.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18840579710144928" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2028985507246377" />
@@ -69,9 +68,10 @@
         <entry key="app/src/main/res/layout/calendar_fragment.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/dataoutput_item.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.12395833333333334" />
-        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.12395833333333334" />
+        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.13179347826086957" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.12395833333333334" />
+        <entry key="app/src/main/res/layout/sun_facts.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.11296296296296296" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1675" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1675" />

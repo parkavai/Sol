@@ -41,4 +41,62 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ScrollView
+        android:layout_width="406dp"
+        android:layout_height="620dp"
+        android:fillViewport="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="396dp"
+            android:layout_height="613dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="283dp"
+                android:layout_height="131dp"
+                android:layout_gravity="center"
+                android:src="@drawable/sun_image" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:text="Sollys"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="351dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+
+                android:text="Sollys: Spredning
+Forskjellige former for spredning av lys klassifiseres ut ifra størrelsesforholdet mellom partiklene som forårsaker spredningen og bølgelengden på lyset. De to vanligste formene for spredning under metrologiske forhold kalles Rayleigh (partiklene er små i forhold til bølgelengden på lyset) og Mie (partiklene er omtrent på samme størrelse som bølgelengden).
+
+Fargene under solnedgang og soloppgang
+Under solnedgang og soloppgang sitter solen lavt over horisonten, og mere at sollyset vil derfor passere gjennom vår atmosfære, som igjen gjør at mere at det hvite lyset blir spredt, og det er dette som gir oss de vakre rød-, oransje- og gulfargene vi opplever under solnedgang og soloppgang.
+
+Forurensning og sollys
+Typisk luftforurensning i urbane områder består ofte av partikler som varierer mellom 0.5 ti 1 μm i diameter. På grunn av dette er ikke størrelsene til partiklene uniforme nok til at det synlige lyset blir spredt gjennom Mie spredning. Spredningen forårsaket av disse partiklene er altså mindre avhengig av bølgelengden til lyset. Resultatet av dette er at det synlige sollyset og himmelen, under påvirkning av urban luftforurensning, vil fremstå mer grålig eller til og med hvit, i motsetning til den klare blå himmelen man kan få i områder med mindre luftforurensning.
+"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
