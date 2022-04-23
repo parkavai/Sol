@@ -2,12 +2,15 @@ package com.example.himmeltitting.ui.bottomsheet
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.himmeltitting.R
 import com.example.himmeltitting.databinding.BottomSheetBinding
 import com.example.himmeltitting.ui.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -60,6 +63,12 @@ class BottomSheetFragment : Fragment() {
         viewModel.outData.observe(viewLifecycleOwner) {
             setBottomSheetVisibility(true)
             binding.recyclerView.adapter = DataOutputAdapter(it, this.requireContext())
+            // if no data show toast
+            if (it.isEmpty()){
+                showToast(
+                    bottomSheetView.context.applicationContext.getString(R.string.Error_noData)
+                )
+            }
             //binding.dataTextView.text = it
         }
     }
@@ -73,6 +82,12 @@ class BottomSheetFragment : Fragment() {
         val updatedState =
             if (isVisible) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.state = updatedState
+    }
+
+    private fun showToast(message: String){
+        val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
     }
 }
 

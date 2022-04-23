@@ -27,4 +27,5 @@
         basert på informasjonen for et gitt sted valgt av brukeren.
     </string>
     <string name="version_text">Version 1.0</string>
+    <string name="Error_noData">Fant ikke data, sjekk internett tilkobling</string>
 </resources>

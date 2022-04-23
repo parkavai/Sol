@@ -20,8 +20,8 @@ class LocationforecastDS {
         val path =
             "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}"
         val response = fetchData(path)
-        val data: Locationforecast = gson.fromJson(response, Locationforecast::class.java)
-        return if (data.properties.timeseries.isEmpty()) {
+        val data: Locationforecast? = gson.fromJson(response, Locationforecast::class.java)
+        return if (data?.properties?.timeseries?.isEmpty() == true) {
             null
         } else
             data
