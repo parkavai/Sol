@@ -42,6 +42,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        style="@style/containerForConstraintLayout"
         android:layout_width="406dp"
         android:layout_height="493dp"
         android:paddingEnd="5dp"
