@@ -11,6 +11,7 @@ import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+
 class NiluDataSource {
     //Henter ut alt fra APIet
     suspend fun fetchNiluDefualt(): List<AirQuality>? {
@@ -28,6 +29,7 @@ class NiluDataSource {
             null
         }
     }
+
 
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
     suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, time: String): Double? {
@@ -65,6 +67,7 @@ class NiluDataSource {
         }
     }
 
+
     /**
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
@@ -98,3 +101,4 @@ class NiluDataSource {
         return location
     }
 }
+
