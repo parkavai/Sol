@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/bottom_background_dark.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/bottom_background_light.xml" value="0.2145" />
+        <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/calendar_background.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_button.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_button_onboarding.xml" value="0.2145" />
         <entry key="..\:/Users/Mathi/AndroidStudioProjects/IN2000_G.4/app/src/main/res/drawable/custom_search.xml" value="0.2145" />
@@ -42,7 +45,6 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/bottom_background_dark.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bottom_background_light.xml" value="0.1675" />
-        <entry key="app/src/main/res/drawable/calendar_background.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/custom_button.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/custom_search.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/drag_handle.xml" value="0.1675" />
@@ -70,7 +72,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.20849609375" />
         <entry key="app/src/main/res/layout/bottom_sheet_persistent.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/calendar.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/calendar_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/calendar_fragment.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/dataoutput_item.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.12395833333333334" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.12395833333333334" />
