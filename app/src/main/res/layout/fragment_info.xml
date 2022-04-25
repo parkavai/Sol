@@ -31,7 +31,7 @@
             android:layout_marginTop="28dp"
 
             android:padding="10dp"
-            android:text="Info"
+            android:text="Sunfacts"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -43,56 +43,195 @@
 
     <ScrollView
         android:layout_width="406dp"
-        android:layout_height="620dp"
+        android:layout_height="493dp"
+        android:paddingEnd="5dp"
+        android:layout_marginEnd="10dp"
         android:fillViewport="false"
 
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="396dp"
-            android:layout_height="613dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="283dp"
-                android:layout_height="131dp"
-                android:layout_gravity="center"
-                android:src="@drawable/sun_image" />
 
             <TextView
                 android:id="@+id/title"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="49dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:text="Sollys"
-                android:textColor="@color/black"
-                android:textSize="40sp" />
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/text"
-                android:layout_width="351dp"
+                android:id="@+id/tvTextSollys"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/sollys1"
+                style="@style/textColor"
+                android:textSize="20dp" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/cd_solstraler"
+                android:padding="15dp"
+                android:src="@drawable/sun_image" />
 
-                android:text="Sollys: Spredning
-Forskjellige former for spredning av lys klassifiseres ut ifra størrelsesforholdet mellom partiklene som forårsaker spredningen og bølgelengden på lyset. De to vanligste formene for spredning under metrologiske forhold kalles Rayleigh (partiklene er små i forhold til bølgelengden på lyset) og Mie (partiklene er omtrent på samme størrelse som bølgelengden).
+            <TextView
+                android:id="@+id/tvTittelSpredning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Spredning"
+                style="@style/textColor"
+                android:textSize="20dp" />
 
-Fargene under solnedgang og soloppgang
-Under solnedgang og soloppgang sitter solen lavt over horisonten, og mere at sollyset vil derfor passere gjennom vår atmosfære, som igjen gjør at mere at det hvite lyset blir spredt, og det er dette som gir oss de vakre rød-, oransje- og gulfargene vi opplever under solnedgang og soloppgang.
+            <TextView
+                android:id="@+id/tvTextSpredning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextSpredning"
+                style="@style/textColor"
+                android:textSize="20dp" />
 
-Forurensning og sollys
-Typisk luftforurensning i urbane områder består ofte av partikler som varierer mellom 0.5 ti 1 μm i diameter. På grunn av dette er ikke størrelsene til partiklene uniforme nok til at det synlige lyset blir spredt gjennom Mie spredning. Spredningen forårsaket av disse partiklene er altså mindre avhengig av bølgelengden til lyset. Resultatet av dette er at det synlige sollyset og himmelen, under påvirkning av urban luftforurensning, vil fremstå mer grålig eller til og med hvit, i motsetning til den klare blå himmelen man kan få i områder med mindre luftforurensning.
-"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                />
+            <TextView
+                android:id="@+id/tvTittelFargene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Fargene"
+                style="@style/textColor"
+                android:textSize="20dp" />
 
+            <TextView
+                android:id="@+id/tvTextFargene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextFargene"
+                style="@style/textColor"
+                android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/tvTittelForurensning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Forurensning og sollys "
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTextForurensning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextForurensning"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTittelBlaaSol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Blå sol?"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTextBlaaSol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextBlaaSol"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/imageViewB"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/cd_blasol"
+                android:padding="15dp"
+                android:src="@drawable/bluesun" />
+
+            <TextView
+                android:id="@+id/tvTitleVissteDu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Visste du at?"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTextHeliosentrisk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextHeliosentrisk"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTextSolflekker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextSolflekker"
+                style="@style/textColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvTextSkyer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                android:text="@string/TextSkyer"
+                style="@style/textColor"
+                android:textSize="20dp" />
 
 
         </LinearLayout>
