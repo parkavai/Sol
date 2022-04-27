@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.himmeltitting">
+    package="com.example.soleklart">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -36,7 +36,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC_v9GJb-unOkJ9q24IytrdWEpSDoHFjac" />
         <activity
-            android:name=".ui.splash.SplashScreenActivity"
+            android:name="com.example.soleklart.ui.splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,11 +46,11 @@
         </activity>
 
         <activity
-            android:name=".ui.onBoarding.OnBoardingActivity"
+            android:name="com.example.soleklart.ui.onBoarding.OnBoardingActivity"
             android:exported="true"/>
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.example.soleklart.ui.MainActivity"
             android:exported="true"/>
 
     </application>
