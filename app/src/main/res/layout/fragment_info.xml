@@ -43,14 +43,11 @@
 
     <ScrollView
         style="@style/containerForConstraintLayout"
-        android:layout_width="406dp"
-        android:layout_height="493dp"
-        android:paddingEnd="5dp"
-        android:layout_marginEnd="10dp"
-        android:fillViewport="false"
 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
@@ -68,10 +65,11 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:text="Sollys"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextSollys"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -79,8 +77,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/sollys1"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -93,16 +90,17 @@
 
             <TextView
                 android:id="@+id/tvTittelSpredning"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:text="Spredning"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextSpredning"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -110,21 +108,21 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSpredning"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTittelFargene"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:text="Fargene"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextFargene"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -132,21 +130,21 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextFargene"
-                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTittelForurensning"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:text="Forurensning og sollys "
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextForurensning"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -154,21 +152,21 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextForurensning"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTittelBlaaSol"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:text="Blå sol?"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextBlaaSol"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -176,8 +174,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextBlaaSol"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imageViewB"
@@ -190,16 +187,17 @@
 
             <TextView
                 android:id="@+id/tvTitleVissteDu"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:text="Visste du at?"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextHeliosentrisk"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -207,11 +205,11 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextHeliosentrisk"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextSolflekker"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -219,11 +217,11 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSolflekker"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvTextSkyer"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -231,8 +229,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSkyer"
-                style="@style/textColor"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
 
         </LinearLayout>
