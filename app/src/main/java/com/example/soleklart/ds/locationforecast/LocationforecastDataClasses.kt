@@ -28,7 +28,7 @@ data class Next_12_hours(val summary: Summary)
 data class Summary(val symbol_code: String)
 
 data class ForecastData(val time: String, val temperature: String, val cloudCover: String,
-                        val wind_speed: String, val summary12Hour: String,
+                        val wind_speed: String,
                         val summary6Hour: String, val precipitation6Hours: String)
 
 

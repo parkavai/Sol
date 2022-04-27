@@ -97,7 +97,7 @@ class LocationforecastDS {
         val data = timeSeries.data
         val instant = data.instant
         val instantDetails = instant.details
-        val hour12 = data.next_12_hours
+        //val hour12 = data.next_12_hours
         val hour6 = data.next_6_hours
 
         val time = timeSeries.time
@@ -105,7 +105,7 @@ class LocationforecastDS {
         val cloudCover =
             instantDetails.cloud_area_fraction.toString() + " " + units.cloud_area_fraction
         val windSpeed = instantDetails.wind_speed.toString() + " " + units.wind_speed
-        val summary12Hours = hour12.summary.symbol_code
+        //val summary12Hours = hour12.summary.symbol_code
         val summary6Hours = hour6.summary.symbol_code
         val precipitation6Hours =
             hour6.details.precipitation_amount.toString() + " " + units.precipitation_amount
@@ -115,7 +115,6 @@ class LocationforecastDS {
             temperature,
             cloudCover,
             windSpeed,
-            summary12Hours,
             summary6Hours,
             precipitation6Hours
         )
