@@ -31,7 +31,7 @@
             android:layout_marginTop="28dp"
 
             android:padding="10dp"
-            android:text="Favoritter"
+            android:text="@string/nav_favorites"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -50,6 +50,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/gaardboImage"
+            android:layout_width="339dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/gaardbo"
+            android:contentDescription="@string/gaardbo_text"
+            app:layout_constraintBottom_toTopOf="@+id/toensbergImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.466" />
+
+        <ImageView
+            android:id="@+id/toensbergImage"
+            android:layout_width="353dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="120dp"
+            android:contentDescription="@string/toensberg_text"
+            android:src="@drawable/toensberg"
+            app:layout_constraintBottom_toTopOf="@+id/gaardboImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/skienImage"
+            android:layout_width="353dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="196dp"
+            android:contentDescription="@string/skien_text"
+            android:src="@drawable/skien"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
