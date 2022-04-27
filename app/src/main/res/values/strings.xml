@@ -37,4 +37,15 @@
     <string name="TextSkyer">Viste du at skyer gjerne kan gi mer fargerike solnedganger og soloppganger? Dette er fordi skyer fanger de siste rød-oransje lysstrålene fra solnedgangen, samt det første lyset fra soloppgangen, og dette lyset blir deretter reflektert ned mot jordoverflaten. Neste gang du vil nyte en solnedgang eller soloppgang bør du altså håpe på noe skydekke for å få den aller vakreste opplevelsen.</string>
     <string name="cd_solstraler">Bilde av solstråler</string>
     <string name="cd_blasol">Bilde av Blå sol</string>
+    <string name="TextSolkart">I lenken under finner du et kart der du kan se de optimale stedene for både soloppgang og solnedgang, med hensyn på høydekurver og solas posisjon. Du kan se et bilde av kartet under lenken.</string>
+    <string name="LinkSunMap">https://rawengaard.github.io/Forenklet_solkart/#9/59.9832/10.6828</string>
+    <string name="titleDidYouKnow">Visste du at?</string>
+    <string name="titleBlueSun">Blå sol?</string>
+    <string name="titlePollution">Forurensning og sollys</string>
+    <string name="titleColours">Fargene</string>
+    <string name="titleScattering">Spredning</string>
+    <string name="ivSunImageDescription">Bilde av sol</string>
+    <string name="titleSunlight">Sollys</string>
+    <string name="cd_sunmap">Bilde av Solkart</string>
+    <string name="titleSunmap">Solkart</string>
 </resources>
