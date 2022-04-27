@@ -29,7 +29,6 @@
             android:layout_width="281dp"
             android:layout_height="52dp"
             android:layout_marginTop="28dp"
-
             android:padding="10dp"
             android:text="Sunfacts"
             android:textSize="25sp"
@@ -58,18 +57,62 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvtitleSunMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titleSunmap"
+                style="@style/textColor"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/tvTextSunMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TextSolkart"
+                style="@style/textColor"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/tvSunMapLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/LinkSunMap"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                style="@style/textColor"/>
+
+            <ImageView
+                android:id="@+id/ivSunMap"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="150dp"
+                android:contentDescription="@string/cd_sunmap"
+                android:src="@drawable/sunmap"/>
+
+            <TextView
+                android:id="@+id/tvTitleSunlight"
                 style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="Sollys"
+                android:text="@string/titleSunlight"
+                android:textStyle="bold"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextSollys"
-                style="@style/textColor"
+                android:id="@+id/tvTextSunlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -80,27 +123,27 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivSunImage"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/cd_solstraler"
+                android:contentDescription="@string/ivSunImageDescription"
                 android:padding="15dp"
                 android:src="@drawable/sun_image" />
 
             <TextView
-                android:id="@+id/tvTittelSpredning"
-                style="@style/textColor"
+                android:id="@+id/tvTitleScattering"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Spredning"
+                android:text="@string/titleScattering"
+                style="@style/textColor"
+                android:textStyle="bold"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextSpredning"
-                style="@style/textColor"
+                android:id="@+id/tvTextScattering"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -108,21 +151,22 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSpredning"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTittelFargene"
-                style="@style/textColor"
+                android:id="@+id/tvTitleColours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Fargene"
+                android:text="@string/titleColours"
+                style="@style/textColor"
+                android:textStyle="bold"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextFargene"
-                style="@style/textColor"
+                android:id="@+id/tvTextColours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -130,21 +174,22 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextFargene"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTittelForurensning"
-                style="@style/textColor"
+                android:id="@+id/tvTitlePollution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Forurensning og sollys "
+                android:text="@string/titlePollution"
+                android:textStyle="bold"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextForurensning"
-                style="@style/textColor"
+                android:id="@+id/tvTextPollution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -152,21 +197,22 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextForurensning"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTittelBlaaSol"
-                style="@style/textColor"
+                android:id="@+id/tvTitleBlueSun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Blå sol?"
+                android:text="@string/titleBlueSun"
+                android:textStyle="bold"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextBlaaSol"
-                style="@style/textColor"
+                android:id="@+id/tvTextBlueSun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -174,10 +220,11 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextBlaaSol"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imageViewB"
+                android:id="@+id/ivBlueSun"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
@@ -186,18 +233,18 @@
                 android:src="@drawable/bluesun" />
 
             <TextView
-                android:id="@+id/tvTitleVissteDu"
-                style="@style/textColor"
+                android:id="@+id/tvTitleDidYouKnow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="Visste du at?"
+                android:text="@string/titleDidYouKnow"
+                style="@style/textColor"
+                android:textStyle="bold"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextHeliosentrisk"
-                style="@style/textColor"
+                android:id="@+id/tvTextHelio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -205,11 +252,11 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextHeliosentrisk"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextSolflekker"
-                style="@style/textColor"
+                android:id="@+id/tvTextSunspots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -217,11 +264,11 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSolflekker"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTextSkyer"
-                style="@style/textColor"
+                android:id="@+id/tvTextClouds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -229,6 +276,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"
                 android:text="@string/TextSkyer"
+                style="@style/textColor"
                 android:textSize="20sp" />
 
 
