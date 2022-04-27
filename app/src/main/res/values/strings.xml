@@ -16,9 +16,9 @@
     <string name="cd_dragImage">dra hånd</string>
     <string name="cd_logo">Sol</string>
     <!-- Favourites -->
-    <string name="gaardbo_text">Bilde av Gaardbo</string>
-    <string name="toensberg_text">Bilde av Tønsberg</string>
-    <string name="skien_text">Bilde av Skien</string>
+    <string name="cd_gaardbo_text">Bilde av Gaardbo</string>
+    <string name="cd_toensberg_text">Bilde av Tønsberg</string>
+    <string name="cd_skien_text">Bilde av Skien</string>
     <!-- Settings -->
     <string name="settings_title">Kartstil</string>
     <string name="map_aubergine_theme">Aubergine</string>
