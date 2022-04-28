@@ -106,7 +106,7 @@ fun timeTypeToHeader(type: String) : String{
     return when(type) {
         "sunrise" -> "Soloppgang:"
         "sunset" -> "Solnedgang:"
-        "after" -> "+2 Timer:"
+        "after" -> "2 timer etter solnedgang:"
         else -> "Invalid type"
     }
 }

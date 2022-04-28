@@ -59,7 +59,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
             // Hide fragment
             val mapsFragment = parentFragment as MapsFragment
-            mapsFragment.hideCalendar()
+            mapsFragment.setCalendarVisibility(false)
         }
     }
 }

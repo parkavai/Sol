@@ -47,7 +47,7 @@ class BottomSheetViewModel(private val dataSource: SharedViewModel) {
         val cloudCover = forecast.cloudCover
         val windSpeed = forecast.wind_speed
         val rain = forecast.precipitation6Hours
-        val mAirQuality = if (airQuality != null) "%.2f".format(airQuality) else missingValue
+        val mAirQuality = if (airQuality != null) "%.2f".format(airQuality) + " µg/m³" else missingValue
 
         return OutputData(header, temperature, cloudCover, windSpeed, rain, mAirQuality)
     }

@@ -259,23 +259,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         }
         binding.calendarButton.text = currentDate()
         binding.calendarButton.setOnClickListener {
-            showCalendar()
+            if(binding.calendarFragment.visibility == View.GONE) {
+                setCalendarVisibility(true)
+
+            }else{
+                setCalendarVisibility(false)
+            }
         }
     }
 
     /**
      * Shows calendar fragment
      */
-    private fun showCalendar() {
-        binding.calendarFragment.visibility = View.VISIBLE
+    fun setCalendarVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            binding.calendarFragment.visibility = View.VISIBLE
 
-    }
-
-    /**
-     * Hides calendar fragment
-     */
-    fun hideCalendar() {
-        binding.calendarFragment.visibility = View.GONE
+        } else {
+            binding.calendarFragment.visibility = View.GONE
+        }
     }
 
 
