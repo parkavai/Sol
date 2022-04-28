@@ -3,25 +3,25 @@
     <item>
         <shape>
             <padding
-                android:top="5dp" />
-            <solid android:color="#0AB8B8B8" />
-            <corners android:radius="16dp" />
+                android:top="3dp" />
+            <solid android:color="#0A868686" />
+            <corners android:radius="26dp" />
         </shape>
     </item>
     <item>
         <shape>
             <padding
-                android:top="3dp" />
-            <solid android:color="#3BAAAAAA" />
-            <corners android:radius="20dp" />
+                android:top="2dp" />
+            <solid android:color="#3B5E5E5E" />
+            <corners android:radius="26dp" />
         </shape>
     </item>
     <item>
         <shape>
             <padding
-                android:top="3dp" />
-            <solid android:color="#3B656565" />
-            <corners android:radius="24dp" />
+                android:top="1dp" />
+            <solid android:color="#3B3C3C3C" />
+            <corners android:radius="26dp" />
         </shape>
     </item>
 <item android:right="1dp" android:left="1dp" android:bottom="2dp">
