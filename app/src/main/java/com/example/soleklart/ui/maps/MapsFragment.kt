@@ -173,6 +173,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             lastLatLng = currentLatLng
             placeMarkerOnMap(location)
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+            binding.idSearchView.setQuery("",false)
+            binding.idSearchView.clearFocus()
         }
 
     }
