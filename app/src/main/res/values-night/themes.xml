@@ -51,8 +51,8 @@
     <!-- Styles the bottomNavigatonBar's theme-->
     <style name="bottomNavBarTheme">
         <item name="itemBackground">?attr/colorPrimary</item>
-        <item name="itemIconTint">@color/black</item>
-        <item name="itemTextColor">@color/black</item>
+        <item name="itemIconTint">@drawable/navbar_color_night</item>
+        <item name="itemTextColor">@drawable/navbar_color_night</item>
     </style>
 
     <!-- Sets color of the fragmentContainerView in activity_main-->
