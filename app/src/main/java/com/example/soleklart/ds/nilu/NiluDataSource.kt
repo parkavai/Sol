@@ -62,7 +62,7 @@ class NiluDataSource {
 
 
         } catch(exception: Exception) {
-            Log.d("MAIN_ACTIVITY", "A network request exception was thrown: ${exception.message}")
+            println("A network request exception was thrown: ${exception.message}")
             null
         }
     }
