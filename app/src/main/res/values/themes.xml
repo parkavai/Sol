@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="markerStyle">@color/primaryDarkVariant</item>
         <item name="splashScreenColor">@color/primaryLightVariant</item>
+        <item name="calendarColor">@color/white</item>
 
     </style>
 
