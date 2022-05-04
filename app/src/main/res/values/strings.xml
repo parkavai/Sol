@@ -38,4 +38,6 @@
     <string name="TextSkyer">Viste du at skyer gjerne kan gi mer fargerike solnedganger og soloppganger? Dette er fordi skyer fanger de siste rød-oransje lysstrålene fra solnedgangen, samt det første lyset fra soloppgangen, og dette lyset blir deretter reflektert ned mot jordoverflaten. Neste gang du vil nyte en solnedgang eller soloppgang bør du altså håpe på noe skydekke for å få den aller vakreste opplevelsen.</string>
     <string name="cd_solstraler">Bilde av solstråler</string>
     <string name="cd_blasol">Bilde av Blå sol</string>
+    <attr name="markerStyle" format="reference"/>
+    <attr name="splashScreenColor" format="reference"/>
 </resources>

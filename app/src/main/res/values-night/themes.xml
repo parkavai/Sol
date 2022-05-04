@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="markerStyle">@color/darkVariant</item>
+        <item name="splashScreenColor">@color/darkBackgroundVariant</item>
     </style>
 
     <!-- Style for button in fragment_maps-->
@@ -57,7 +59,7 @@
 
     <!-- Sets color of the fragmentContainerView in activity_main-->
     <style name="mainFragmentContainerStyle">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/darkBackgroundVariant</item>
     </style>
 
     <!-- Colors for the container around button and search bar in activity_main-->
@@ -72,7 +74,7 @@
 
     <!-- Colors for constraintLayout in settings-->
     <style name="containerForConstraintLayout">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/darkBackgroundVariant</item>
     </style>
 
     <!-- Colors for switches in settings-->
