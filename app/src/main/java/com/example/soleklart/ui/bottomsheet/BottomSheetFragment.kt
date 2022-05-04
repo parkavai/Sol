@@ -64,7 +64,7 @@ class BottomSheetFragment : Fragment() {
             setBottomSheetVisibility(true)
             binding.recyclerView.adapter = DataOutputAdapter(it, this.requireContext())
             // if no data show toast
-            if (it.isEmpty()){
+            if (it.isEmpty()) {
                 showToast(
                     bottomSheetView.context.applicationContext.getString(R.string.Error_noData)
                 )
@@ -84,7 +84,7 @@ class BottomSheetFragment : Fragment() {
         bottomSheetBehavior.state = updatedState
     }
 
-    private fun showToast(message: String){
+    private fun showToast(message: String) {
         val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()

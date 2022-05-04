@@ -22,10 +22,11 @@ class NiluDataSource {
         val today = currentDate()
 
         // get pretty string representation of time
-        val mTime = "T"+ prettyTimeString(time)
+        val mTime = "T" + prettyTimeString(time)
 
         // make API call paths for time
-        val param = "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=pm10"
+        val param =
+            "/$yesterday$mTime/$today$mTime/$latitude/$longitude/$radius?method=within&components=pm10"
 
         val gson = Gson()
 
@@ -34,16 +35,19 @@ class NiluDataSource {
             // https://api.nilu.no/
             val liste = object : TypeToken<List<AirQuality>>() {}.type
             // get a list of result
-            val airQualityList : List<AirQuality> = gson.fromJson(Fuel.get(path + param).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste)
+            val airQualityList: List<AirQuality> = gson.fromJson(
+                Fuel.get(path + param).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste
+            )
 
             // get closest station for each of the result list
-            val airQuality = getClosestAirQuality(airQualityList, latitude, longitude)?.values?.get(0)?.value
+            val airQuality =
+                getClosestAirQuality(airQualityList, latitude, longitude)?.values?.get(0)?.value
 
             //make a simple return object which includes only the
             airQuality?.toDouble()
 
 
-        } catch(exception: Exception) {
+        } catch (exception: Exception) {
             println("A network request exception was thrown: ${exception.message}")
             null
         }
@@ -54,7 +58,11 @@ class NiluDataSource {
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
 
-    private fun getClosestAirQuality(list: List<AirQuality>?, lat: Double, long: Double): AirQuality? {
+    private fun getClosestAirQuality(
+        list: List<AirQuality>?,
+        lat: Double,
+        long: Double
+    ): AirQuality? {
         val currentLocation: Location = createLocation(lat, long)
         var output: AirQuality? = null
         var smallestDistance = 100000.0.toFloat()

@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 /**
  * Converts sunrise time of format yyyy-MM-dd'T'HH:mm:ssXXX,
  * to time in format yyyy-MM-dd'T'HH:mm:ss as String
@@ -80,7 +79,7 @@ fun yesterdaysDate(): String {
 fun plusHours(time: String, hours: Int): String? {
     val calendar = Calendar.getInstance()
     val date = timeStringToDate(time)
-    calendar.time = date?: return null
+    calendar.time = date ?: return null
     calendar.add(Calendar.HOUR_OF_DAY, hours)
     val newDate = calendar.time
 
@@ -92,8 +91,8 @@ fun plusHours(time: String, hours: Int): String? {
 /**
  * returns header based on time type (sunrise, sunset, after)
  */
-fun timeTypeToHeader(type: String) : String{
-    return when(type) {
+fun timeTypeToHeader(type: String): String {
+    return when (type) {
         "sunrise" -> "Soloppgang:"
         "sunset" -> "Solnedgang:"
         "after" -> "2 timer etter solnedgang:"

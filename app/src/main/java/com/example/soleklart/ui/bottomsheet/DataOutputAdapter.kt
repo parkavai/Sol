@@ -12,7 +12,7 @@ import com.example.soleklart.utils.cloudImageCalculator
 
 
 class DataOutputAdapter(private val dataSet: List<OutputData>, private val context: Context) :
-    RecyclerView.Adapter<DataOutputAdapter.ViewHolder>()  {
+    RecyclerView.Adapter<DataOutputAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -33,7 +33,8 @@ class DataOutputAdapter(private val dataSet: List<OutputData>, private val conte
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
-        val binding = DataoutputItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding =
+            DataoutputItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
