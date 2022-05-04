@@ -54,8 +54,8 @@
     <!-- Styles the bottomNavigatonBar's theme-->
     <style name="bottomNavBarTheme">
         <item name="itemBackground">?attr/colorPrimary</item>
-        <item name="itemIconTint">@color/black</item>
-        <item name="itemTextColor">@color/black</item>
+        <item name="itemIconTint">@drawable/navbar_color</item>
+        <item name="itemTextColor">@drawable/navbar_color</item>
     </style>
 
     <!-- Sets color of the fragmentContainerView in activity_main-->
@@ -109,10 +109,13 @@
 
     <style name="CustomCalendarMonth" parent="AppTheme">
         <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:dateTextAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 
     <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>
