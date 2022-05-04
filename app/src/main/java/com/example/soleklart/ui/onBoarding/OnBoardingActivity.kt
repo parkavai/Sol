@@ -29,7 +29,7 @@ class OnBoardingActivity : AppCompatActivity() {
         setCurrentIndicator(0)
     }
 
-    private fun setOnboardingItems(){
+    private fun setOnboardingItems() {
         onboardingItemsAdapter = OnboardingItemsAdapter(
             listOf(
                 OnboardingItem(
@@ -57,7 +57,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         binding.onBoardingViewPager.adapter = onboardingItemsAdapter
         binding.onBoardingViewPager.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback(){
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 setCurrentIndicator(position)
@@ -66,9 +66,9 @@ class OnBoardingActivity : AppCompatActivity() {
         (binding.onBoardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
         binding.ivNext.setOnClickListener {
-            if(binding.onBoardingViewPager.currentItem+1 < onboardingItemsAdapter.itemCount) {
+            if (binding.onBoardingViewPager.currentItem + 1 < onboardingItemsAdapter.itemCount) {
                 binding.onBoardingViewPager.currentItem += 1
-            }else{
+            } else {
                 navigateToHomeActivity()
             }
         }
@@ -76,19 +76,21 @@ class OnBoardingActivity : AppCompatActivity() {
             navigateToHomeActivity()
         }
     }
+
     private fun navigateToHomeActivity() {
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
-    private fun setupIndicators(){
+
+    private fun setupIndicators() {
         indicatorsContainer = binding.indicatorsContainer
         val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.itemCount)
         val layoutParams: LinearLayout.LayoutParams =
             LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        layoutParams.setMargins(8,0,8,0)
-        for (i in indicators.indices){
+        layoutParams.setMargins(8, 0, 8, 0)
+        for (i in indicators.indices) {
             indicators[i] = ImageView(applicationContext)
-            indicators[i]?.let{
+            indicators[i]?.let {
                 it.setImageDrawable(
                     ContextCompat.getDrawable(
                         applicationContext,
@@ -100,7 +102,8 @@ class OnBoardingActivity : AppCompatActivity() {
             }
         }
     }
-    private fun setCurrentIndicator(position: Int){
+
+    private fun setCurrentIndicator(position: Int) {
         val childCount = indicatorsContainer.childCount
         for (i in 0 until childCount) {
             val imageView = indicatorsContainer.getChildAt(i) as ImageView
@@ -111,7 +114,7 @@ class OnBoardingActivity : AppCompatActivity() {
                         R.drawable.indicator_active_background
                     )
                 )
-            }else{
+            } else {
                 imageView.setImageDrawable(
                     ContextCompat.getDrawable(
                         applicationContext,

@@ -53,6 +53,11 @@
     <string name="titleSunlight">Sollys</string>
     <string name="cd_sunmap">Bilde av Solkart</string>
     <string name="titleSunmap">Solkart</string>
+    <string name="Error_placeNotFound">Fant ikke noe med dette navnet</string>
+    <string name="cd_dragHandle">dra håndtak</string>
+    <string name="sunfacts">Sunfacts</string>
+    <string name="skipOnboarding">Hopp over omvisning</string>
+    <attr name="onBoardingColor" format="reference"/>
     <attr name="markerStyle" format="reference"/>
     <attr name="splashScreenColor" format="reference"/>
     <attr name="calendarColor" format="reference"/>

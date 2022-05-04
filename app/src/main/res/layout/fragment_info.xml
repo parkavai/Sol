@@ -22,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.049"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/cd_logo" />
 
         <TextView
             style="@style/textColor"
@@ -30,7 +31,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="28dp"
             android:padding="10dp"
-            android:text="Sunfacts"
+            android:text="@string/sunfacts"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -46,9 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="false"
+        android:layout_marginBottom="58dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -65,7 +68,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tvTextSunMap"
@@ -75,7 +78,7 @@
                 style="@style/textColor"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:paddingStart="25dp"
                 android:paddingEnd="15dp"/>
 
@@ -113,6 +116,7 @@
 
             <TextView
                 android:id="@+id/tvTextSunlight"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

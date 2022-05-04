@@ -8,14 +8,14 @@ import org.junit.Test
 const val LAT = 59.9
 const val LON = 10.7
 
-class SunRiseDataSourceTest {
+class SunriseDataSourceTest {
 
-    private lateinit var source: SunRiseDataSource
+    private lateinit var source: SunriseDataSource
     private lateinit var date : String
 
     @Before
     fun setUp() {
-        source = SunRiseDataSource()
+        source = SunriseDataSource()
         date = currentDate()
     }
 

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         //legge til egen metode
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.search -> {
                     makeCurrentFragment(mapsFragment)
                     return@setOnItemSelectedListener true

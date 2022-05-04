@@ -16,7 +16,11 @@ class SettingsFragment : Fragment() {
     private val arraySwitches = ArrayList<SwitchCompat>()
     private var idSwitchMode = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container:  ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,7 +53,7 @@ class SettingsFragment : Fragment() {
      * Function for changing the theme of the map depending on
      * switch which was clicked.
      */
-    private fun switchMapTheme(switch: SwitchCompat, textMode: String){
+    private fun switchMapTheme(switch: SwitchCompat, textMode: String) {
         switch.setOnCheckedChangeListener { _, b ->
             checkSwitch(textMode)
             changeAllSwitches(switch, arraySwitches, b)
@@ -60,22 +64,24 @@ class SettingsFragment : Fragment() {
     /**
      * Checks which switch was clicked in order to adjust the map theme
      */
-    private fun checkSwitch(modeText: String){
-        if(modeText == "Aubergine"){
-            idSwitchMode = 0
-        }
-        else if(modeText == "Standard"){
-            idSwitchMode = 1
-        }
-        else{
-            idSwitchMode = 2
+    private fun checkSwitch(modeText: String) {
+        idSwitchMode = when (modeText) {
+            "Aubergine" -> {
+                0
+            }
+            "Standard" -> {
+                1
+            }
+            else -> {
+                2
+            }
         }
     }
 
     /**
      * Help method that disables switches if dark mode is enabled
      */
-    private fun disableSwitches(arraySwitches: ArrayList<SwitchCompat>){
+    private fun disableSwitches(arraySwitches: ArrayList<SwitchCompat>) {
         for (switch in arraySwitches) {
             switch.isEnabled = false
         }
@@ -85,12 +91,15 @@ class SettingsFragment : Fragment() {
      * If a switch is "checked" then all the other switches except the one which was chosen,
      * are disabled. Otherwise, every switch are enabled and retro-style is the current map theme.
      */
-    private fun changeAllSwitches(clickedSwitch: SwitchCompat, arraySwitches: ArrayList<SwitchCompat>, isChecked: Boolean){
-        for(switch in arraySwitches){
-            if(switch != clickedSwitch && isChecked){
+    private fun changeAllSwitches(
+        clickedSwitch: SwitchCompat,
+        arraySwitches: ArrayList<SwitchCompat>,
+        isChecked: Boolean
+    ) {
+        for (switch in arraySwitches) {
+            if (switch != clickedSwitch && isChecked) {
                 switch.isEnabled = false
-            }
-            else if(switch != clickedSwitch && !isChecked){
+            } else if (switch != clickedSwitch && !isChecked) {
                 idSwitchMode = 3
                 switch.isEnabled = true
             }

@@ -9,7 +9,7 @@ import com.example.soleklart.ds.locationforecast.ForecastData
 import com.example.soleklart.ds.locationforecast.LocationforecastDS
 import com.example.soleklart.ds.nilu.NiluDataSource
 import com.example.soleklart.ds.sunrise.CompactSunriseData
-import com.example.soleklart.ds.sunrise.SunRiseDataSource
+import com.example.soleklart.ds.sunrise.SunriseDataSource
 import com.example.soleklart.utils.currentDate
 import com.example.soleklart.utils.filterNotNullValues
 import com.example.soleklart.utils.plusHours
@@ -18,9 +18,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+@Suppress("MemberVisibilityCanBePrivate")
 class SharedViewModel : ViewModel() {
 
-    private val sunriseDS = SunRiseDataSource()
+    private val sunriseDS = SunriseDataSource()
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
 

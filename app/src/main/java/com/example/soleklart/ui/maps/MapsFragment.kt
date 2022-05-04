@@ -45,9 +45,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     private lateinit var currentLatLng: LatLng
     private var marker: Marker? = null
     private var lastLatLng: LatLng? = null
-    private lateinit var fusedLocationClient : FusedLocationProviderClient
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    companion object{
+    companion object {
         const val LOCATION_REQUEST_CODE = 1
     }
 
@@ -56,7 +56,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      */
     override fun onCreateView(
         inflater: LayoutInflater,
-        container:  ViewGroup?,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
@@ -108,7 +108,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      * Night style is the default theme for dark mode.
      * But the theme also changes depending on the switch which was clicked in settings.
      */
-    private fun setMapTheme(googleMap: GoogleMap){
+    private fun setMapTheme(googleMap: GoogleMap) {
         var theme = 0
         when (resources.getString(R.string.mode)) {
             "Night" -> theme = R.raw.night_style
@@ -126,15 +126,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      */
     private fun setUpMap() {
         // permission checks
-        if (ActivityCompat.checkSelfPermission(this.requireContext(),  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_REQUEST_CODE
             )
             return
         }
         mMap.isMyLocationEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener(this.requireActivity()) { location ->
-            if(location != null){
+            if (location != null) {
                 lastLocation = location
                 currentLatLng = LatLng(location.latitude, location.longitude)
                 lastLatLng = currentLatLng
@@ -161,19 +166,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     /**
      *
      */
-    override fun onMarkerClick(p0: Marker)= false
+    override fun onMarkerClick(p0: Marker) = false
 
     /**
      * Initialized on OnClickListener for map.
      */
-    private fun addOnMapClickListener(){
+    private fun addOnMapClickListener() {
         mMap.setOnMapClickListener { latlng ->
             val location = LatLng(latlng.latitude, latlng.longitude)
             currentLatLng = location
             lastLatLng = currentLatLng
             placeMarkerOnMap(location)
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
-            binding.idSearchView.setQuery("",false)
+            binding.idSearchView.setQuery("", false)
             binding.idSearchView.clearFocus()
         }
 
@@ -183,7 +188,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      * Initialize SearchView with text. Text input from user is used to get
      * coordinates and place marker on the map.
      */
-    private fun addSearchView(){
+    private fun addSearchView() {
         val searchView = binding.idSearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -197,22 +202,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                     // get location from the location name, add to address list.
                     addressList = geocoder.getFromLocationName(location, 1)
                 } catch (e: IOException) {
-                    e.printStackTrace() }
+                    e.printStackTrace()
+                }
 
                 // get the first location in the list
                 if (addressList != null) {
-                    if(addressList.isNotEmpty()){
+                    if (addressList.isNotEmpty()) {
                         val address: Address = addressList[0]
                         val latLng = LatLng(address.latitude, address.longitude)
                         currentLatLng = latLng
                         lastLatLng = currentLatLng
                         placeMarkerOnMap(latLng)
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-                        return false }
+                        return false
+                    }
                 }
-                setToast("Fant ikke noe med dette navnet")
+                setToast(getString(R.string.Error_placeNotFound))
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
@@ -244,7 +252,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     /**
      * Generates and displays a Toast message with custom input.
      */
-    private fun setToast(message: String){
+    private fun setToast(message: String) {
         val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
@@ -261,10 +269,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         }
         binding.calendarButton.text = currentDate()
         binding.calendarButton.setOnClickListener {
-            if(binding.calendarFragment.visibility == View.GONE) {
+            if (binding.calendarFragment.visibility == View.GONE) {
                 setCalendarVisibility(true)
 
-            }else{
+            } else {
                 setCalendarVisibility(false)
             }
         }
@@ -281,8 +289,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             binding.calendarFragment.visibility = View.GONE
         }
     }
-
-
 
 
 }

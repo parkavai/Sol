@@ -16,7 +16,6 @@ class LocationforecastDS {
 
     private suspend fun fetchForecastData(lat: Double, lon: Double): Locationforecast? {
         //complete?lat=-16.516667&lon=-68.166667&altitude=4150
-        // ^eksempel med complete og altitude inkludert
         val path =
             "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}"
         val response = fetchData(path)
@@ -121,10 +120,12 @@ class LocationforecastDS {
 
     }
 
-    //henter data fra url med Fuel
+    /**
+     * Fetch data from api
+     */
     private suspend fun fetchData(url: String): String? {
         return try {
-            // `$ curl --user-agent 'gruppenavn'`
+            // `$ curl --user-agent 'group name'`
             val request = Fuel.get(url).header(Headers.USER_AGENT, "Gruppe 4")
             //print(request.response())
             request.awaitString()

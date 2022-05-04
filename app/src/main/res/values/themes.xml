@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="onBoardingColor">@color/primary</item>
         <item name="markerStyle">@color/primaryDarkVariant</item>
         <item name="splashScreenColor">@color/primaryLightVariant</item>
         <item name="calendarColor">@color/white</item>
