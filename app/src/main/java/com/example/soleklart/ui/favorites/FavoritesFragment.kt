@@ -9,6 +9,11 @@ import com.example.soleklart.R
 import android.widget.ImageView
 import com.example.soleklart.databinding.FragmentFavoritesBinding
 
+
+/**
+ * A Fragment which was originally supposed to ensure that users could store
+ * their chosen destinations from the mapsfragment.
+ */
 class FavoritesFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoritesBinding
@@ -35,7 +40,7 @@ class FavoritesFragment : Fragment() {
     }
 
     /**
-     * Change pictures when darkmode is changed
+     * Change pictures when darkmode is chosen
      */
     private fun changePictures(
         gaardboView: ImageView,

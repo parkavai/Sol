@@ -10,6 +10,10 @@ import com.example.soleklart.R
 import com.example.soleklart.databinding.FragmentSettingsBinding
 import com.example.soleklart.utils.changeMapTheme
 
+/**
+ * A Fragment which is responsible for changing map themes and information
+ * about application such as API-level and the purpose of the application
+ */
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding

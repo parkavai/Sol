@@ -11,11 +11,6 @@ data class Location(
 
 data class Meta(val licenseurl: String?)
 
-/*
-* Merk at "Time"-klassen er en liste som består av alle de ulike objektene(Highmoon,Lowmoon osv)
-* Denne vil bli mest brukt for å hente de dataene vi ønsker å bruke!!!
- */
-
 data class Time(
     val date: String?,
     val high_moon: Highmoon?,
