@@ -53,4 +53,6 @@
     <string name="titleSunlight">Sollys</string>
     <string name="cd_sunmap">Bilde av Solkart</string>
     <string name="titleSunmap">Solkart</string>
+    <attr name="markerStyle" format="reference"/>
+    <attr name="splashScreenColor" format="reference"/>
 </resources>
