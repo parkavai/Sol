@@ -61,14 +61,16 @@ class SettingsFragment : Fragment() {
      * Checks which switch was clicked in order to adjust the map theme
      */
     private fun checkSwitch(modeText: String){
-        if(modeText == "Aubergine"){
-            idSwitchMode = 0
-        }
-        else if(modeText == "Standard"){
-            idSwitchMode = 1
-        }
-        else{
-            idSwitchMode = 2
+        idSwitchMode = when (modeText) {
+            "Aubergine" -> {
+                0
+            }
+            "Standard" -> {
+                1
+            }
+            else -> {
+                2
+            }
         }
     }
 

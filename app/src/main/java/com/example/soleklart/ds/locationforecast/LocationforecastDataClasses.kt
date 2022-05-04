@@ -1,3 +1,5 @@
+@file:Suppress("ClassName")
+
 package com.example.soleklart.ds.locationforecast
 
 

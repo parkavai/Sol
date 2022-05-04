@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.splash.SplashScreenActivity"
-    android:background="?attr/colorPrimaryVariant">
+    style="@style/mainFragmentContainerStyle">
 
     <ImageView
         android:id="@+id/logo_g"

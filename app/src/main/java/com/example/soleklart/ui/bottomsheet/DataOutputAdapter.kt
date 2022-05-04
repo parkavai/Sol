@@ -48,7 +48,7 @@ class DataOutputAdapter(private val dataSet: List<OutputData>, private val conte
         viewHolder.cloudText.text = cloudCoverValue
         viewHolder.temperatureText.text = dataSet[position].temperature
         viewHolder.rainText.text = dataSet[position].precipitation6Hours
-        viewHolder.windText.text = dataSet[position].wind_speed
+        viewHolder.windText.text = dataSet[position].windSpeed
         viewHolder.airText.text = airQualityValue
 
         val airDrawableString = airQualityImageCalculator(airQualityValue)

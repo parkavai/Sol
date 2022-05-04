@@ -13,7 +13,6 @@
     <string name="cd_temperatureImage">Termometer bilde</string>
     <string name="cd_rainImage">Paraply bilde</string>
     <string name="cd_windImage">vind bilde</string>
-    <string name="cd_dragImage">dra hånd</string>
     <string name="cd_logo">Sol</string>
     <!-- Favourites -->
     <string name="cd_gaardbo_text">Bilde av Gaardbo</string>
@@ -53,4 +52,9 @@
     <string name="titleSunlight">Sollys</string>
     <string name="cd_sunmap">Bilde av Solkart</string>
     <string name="titleSunmap">Solkart</string>
+    <string name="Error_placeNotFound">Fant ikke noe med dette navnet</string>
+    <string name="cd_dragHandle">dra håndtak</string>
+    <string name="sunfacts">Sunfacts</string>
+    <string name="skipOnboarding">Hopp over omvisning</string>
+    <attr name="onBoardingColor" format="reference"/>
 </resources>

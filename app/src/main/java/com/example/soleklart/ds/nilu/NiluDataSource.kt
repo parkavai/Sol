@@ -1,7 +1,6 @@
 package com.example.soleklart.ds.nilu
 
 import android.location.Location
-import android.util.Log
 import com.example.soleklart.utils.currentDate
 import com.example.soleklart.utils.prettyTimeString
 import com.example.soleklart.utils.yesterdaysDate
@@ -13,23 +12,6 @@ import com.google.gson.reflect.TypeToken
 
 
 class NiluDataSource {
-    //Henter ut alt fra APIet
-    suspend fun fetchNiluDefualt(): List<AirQuality>? {
-        val path = "https://api.nilu.no/aq/utd"
-        val gson = Gson()
-
-        return try {
-            // https://api.nilu.no/
-            val liste = object : TypeToken<List<AirQuality>>() {}.type
-            gson.fromJson(
-                Fuel.get(path).header(Headers.USER_AGENT, "Gruppe 4").awaitString(), liste
-            )
-        } catch (exception: Exception) {
-            Log.d("MAIN_ACTIVITY", "A network request exception was thrown: ${exception.message}")
-            null
-        }
-    }
-
 
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
     suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, time: String): Double? {

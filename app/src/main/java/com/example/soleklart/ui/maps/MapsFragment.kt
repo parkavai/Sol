@@ -210,7 +210,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                         return false }
                 }
-                setToast("Fant ikke noe med dette navnet")
+                setToast(getString(R.string.Error_placeNotFound))
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {

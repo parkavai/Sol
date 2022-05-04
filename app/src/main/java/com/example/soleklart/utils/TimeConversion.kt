@@ -14,16 +14,6 @@ fun sunTimeToForecastTime(time: String): String {
     return time.split("+")[0]
 }
 
-/**
- * Returns current time in format yyyy-MM-dd'T'HH:mm:ss as String
- */
-@SuppressLint("SimpleDateFormat")
-fun currentTime(): String {
-    val date = Calendar.getInstance().time
-    //val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
-    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss") //or use getDateInstance()
-    return formatter.format(date)
-}
 
 /**
  * Returns current date in format yyyy-MM-dd as String

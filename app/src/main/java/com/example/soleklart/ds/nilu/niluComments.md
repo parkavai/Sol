@@ -1,4 +1,4 @@
-Standard hent alt ut av NILU APIet:
+Standard get all from NILU API:
         viewModel.fetchNilu()
 
         viewModel.getNilu().observe(this){
@@ -6,15 +6,13 @@ Standard hent alt ut av NILU APIet:
         }
 
 
-//Oppdaterer nilu = MutableLiveData<List<LuftKvalitet>>() i viewModel klassen til å kun inneholde luftkvalitetsobjekter innenfor en gitt radius
+// Update nilu = MutableLiveData<List<LuftKvalitet>>() i viewModel klassen til å kun inneholde luftkvalitetsobjekter innenfor en gitt radius
 viewModel.fetchNiluMedRadius(59.89864, 10.8149, 3) //Tilfeldige kordinater
 
 viewModel.getNilu().observe(this) {
-    Log.d("radius", it.toString())
-    Log.d("radiusStorrelse", it.size.toString())
     it.forEach {
         Log.d("STED", it.station.toString() + " " + it.value.toString())
-        /* Eksempel her er:
+        /* Example is:
         D/STED: Bryn skole 31.375543
         D/STED: E6 Alna senter 49.612002
         D/STED: Sofienbergparken 24.147626
@@ -23,9 +21,7 @@ viewModel.getNilu().observe(this) {
     }
 }
 
-Det finnes mange flere parametere man kan ha for å få ulike steder, istedenfor å implementere
-        flere av disse, så er det bedre å ta de om vi eventuelt får bruk for dem.
-        Eksempel på alt man kan få ut:
+All data available data:
             "id": 38,
             "zone": "Stor-Oslo",
             "municipality": "Oslo",
