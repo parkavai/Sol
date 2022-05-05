@@ -7,6 +7,10 @@ import com.example.soleklart.ui.SharedViewModel
 import com.example.soleklart.utils.prettyTimeString
 import com.example.soleklart.utils.timeTypeToHeader
 
+/**
+ * Bottomsheet viewModel with methods for loading & handling data from shared viewmodel
+ * and creating data class for DataOutputAdapter & recycler view.
+ */
 class BottomSheetViewModel(private val dataSource: SharedViewModel) {
 
     private val _outData = MutableLiveData<List<OutputData>>()

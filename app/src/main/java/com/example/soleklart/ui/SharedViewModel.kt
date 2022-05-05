@@ -18,9 +18,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+/**
+ * Shared viewmodel for sharing data between fragments.
+ * Contains data from all data sources, and methods for updating data based on location and date.
+ */
 @Suppress("MemberVisibilityCanBePrivate")
 class SharedViewModel : ViewModel() {
 
+    // data sources
     private val sunriseDS = SunriseDataSource()
     private val niluDS = NiluDataSource()
     private val locationforecastDS = LocationforecastDS()
@@ -28,6 +33,7 @@ class SharedViewModel : ViewModel() {
     private val _latLong = MutableLiveData<LatLng>()
     val latLong: LiveData<LatLng> = _latLong
 
+    // data fetching state
     private val _state = MutableLiveData<String>()
     val state: LiveData<String> = _state
 
@@ -104,6 +110,9 @@ class SharedViewModel : ViewModel() {
     }
 
     //Sunrise
+    /**
+     * fetches sunrise data from data source & updates _sunriseData with data
+     */
     private fun fetchSunriseData(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val lat = latLong.value?.latitude ?: 0.0
@@ -119,7 +128,7 @@ class SharedViewModel : ViewModel() {
 
     //Nilu
     /**
-     * updates nilu data and maps time types (sunrise, sunset, after) to data
+     * Updates nilu data and maps time types (sunrise, sunset, after) to data
      */
     private fun updateNilu(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
@@ -135,6 +144,9 @@ class SharedViewModel : ViewModel() {
         }
     }
 
+    /**
+     * fetches nilu data from data source & returns value based on timestamp & location
+     */
     private suspend fun fetchNilu(time: String): Double? {
         val lat = latLong.value?.latitude ?: 0.0
         val long = latLong.value?.longitude ?: 0.0
@@ -146,7 +158,7 @@ class SharedViewModel : ViewModel() {
 
     //Locationforecast
     /**
-     * updates forecast data and maps time types (sunrise, sunset, after) to data
+     * Updates forecast data and maps time types (sunrise, sunset, after) to data
      */
     private fun updateForecasts(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
@@ -162,6 +174,9 @@ class SharedViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Fetching forecast data from datsource and returns value based on timestamp & location
+     */
     private suspend fun fetchForecast(time: String): ForecastData? {
         val lat = latLong.value?.latitude ?: 0.0
         val long = latLong.value?.longitude ?: 0.0
