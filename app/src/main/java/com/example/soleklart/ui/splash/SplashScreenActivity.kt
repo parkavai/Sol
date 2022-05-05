@@ -11,6 +11,9 @@ import com.example.soleklart.ui.MainActivity
 import com.example.soleklart.databinding.ActivitySplashScreenBinding
 import com.example.soleklart.ui.onBoarding.OnBoardingActivity
 
+/**
+ * Splash screen that will be displayed when opening the app.
+ */
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
@@ -25,6 +28,9 @@ class SplashScreenActivity : AppCompatActivity() {
         }, 3000)   // Delaying 3 seconds
     }
 
+    /**
+     * Ensures that the onboarding only runs the first time the app is used.
+     */
     private fun saveData() {
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -33,6 +39,9 @@ class SplashScreenActivity : AppCompatActivity() {
         }.apply()
     }
 
+    /**
+     * Checks if the onboarding activity should be run.
+     */
     private fun checkForOnboarding() {
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         if (sharedPreferences.getBoolean("BOOLEAN_KEY", false)) {
