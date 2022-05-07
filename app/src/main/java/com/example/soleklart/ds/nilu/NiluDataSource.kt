@@ -10,9 +10,15 @@ import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-
+/**
+ * Data source for contact with LocationForecast API.
+ * Queries Api for forecast information like temperature, cloud cover, rain & wind speed
+ */
 class NiluDataSource {
 
+    /**
+     * Based on (latitude and longitude) + radius, you can cet data for air quality from measuring stations
+     */
     //Basert på kordinater + radius, så kan man finne stasjoner hvor det er målt luftkvalitet
     suspend fun fetchNilu(latitude: Double, longitude: Double, radius: Int, time: String): Double? {
         val path = "https://api.nilu.no/aq/historical"
@@ -57,7 +63,6 @@ class NiluDataSource {
     /**
      * Returns Luftkvalitet Data class with closest Air Station for data
      */
-
     private fun getClosestAirQuality(
         list: List<AirQuality>?,
         lat: Double,

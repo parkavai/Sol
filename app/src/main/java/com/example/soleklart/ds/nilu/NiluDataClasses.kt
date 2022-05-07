@@ -1,5 +1,8 @@
 package com.example.soleklart.ds.nilu
 
+/**
+ * Class containing all values returned from an NILU API call
+ */
 data class AirQuality(
     val id: Number?,
     val zone: String?,
@@ -17,7 +20,9 @@ data class AirQuality(
     val values: List<Value>?
 )
 
-// class containing values of all times
+/**
+ * Class containing values of all times
+ */
 data class Value(
     val fromTime: String?,
     val toTime: String?,
