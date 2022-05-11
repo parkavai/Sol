@@ -60,6 +60,40 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvTitleAirQual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textAirQual"
+                style="@style/textColor"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tvTextAirQual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvTextAirQual"
+                style="@style/textColor"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"/>
+            <TextView
+                android:id="@+id/tvAirQualLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/LinkAirQual"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="15dp"
+                style="@style/textColor"/>
+
+            <TextView
                 android:id="@+id/tvtitleSunMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

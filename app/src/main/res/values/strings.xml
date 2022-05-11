@@ -57,6 +57,9 @@
     <string name="cd_dragHandle">dra håndtak</string>
     <string name="sunfacts">Sunfacts</string>
     <string name="skipOnboarding">Hopp over omvisning</string>
+    <string name="textAirQual">Luftkvalitet</string>
+    <string name="tvTextAirQual">Soleklart viser luftkvaliteten, målt i PM10, svevestøv. Her kan du finne råd for ulike nivåer av forurensning.</string>
+    <string name="LinkAirQual">https://luftkvalitet.miljodirektoratet.no/artikkel/artikler/helserad_og_forurensningsklasser/</string>
     <attr name="onBoardingColor" format="reference"/>
     <attr name="markerStyle" format="reference"/>
     <attr name="splashScreenColor" format="reference"/>
