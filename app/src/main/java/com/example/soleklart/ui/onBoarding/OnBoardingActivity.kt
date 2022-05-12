@@ -34,6 +34,9 @@ class OnBoardingActivity : AppCompatActivity() {
         setCurrentIndicator(0)
     }
 
+    /**
+     * setOnboardingItems sets onboarding for adapter
+     */
     private fun setOnboardingItems() {
         onboardingItemsAdapter = OnboardingItemsAdapter(
             listOf(
@@ -87,11 +90,17 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * navigateToHomeActivity changes activity to main activity
+     */
     private fun navigateToHomeActivity() {
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
+    /**
+     * sets up top indicators for changing/navigation between onboardingItems
+     */
     private fun setupIndicators() {
         indicatorsContainer = binding.indicatorsContainer
         val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.itemCount)
@@ -113,6 +122,9 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * sets indicator at current position
+     */
     private fun setCurrentIndicator(position: Int) {
         val childCount = indicatorsContainer.childCount
         for (i in 0 until childCount) {
