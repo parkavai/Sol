@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soleklart.R
 
+/**
+ * Adapter for populating the onboarding fragment with items
+ */
 class OnboardingItemsAdapter(private val onboardingItems: List<OnboardingItem>) :
     RecyclerView.Adapter<OnboardingItemsAdapter.OnboardingItemViewHolder>() {
 

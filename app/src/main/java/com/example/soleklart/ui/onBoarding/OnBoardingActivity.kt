@@ -13,6 +13,11 @@ import com.example.soleklart.R
 import com.example.soleklart.databinding.OnboardingActivityBinding
 import com.example.soleklart.ui.MainActivity
 
+/**
+ * Fragment containing an introduction to the application (onboarding), showing the
+ * user the main functionalities of the app with a written description of how they can
+ * be used. The fragment will run only once; on the first time of interacting the app.
+ */
 class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var onboardingItemsAdapter: OnboardingItemsAdapter

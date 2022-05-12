@@ -10,13 +10,14 @@ import com.example.soleklart.databinding.DataoutputItemBinding
 import com.example.soleklart.utils.airQualityImageCalculator
 import com.example.soleklart.utils.cloudImageCalculator
 
-
+/**
+ * Adapter for populating Bottomsheet recyclerview with data from APIs.
+ */
 class DataOutputAdapter(private val dataSet: List<OutputData>, private val context: Context) :
     RecyclerView.Adapter<DataOutputAdapter.ViewHolder>() {
 
     /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
+     * Provides a reference to the type of views
      */
     class ViewHolder(binding: DataoutputItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val headerText = binding.header
@@ -30,15 +31,15 @@ class DataOutputAdapter(private val dataSet: List<OutputData>, private val conte
 
     }
 
-    // Create new views (invoked by the layout manager)
+    // Creates new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
+        // Creates a new view, which defines the UI of the list item
         val binding =
             DataoutputItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replaces the contents of the view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
         val airQualityValue = dataSet[position].airQuality
@@ -55,15 +56,17 @@ class DataOutputAdapter(private val dataSet: List<OutputData>, private val conte
         val airDrawableString = airQualityImageCalculator(airQualityValue)
         viewHolder.airImage.setImageDrawable(getImageDrawable(context, airDrawableString))
 
-
         val cloudDrawableString = cloudImageCalculator(cloudCoverValue)
         viewHolder.cloudImage.setImageDrawable(getImageDrawable(context, cloudDrawableString))
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Returns the size of the dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
+    /**
+     * Returns drawable resource based on drawable string and context.
+     */
     private fun getImageDrawable(context: Context, imageString: String): Drawable? {
         val imageId = context.resources.getIdentifier(imageString, "drawable", context.packageName)
         return AppCompatResources.getDrawable(context, imageId)

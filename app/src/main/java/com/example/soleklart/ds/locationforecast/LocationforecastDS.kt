@@ -7,6 +7,10 @@ import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
 import kotlin.math.abs
 
+/**
+ * Data source for contact with LocationForecast API.
+ * Queries Api for forecast information like temperature, cloud cover, rain & wind speed
+ */
 class LocationforecastDS {
     private val gson = Gson()
 
@@ -14,6 +18,9 @@ class LocationforecastDS {
     private var lastLong = 999.0 // value outside of long range
     private lateinit var lastData: Locationforecast
 
+    /**
+     * fetches forecast data from API based on latitude and longitude.
+     */
     private suspend fun fetchForecastData(lat: Double, lon: Double): Locationforecast? {
         //complete?lat=-16.516667&lon=-68.166667&altitude=4150
         val path =
@@ -47,7 +54,6 @@ class LocationforecastDS {
     /**
      * returns ForecastData at latitude, longitude and time
      */
-
     suspend fun getForecast(
         lat: Double,
         lon: Double,
@@ -92,6 +98,9 @@ class LocationforecastDS {
     }
 
 
+    /**
+     * Helper function for creating compact data class with main data from forecast
+     */
     private fun createCompactData(timeSeries: Timeseries, units: Units): ForecastData {
         val data = timeSeries.data
         val instant = data.instant
@@ -121,7 +130,7 @@ class LocationforecastDS {
     }
 
     /**
-     * Fetch data from api
+     * Call & return string response from URL
      */
     private suspend fun fetchData(url: String): String? {
         return try {

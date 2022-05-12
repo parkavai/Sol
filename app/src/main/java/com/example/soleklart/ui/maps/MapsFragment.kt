@@ -34,12 +34,15 @@ import com.google.android.gms.maps.model.*
 import java.io.IOException
 
 /**
- * Fragment containing GoogleMap.
+ * Fragment containing a map which is implemented using Google Maps SDK. This fragment has functionality to
+ * display locations, place markers, execute location search, respond to a click and show current location.
+ * Fused Location Provider API from Google Play services is used  to provide the current device location.
+ * Location search from input text is implemented using Geocoder API.
  */
+
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var binding: FragmentMapsBinding
     private val viewModel: SharedViewModel by activityViewModels()
-
     private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var currentLatLng: LatLng
@@ -91,9 +94,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     /**
      * Function that either sets the initialial location as Norway is no previous location choice exists
      * or puts the marker at the last visited place.
-     *
      * Used on initial opening of the app or during switching between fragments.
-     *
      */
     private fun setDefaultMapLocationNorway(googleMap: GoogleMap) = if (lastLatLng == null) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(62.47, 8.46), 4f))
@@ -102,30 +103,31 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng!!, 12f))
     }
 
+
     /**
-     * Initializes the map theme. The function is called in onMapReady().
-     * Retro style is the default map theme for light mode,
-     * Night style is the default theme for dark mode.
-     * But the theme also changes depending on the switch which was clicked in settings.
+     * Adds observer to date to update text in calendar button,
+     * sets text as current date on start and
+     * sets onclick listener for calendar button
      */
-    private fun setMapTheme(googleMap: GoogleMap) {
-        var theme = 0
-        when (resources.getString(R.string.mode)) {
-            "Night" -> theme = R.raw.night_style
-            "Day" -> theme = getChosenTheme()
+    private fun setUpCalendar() {
+        viewModel.date.observe(viewLifecycleOwner) {
+            binding.calendarButton.text = it
         }
-        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
-            requireActivity(),
-            theme
-        )
-        googleMap.setMapStyle(mapStyleOptions)
+        binding.calendarButton.text = currentDate()
+        binding.calendarButton.setOnClickListener {
+            if (binding.calendarFragment.visibility == View.GONE) {
+                setCalendarVisibility(true)
+            } else {
+                setCalendarVisibility(false)
+            }
+        }
     }
 
     /**
-     * Checks location access permissions from user. Finds longitude and latitude on the current location.
+     * Checks location access permissions from user. Finds longitude and latitude on the current location
+     * and adjust display to show the current location.
      */
     private fun setUpMap() {
-        // permission checks
         if (ActivityCompat.checkSelfPermission(
                 this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -154,8 +156,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     private fun placeMarkerOnMap(currentLatLong: LatLng) {
         marker?.remove()
         val markerOptions = MarkerOptions().position(currentLatLong)
-        // change marker style
-        //move to separate method?
         val mBitmap = context?.let { getBitmapFromVectorDrawable(it, R.drawable.ic_location) }
         markerOptions.icon(mBitmap?.let { BitmapDescriptorFactory.fromBitmap(it) })
         marker = mMap.addMarker(markerOptions)
@@ -163,10 +163,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         updateLatLng()
     }
 
-    /**
-     *
-     */
-    override fun onMarkerClick(p0: Marker) = false
+
 
     /**
      * Initialized on OnClickListener for map.
@@ -181,12 +178,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             binding.idSearchView.setQuery("", false)
             binding.idSearchView.clearFocus()
         }
-
     }
 
     /**
-     * Initialize SearchView with text. Text input from user is used to get
-     * coordinates and place marker on the map.
+     * Initialize functionality to perform location with text. Text input from user is used to get
+     * coordinates and place marker on the map. Method return false if no location has been found.
      */
     private fun addSearchView() {
         val searchView = binding.idSearchView
@@ -196,16 +192,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 val location: String = searchView.query.toString()
                 // list of address where results will be stored
                 var addressList: List<Address>? = null
-                //  initialize a geo coder.
                 val geocoder = Geocoder(activity)
                 try {
-                    // get location from the location name, add to address list.
                     addressList = geocoder.getFromLocationName(location, 1)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-
-                // get the first location in the list
+                // always get the first location in the list
                 if (addressList != null) {
                     if (addressList.isNotEmpty()) {
                         val address: Address = addressList[0]
@@ -220,7 +213,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 setToast(getString(R.string.Error_placeNotFound))
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
@@ -232,6 +224,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
      */
     private fun updateLatLng() {
         viewModel.setLatLng(currentLatLng)
+    }
+
+    /**
+     * Initializes the map theme. The function is called in onMapReady().
+     * Retro style is the default map theme for light mode,
+     * Night style is the default theme for dark mode.
+     * But the theme also changes depending on the switch which was clicked in settings.
+     */
+    private fun setMapTheme(googleMap: GoogleMap) {
+        var theme = 0
+        when (resources.getString(R.string.mode)) {
+            "Night" -> theme = R.raw.night_style
+            "Day" -> theme = getChosenTheme()
+        }
+        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
+            requireActivity(),
+            theme
+        )
+        googleMap.setMapStyle(mapStyleOptions)
     }
 
     /**
@@ -250,7 +261,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     }
 
     /**
-     * Generates and displays a Toast message with custom input.
+     * Generates and displays a Toast message with custom message input.
+     * Primary use is signaling to the user that a wrong input has been given.
      */
     private fun setToast(message: String) {
         val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
@@ -258,25 +270,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         toast.show()
     }
 
-    /**
-     * Adds observer to date to update text in calendar button,
-     * sets text as current date on start and
-     * sets onclick listener for calendar button
-     */
-    private fun setUpCalendar() {
-        viewModel.date.observe(viewLifecycleOwner) {
-            binding.calendarButton.text = it
-        }
-        binding.calendarButton.text = currentDate()
-        binding.calendarButton.setOnClickListener {
-            if (binding.calendarFragment.visibility == View.GONE) {
-                setCalendarVisibility(true)
-
-            } else {
-                setCalendarVisibility(false)
-            }
-        }
-    }
 
     /**
      * Shows calendar fragment
@@ -289,6 +282,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             binding.calendarFragment.visibility = View.GONE
         }
     }
+
+    /**
+     * Initialize and override method that responds to click on the marker.
+     */
+    override fun onMarkerClick(p0: Marker) = false
+
 
 
 }

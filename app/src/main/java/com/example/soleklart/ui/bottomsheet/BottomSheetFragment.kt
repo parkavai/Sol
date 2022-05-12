@@ -15,7 +15,10 @@ import com.example.soleklart.databinding.BottomSheetBinding
 import com.example.soleklart.ui.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-
+/**
+ * Bottomsheet fragment handling bottom sheet state & displayed data.
+ * Listens for state change in shared Viewmodel & updates data in own viewmodel & recycler view.
+ */
 class BottomSheetFragment : Fragment() {
     private lateinit var binding: BottomSheetBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -57,7 +60,8 @@ class BottomSheetFragment : Fragment() {
     }
 
     /**
-     * Observes string with data from bottom sheet viewmodel
+     * Observes output data from bottomsheet viewmodel & populates adapter with data.
+     * Also shows toast if data list is empty
      */
     private fun showData() {
         viewModel.outData.observe(viewLifecycleOwner) {
@@ -84,6 +88,9 @@ class BottomSheetFragment : Fragment() {
         bottomSheetBehavior.state = updatedState
     }
 
+    /**
+     * show toast containing string message
+     */
     private fun showToast(message: String) {
         val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
         toast.setGravity(Gravity.CENTER, 0, 0)

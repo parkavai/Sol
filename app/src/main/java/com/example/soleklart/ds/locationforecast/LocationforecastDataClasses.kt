@@ -50,6 +50,9 @@ data class Next_12_hours(val summary: Summary)
 
 data class Summary(val symbol_code: String)
 
+/**
+ * dataClass containing main data from Locationforecast API
+ */
 data class ForecastData(
     val time: String, val temperature: String, val cloudCover: String,
     val wind_speed: String,

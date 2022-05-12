@@ -77,11 +77,13 @@
         <item name="android:background">@color/primaryLightVariant</item>
     </style>
 
+    <!-- Style for items in bottomNavBar-->
     <style name="dataOutputItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">100dp</item>
     </style>
 
+    <!-- Style for text in bottomNavBar-->
     <style name="dataOutputText" parent="@style/textColor">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">20dp</item>
@@ -89,6 +91,7 @@
         <item name="android:text">TextView</item>
     </style>
 
+    <!-- Style for images in bottomNavBar-->
     <style name="dataOutputImage">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
@@ -111,12 +114,14 @@
     <!-- Check for what mode the Android Emulator is set to-->
     <string name="mode">Day</string>
 
+    <!-- Edits text color on caldarfragment-->
     <style name="CustomCalendarMonth" parent="AppTheme">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textSize">40sp</item>
         <item name="android:dateTextAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 
+    <!-- Edits text color on caldarfragment-->
     <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>

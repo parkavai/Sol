@@ -10,7 +10,9 @@ import com.example.soleklart.ui.info.InfoFragment
 import com.example.soleklart.ui.maps.MapsFragment
 import com.example.soleklart.ui.settings.SettingsFragment
 
-
+/**
+ * Main app activity containing and handling navigation between fragments.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -27,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         makeCurrentFragment(mapsFragment)
 
-        //legge til egen metode
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.search -> {
@@ -51,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // initializes fragments from navigation bar
+    /**
+     * Initializes fragments from navigation bar
+     */
     private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.mapsFragment, fragment)
