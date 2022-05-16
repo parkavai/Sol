@@ -42,28 +42,28 @@ class OnBoardingActivity : AppCompatActivity() {
             listOf(
                 OnboardingItem(
                     onboardingImage = R.drawable.search_image2,
-                    title = "Velg lokasjon for info om siktforhold",
-                    description = "Her kan du søke i søkefeltet eller trykke på kartet"
+                    title = getString(R.string.search_title_onBoarding),
+                    description = getString(R.string.search_description_onBoarding)
                 ),
                 OnboardingItem(
                     onboardingImage = R.drawable.results_image2,
-                    title = "Få info for valgt lokasjon",
-                    description = "Her kan du se vær- og siktforhold under solnedgang og soloppgang"
+                    title = getString(R.string.results_title_onBoarding),
+                    description = getString(R.string.results_description_onBoarding)
                 ),
                 OnboardingItem(
                     onboardingImage = R.drawable.favorite_image2,
-                    title = "Lagre dine favoritter",
-                    description = "Her kan du slette og legge til, gøy!"
+                    title = getString(R.string.favorite_title_onBoarding),
+                    description = getString(R.string.favorite_description_onBoarding)
                 ),
                 OnboardingItem(
                     onboardingImage = R.drawable.sunfacts_image2,
-                    title = "Les morsomme sunfacts!",
-                    description = "Her kan du lære om solstråler og andre fenomener"
+                    title = getString(R.string.sunfacts_title_onBoarding),
+                    description = getString(R.string.sunfacts_description_onBoarding)
                 ),
                 OnboardingItem(
                     onboardingImage = R.drawable.settings_image2,
-                    title = "Innstillinger",
-                    description = "Bytt til darkmode, les spennende info om appen!"
+                    title = getString(R.string.settings_title_onBoarding),
+                    description = getString(R.string.settings_description_onBoarding)
                 ),
             )
         )

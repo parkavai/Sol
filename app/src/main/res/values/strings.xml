@@ -60,6 +60,16 @@
     <string name="textAirQual">Luftkvalitet</string>
     <string name="tvTextAirQual">Soleklart viser luftkvaliteten, målt i PM10, svevestøv. Her kan du finne råd for ulike nivåer av forurensning.</string>
     <string name="LinkAirQual">https://luftkvalitet.miljodirektoratet.no/artikkel/artikler/helserad_og_forurensningsklasser/</string>
+    <string name="search_title_onBoarding">Velg lokasjon for info om siktforhold</string>
+    <string name="results_title_onBoarding">Få info for valgt lokasjon</string>
+    <string name="favorite_title_onBoarding">Lagre dine favoritter</string>
+    <string name="sunfacts_title_onBoarding">Les morsomme sunfacts!</string>
+    <string name="settings_title_onBoarding">Innstillinger</string>
+    <string name="search_description_onBoarding">Her kan du søke i søkefeltet eller trykke på kartet</string>
+    <string name="results_description_onBoarding">Her kan du se vær- og siktforhold under solnedgang og soloppgang</string>
+    <string name="favorite_description_onBoarding">Her kan du slette og legge til, gøy!</string>
+    <string name="sunfacts_description_onBoarding">Her kan du lære om solstråler og andre fenomener</string>
+    <string name="settings_description_onBoarding">Bytt til darkmode, les spennende info om appen!</string>
     <attr name="onBoardingColor" format="reference"/>
     <attr name="markerStyle" format="reference"/>
     <attr name="splashScreenColor" format="reference"/>
