@@ -31,10 +31,9 @@
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
 
-        <!-- jeg har ikke (ikke enda) lagt inn api key som egen variabelen slik som beskrever-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC_v9GJb-unOkJ9q24IytrdWEpSDoHFjac" />
+            android:value="AIzaSyBt6AbfsU1tyEnATwhGUYUt9rwDFVh12Jg" />
         <activity
             android:name="com.example.soleklart.ui.splash.SplashScreenActivity"
             android:exported="true">
